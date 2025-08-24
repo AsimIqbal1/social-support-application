@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
-import { Form, Input, Button, Card, Row, Col } from 'antd';
+import React from 'react';
+import { Form, Input, Button, Card } from 'antd';
 import { FileTextOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller, type FieldError } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLanguage } from '../../../i18n/hooks/useLanguage';
 import { situationDescriptionSchema } from '../schemas';
@@ -39,8 +39,8 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({ dat
     navigate('/initiate-application/family-financial');
   };
 
-  const getErrorMessage = (fieldError: any) => {
-    if (!fieldError) return '';
+  const getErrorMessage = (fieldError?: FieldError) => {
+    if (!fieldError?.message) return '';
     return t(fieldError.message) || fieldError.message;
   };
 

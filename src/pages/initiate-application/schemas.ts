@@ -42,7 +42,7 @@ export const personalInfoSchema = z.object({
     .min(1, 'fieldRequired'),
   phone: z
     .string()
-    .regex(/^[\+]?[1-9][\d]{7,14}$/, 'invalidPhone'),
+    .regex(/^\+?[1-9][\d]{7,14}$/, 'invalidPhone'),
   email: z
     .string()
     .email('invalidEmail')

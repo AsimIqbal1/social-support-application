@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Button, Descriptions, Space, Modal, message, Divider, Alert } from 'antd';
+import { Card, Button, Descriptions, Space, Modal, message, Alert } from 'antd';
 import { CheckCircleOutlined, EditOutlined, SendOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../../i18n/hooks/useLanguage';
@@ -52,7 +52,7 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ formData }) => {
           navigate('/');
         },
       });
-    } catch (error) {
+    } catch {
       message.error(t('submissionError'));
     } finally {
       setIsSubmitting(false);
@@ -60,14 +60,14 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ formData }) => {
     }
   };
 
-  const formatValue = (value: string, type?: string) => {
+  const formatValue = (value: string | number, type?: string) => {
     if (!value) return t('notProvided');
     
     switch (type) {
       case 'date':
         return new Date(value).toLocaleDateString();
       case 'currency':
-        return `${parseFloat(value).toLocaleString()} AED`;
+        return `${parseFloat(value.toString()).toLocaleString()} AED`;
       default:
         return value;
     }
@@ -179,13 +179,13 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ formData }) => {
             {getTranslatedValue(formData.familyFinancial.maritalStatus, 'marital')}
           </Descriptions.Item>
           <Descriptions.Item label={t('dependents')}>
-            {formatValue(formData.familyFinancial.dependents)}
+            {formatValue(formData.familyFinancial.dependents || 0)}
           </Descriptions.Item>
           <Descriptions.Item label={t('employmentStatus')}>
             {getTranslatedValue(formData.familyFinancial.employmentStatus, 'employment')}
           </Descriptions.Item>
           <Descriptions.Item label={t('monthlyIncome')}>
-            {formatValue(formData.familyFinancial.monthlyIncome, 'currency')}
+            {formatValue(formData.familyFinancial.monthlyIncome || 0, 'currency')}
           </Descriptions.Item>
           <Descriptions.Item label={t('housingStatus')} span={2}>
             {getTranslatedValue(formData.familyFinancial.housingStatus, 'housing')}

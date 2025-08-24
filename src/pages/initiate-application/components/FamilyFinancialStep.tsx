@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
-import { Form, Input, Button, Select, Card, Row, Col, InputNumber } from 'antd';
+import React from 'react';
+import { Form, Button, Select, Card, Row, Col, InputNumber } from 'antd';
 import { DollarOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller, type FieldError } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLanguage } from '../../../i18n/hooks/useLanguage';
 import { familyFinancialSchema } from '../schemas';
@@ -40,8 +40,8 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({ data, updateD
     navigate('/initiate-application/personal-info');
   };
 
-  const getErrorMessage = (fieldError: any) => {
-    if (!fieldError) return '';
+  const getErrorMessage = (fieldError?: FieldError) => {
+    if (!fieldError?.message) return '';
     return t(fieldError.message) || fieldError.message;
   };
 
