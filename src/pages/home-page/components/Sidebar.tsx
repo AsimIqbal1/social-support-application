@@ -13,12 +13,18 @@ import {
   MailOutlined,
   ClockCircleOutlined,
 } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../../i18n/hooks/useLanguage';
 
 const { Text } = Typography;
 
 const Sidebar: React.FC = () => {
   const { t, isRTL } = useLanguage();
+  const navigate = useNavigate();
+
+  const handleStartApplication = () => {
+    navigate('/initiate-application');
+  };
 
   return (
     <Space direction="vertical" size="large" className="w-full">
@@ -31,6 +37,7 @@ const Sidebar: React.FC = () => {
             block
             icon={isRTL ? <LeftOutlined /> : <RightOutlined />}
             className="bg-uae-brown border-uae-brown h-15 text-xl font-semibold rounded-lg mb-4"
+            onClick={handleStartApplication}
           >
             {t('startApplication')}
           </Button>
