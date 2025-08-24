@@ -15,46 +15,35 @@ export const personalInfoSchema = z.object({
   dateOfBirth: z
     .string()
     .min(1, 'fieldRequired')
-    .refine((date) => {
+    .refine(date => {
       const birthDate = new Date(date);
       const today = new Date();
       const age = today.getFullYear() - birthDate.getFullYear();
       return age >= 18 && age <= 120;
     }, 'invalidAge'),
-  gender: z.string().min(1, 'fieldRequired').refine(
-    (value) => ['male', 'female'].includes(value),
-    { message: 'invalidGender' }
-  ),
-  address: z
+  gender: z
     .string()
-    .min(10, 'addressTooShort')
-    .max(200, 'addressTooLong'),
-  city: z
-    .string()
-    .min(2, 'cityTooShort')
-    .max(50, 'cityTooLong'),
-  state: z
-    .string()
-    .min(2, 'stateTooShort')
-    .max(50, 'stateTooLong'),
-  country: z
-    .string()
-    .min(1, 'fieldRequired'),
-  phone: z
-    .string()
-    .regex(/^\+?[1-9][\d]{7,14}$/, 'invalidPhone'),
-  email: z
-    .string()
-    .email('invalidEmail')
-    .max(100, 'emailTooLong'),
+    .min(1, 'fieldRequired')
+    .refine(value => ['male', 'female'].includes(value), {
+      message: 'invalidGender',
+    }),
+  address: z.string().min(10, 'addressTooShort').max(200, 'addressTooLong'),
+  city: z.string().min(2, 'cityTooShort').max(50, 'cityTooLong'),
+  state: z.string().min(2, 'stateTooShort').max(50, 'stateTooLong'),
+  country: z.string().min(1, 'fieldRequired'),
+  phone: z.string().regex(/^\+?[1-9][\d]{7,14}$/, 'invalidPhone'),
+  email: z.string().email('invalidEmail').max(100, 'emailTooLong'),
 });
 
 // Family & Financial Information Schema
 export const familyFinancialSchema = z.object({
-  maritalStatus: z.string().min(1, 'fieldRequired').refine(
-    (value) => ['single', 'married', 'divorced', 'widowed'].includes(value),
-    { message: 'invalidMaritalStatus' }
-  ),
+  maritalStatus: z
+    .string()
+    .min(1, 'fieldRequired')
+    .refine(
+      value => ['single', 'married', 'divorced', 'widowed'].includes(value),
+      { message: 'invalidMaritalStatus' }
+    ),
   dependents: z
     .number()
     .int('invalidNumber')
@@ -62,20 +51,41 @@ export const familyFinancialSchema = z.object({
     .max(20, 'invalidDependentsRange')
     .optional()
     .refine(val => val !== undefined, 'fieldRequired'),
-  employmentStatus: z.string().min(1, 'fieldRequired').refine(
-    (value) => ['employed', 'unemployed', 'self-employed', 'retired', 'student', 'disabled'].includes(value),
-    { message: 'invalidEmploymentStatus' }
-  ),
+  employmentStatus: z
+    .string()
+    .min(1, 'fieldRequired')
+    .refine(
+      value =>
+        [
+          'employed',
+          'unemployed',
+          'self-employed',
+          'retired',
+          'student',
+          'disabled',
+        ].includes(value),
+      { message: 'invalidEmploymentStatus' }
+    ),
   monthlyIncome: z
     .number()
     .min(0, 'invalidIncomeRange')
     .max(1000000, 'invalidIncomeRange')
     .optional()
     .refine(val => val !== undefined, 'fieldRequired'),
-  housingStatus: z.string().min(1, 'fieldRequired').refine(
-    (value) => ['owned', 'rented', 'gov-housing', 'family-housing', 'temporary'].includes(value),
-    { message: 'invalidHousingStatus' }
-  ),
+  housingStatus: z
+    .string()
+    .min(1, 'fieldRequired')
+    .refine(
+      value =>
+        [
+          'owned',
+          'rented',
+          'gov-housing',
+          'family-housing',
+          'temporary',
+        ].includes(value),
+      { message: 'invalidHousingStatus' }
+    ),
 });
 
 // Situation Description Schema
@@ -84,17 +94,17 @@ export const situationDescriptionSchema = z.object({
     .string()
     .min(20, 'minDescriptionLength')
     .max(1000, 'maxDescriptionLength')
-    .refine((val) => val.trim().length >= 20, 'minDescriptionLength'),
+    .refine(val => val.trim().length >= 20, 'minDescriptionLength'),
   employmentCircumstances: z
     .string()
     .min(20, 'minDescriptionLength')
     .max(1000, 'maxDescriptionLength')
-    .refine((val) => val.trim().length >= 20, 'minDescriptionLength'),
+    .refine(val => val.trim().length >= 20, 'minDescriptionLength'),
   reasonForApplying: z
     .string()
     .min(20, 'minDescriptionLength')
     .max(1000, 'maxDescriptionLength')
-    .refine((val) => val.trim().length >= 20, 'minDescriptionLength'),
+    .refine(val => val.trim().length >= 20, 'minDescriptionLength'),
 });
 
 // Combined schema for all steps (for final validation)
@@ -107,5 +117,9 @@ export const completeApplicationSchema = z.object({
 // Type exports for TypeScript
 export type PersonalInfoFormData = z.infer<typeof personalInfoSchema>;
 export type FamilyFinancialFormData = z.infer<typeof familyFinancialSchema>;
-export type SituationDescriptionFormData = z.infer<typeof situationDescriptionSchema>;
-export type CompleteApplicationFormData = z.infer<typeof completeApplicationSchema>; 
+export type SituationDescriptionFormData = z.infer<
+  typeof situationDescriptionSchema
+>;
+export type CompleteApplicationFormData = z.infer<
+  typeof completeApplicationSchema
+>;

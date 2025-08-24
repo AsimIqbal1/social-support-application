@@ -1,6 +1,11 @@
 import React from 'react';
 import { Form, Input, Button, Select, DatePicker, Card, Row, Col } from 'antd';
-import { UserOutlined, IdcardOutlined, MailOutlined, PhoneOutlined } from '@ant-design/icons';
+import {
+  UserOutlined,
+  IdcardOutlined,
+  MailOutlined,
+  PhoneOutlined,
+} from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useForm, Controller, type FieldError } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -16,7 +21,10 @@ interface PersonalInfoStepProps {
   updateData: (data: Partial<PersonalInfoFormData>) => void;
 }
 
-const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({ data, updateData }) => {
+const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
+  data,
+  updateData,
+}) => {
   const { t } = useLanguage();
   const navigate = useNavigate();
 
@@ -47,9 +55,7 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({ data, updateData })
         <h2 className="text-xl font-semibold text-gray-800 mb-2">
           {t('stepPersonalInfo')}
         </h2>
-        <p className="text-gray-600">
-          {t('stepPersonalInfoDesc')}
-        </p>
+        <p className="text-gray-600">{t('stepPersonalInfoDesc')}</p>
       </div>
 
       <Form
@@ -60,7 +66,7 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({ data, updateData })
       >
         <Row gutter={[16, 0]}>
           <Col xs={24} md={12}>
-            <Form.Item 
+            <Form.Item
               label={t('fullName')}
               validateStatus={errors.name ? 'error' : ''}
               help={getErrorMessage(errors.name)}
@@ -85,9 +91,9 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({ data, updateData })
               />
             </Form.Item>
           </Col>
-          
+
           <Col xs={24} md={12}>
-            <Form.Item 
+            <Form.Item
               label={t('nationalId')}
               validateStatus={errors.nationalId ? 'error' : ''}
               help={getErrorMessage(errors.nationalId)}
@@ -116,7 +122,7 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({ data, updateData })
 
         <Row gutter={[16, 0]}>
           <Col xs={24} md={12}>
-            <Form.Item 
+            <Form.Item
               label={t('dateOfBirth')}
               validateStatus={errors.dateOfBirth ? 'error' : ''}
               help={getErrorMessage(errors.dateOfBirth)}
@@ -129,21 +135,23 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({ data, updateData })
                   <DatePicker
                     placeholder={t('selectDateOfBirth')}
                     value={field.value ? dayjs(field.value) : null}
-                    onChange={(date) => {
+                    onChange={date => {
                       field.onChange(date ? date.format('YYYY-MM-DD') : '');
                       trigger('dateOfBirth');
                     }}
                     size="large"
                     className="w-full rounded-lg"
-                    disabledDate={(current) => current && current > dayjs().endOf('day')}
+                    disabledDate={current =>
+                      current && current > dayjs().endOf('day')
+                    }
                   />
                 )}
               />
             </Form.Item>
           </Col>
-          
+
           <Col xs={24} md={12}>
-            <Form.Item 
+            <Form.Item
               label={t('gender')}
               validateStatus={errors.gender ? 'error' : ''}
               help={getErrorMessage(errors.gender)}
@@ -158,7 +166,7 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({ data, updateData })
                     placeholder={t('selectGender')}
                     size="large"
                     className="w-full"
-                    onChange={(value) => {
+                    onChange={value => {
                       field.onChange(value);
                       trigger('gender');
                     }}
@@ -172,7 +180,7 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({ data, updateData })
           </Col>
         </Row>
 
-        <Form.Item 
+        <Form.Item
           label={t('address')}
           validateStatus={errors.address ? 'error' : ''}
           help={getErrorMessage(errors.address)}
@@ -198,7 +206,7 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({ data, updateData })
 
         <Row gutter={[16, 0]}>
           <Col xs={24} md={8}>
-            <Form.Item 
+            <Form.Item
               label={t('city')}
               validateStatus={errors.city ? 'error' : ''}
               help={getErrorMessage(errors.city)}
@@ -222,9 +230,9 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({ data, updateData })
               />
             </Form.Item>
           </Col>
-          
+
           <Col xs={24} md={8}>
-            <Form.Item 
+            <Form.Item
               label={t('state')}
               validateStatus={errors.state ? 'error' : ''}
               help={getErrorMessage(errors.state)}
@@ -248,9 +256,9 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({ data, updateData })
               />
             </Form.Item>
           </Col>
-          
+
           <Col xs={24} md={8}>
-            <Form.Item 
+            <Form.Item
               label={t('country')}
               validateStatus={errors.country ? 'error' : ''}
               help={getErrorMessage(errors.country)}
@@ -265,7 +273,7 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({ data, updateData })
                     placeholder={t('selectCountry')}
                     size="large"
                     className="w-full"
-                    onChange={(value) => {
+                    onChange={value => {
                       field.onChange(value);
                       trigger('country');
                     }}
@@ -285,7 +293,7 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({ data, updateData })
 
         <Row gutter={[16, 0]}>
           <Col xs={24} md={12}>
-            <Form.Item 
+            <Form.Item
               label={t('phone')}
               validateStatus={errors.phone ? 'error' : ''}
               help={getErrorMessage(errors.phone)}
@@ -310,9 +318,9 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({ data, updateData })
               />
             </Form.Item>
           </Col>
-          
+
           <Col xs={24} md={12}>
-            <Form.Item 
+            <Form.Item
               label={t('email')}
               validateStatus={errors.email ? 'error' : ''}
               help={getErrorMessage(errors.email)}
@@ -355,4 +363,4 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({ data, updateData })
   );
 };
 
-export default PersonalInfoStep; 
+export default PersonalInfoStep;

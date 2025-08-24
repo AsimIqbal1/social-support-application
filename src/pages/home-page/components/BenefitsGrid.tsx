@@ -56,4 +56,4 @@ const BenefitsGrid: React.FC = () => {
   );
 };
 
-export default BenefitsGrid; 
+export default BenefitsGrid;

@@ -42,14 +42,18 @@ const Sidebar: React.FC = () => {
             {t('startApplication')}
           </Button>
           <div className="flex gap-3 justify-center">
-            <Button icon={<PrinterOutlined />} size="small">Print</Button>
-            <Button icon={<ShareAltOutlined />} size="small">Share</Button>
+            <Button icon={<PrinterOutlined />} size="small">
+              Print
+            </Button>
+            <Button icon={<ShareAltOutlined />} size="small">
+              Share
+            </Button>
           </div>
         </div>
       </Card>
-      
+
       {/* Required Documents */}
-      <Card 
+      <Card
         title={t('whatYouNeed')}
         className="rounded-card shadow-card border-none"
       >
@@ -72,9 +76,9 @@ const Sidebar: React.FC = () => {
           </div>
         </Space>
       </Card>
-      
+
       {/* Contact Info */}
-      <Card 
+      <Card
         title={t('needHelpTitle')}
         className="rounded-card shadow-card border-none"
       >
@@ -97,4 +101,4 @@ const Sidebar: React.FC = () => {
   );
 };
 
-export default Sidebar; 
+export default Sidebar;

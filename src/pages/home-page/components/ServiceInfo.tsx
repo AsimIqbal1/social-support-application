@@ -28,7 +28,7 @@ const ServiceInfo: React.FC = () => {
           </Tag>
         </Col>
       </Row>
-      
+
       <Title level={3} className="mb-5 text-gray-800">
         {t('programTitle')}
       </Title>
@@ -39,4 +39,4 @@ const ServiceInfo: React.FC = () => {
   );
 };
 
-export default ServiceInfo; 
+export default ServiceInfo;

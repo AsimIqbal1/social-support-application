@@ -7,7 +7,10 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/initiate-application/*" element={<InitiateApplication />} />
+        <Route
+          path="/initiate-application/*"
+          element={<InitiateApplication />}
+        />
       </Routes>
     </Router>
   );

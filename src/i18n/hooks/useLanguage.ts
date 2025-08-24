@@ -7,10 +7,10 @@ export const useLanguage = () => {
 
   // Current language
   const language = i18n.language as Language;
-  
+
   // Get language configuration
   const languageConfig = getLanguageConfig(language);
-  
+
   // Extract properties from config
   const { isRTL, nativeName } = languageConfig;
 
@@ -35,4 +35,4 @@ export const useLanguage = () => {
   };
 };
 
-export default useLanguage; 
+export default useLanguage;

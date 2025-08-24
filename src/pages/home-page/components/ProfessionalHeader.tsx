@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Layout,
-  Typography,
-  Button,
-  Space,
-  Input,
-} from 'antd';
+import { Layout, Typography, Button, Space, Input } from 'antd';
 import {
   BankOutlined,
   HomeOutlined,
@@ -27,7 +21,9 @@ const ProfessionalHeader: React.FC = () => {
       {/* Top Bar */}
       <div className="bg-gray-50 py-2 text-xs">
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          <Text className="text-gray-600">MINISTRY OF COMMUNITY EMPOWERMENT</Text>
+          <Text className="text-gray-600">
+            MINISTRY OF COMMUNITY EMPOWERMENT
+          </Text>
           <div className="flex items-center gap-2">
             <StarOutlined className="text-yellow-400" />
             <StarOutlined className="text-yellow-400" />
@@ -36,7 +32,7 @@ const ProfessionalHeader: React.FC = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Main Header */}
       <div className="py-4">
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
@@ -53,13 +49,9 @@ const ProfessionalHeader: React.FC = () => {
               </Text>
             </div>
           </div>
-          
+
           <div className="flex items-center gap-6">
-            <Search
-              placeholder="Search here"
-              className="w-80"
-              size="large"
-            />
+            <Search placeholder="Search here" className="w-80" size="large" />
             <Button
               icon={<GlobalOutlined />}
               onClick={() => switchLanguage()}
@@ -71,7 +63,7 @@ const ProfessionalHeader: React.FC = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Navigation */}
       <div className="bg-gov-dark">
         <div className="max-w-7xl mx-auto px-6">
@@ -106,4 +98,4 @@ const ProfessionalHeader: React.FC = () => {
   );
 };
 
-export default ProfessionalHeader; 
+export default ProfessionalHeader;

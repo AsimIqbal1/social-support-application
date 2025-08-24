@@ -15,4 +15,4 @@ export default {
     '!src/**/*.d.ts',
     '!src/vite-env.d.ts',
   ],
-}; 
+};

@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { Card, Button, Descriptions, Space, Modal, message, Alert } from 'antd';
-import { CheckCircleOutlined, EditOutlined, SendOutlined } from '@ant-design/icons';
+import {
+  CheckCircleOutlined,
+  EditOutlined,
+  SendOutlined,
+} from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../../i18n/hooks/useLanguage';
 import type { CompleteApplicationFormData } from '../schemas';
@@ -35,15 +39,12 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ formData }) => {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    
+
     try {
-      // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Clear stored form data
+
       localStorage.removeItem('applicationFormData');
-      
-      // Show success message
+
       Modal.success({
         title: t('applicationSubmitted'),
         content: t('applicationSubmittedDesc'),
@@ -62,7 +63,7 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ formData }) => {
 
   const formatValue = (value: string | number, type?: string) => {
     if (!value) return t('notProvided');
-    
+
     switch (type) {
       case 'date':
         return new Date(value).toLocaleDateString();
@@ -75,17 +76,14 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ formData }) => {
 
   const getTranslatedValue = (value: string, category: string) => {
     if (!value) return t('notProvided');
-    
-    // Try to get translated value for select options
+
     const translationKey = `${category}_${value}`;
     const translated = t(translationKey);
-    
-    // If translation exists and is different from the key, use it
+
     if (translated && translated !== translationKey) {
       return translated;
     }
-    
-    // Fallback to original value
+
     return value;
   };
 
@@ -95,9 +93,7 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ formData }) => {
         <h2 className="text-xl font-semibold text-gray-800 mb-2">
           {t('stepReview')}
         </h2>
-        <p className="text-gray-600">
-          {t('stepReviewDesc')}
-        </p>
+        <p className="text-gray-600">{t('stepReviewDesc')}</p>
       </div>
 
       <Alert
@@ -109,7 +105,7 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ formData }) => {
       />
 
       {/* Personal Information */}
-      <Card 
+      <Card
         className="mb-6"
         title={
           <div className="flex justify-between items-center">
@@ -159,7 +155,7 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ formData }) => {
       </Card>
 
       {/* Family & Financial Information */}
-      <Card 
+      <Card
         className="mb-6"
         title={
           <div className="flex justify-between items-center">
@@ -176,25 +172,37 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ formData }) => {
       >
         <Descriptions column={2} bordered size="small">
           <Descriptions.Item label={t('maritalStatus')}>
-            {getTranslatedValue(formData.familyFinancial.maritalStatus, 'marital')}
+            {getTranslatedValue(
+              formData.familyFinancial.maritalStatus,
+              'marital'
+            )}
           </Descriptions.Item>
           <Descriptions.Item label={t('dependents')}>
             {formatValue(formData.familyFinancial.dependents || 0)}
           </Descriptions.Item>
           <Descriptions.Item label={t('employmentStatus')}>
-            {getTranslatedValue(formData.familyFinancial.employmentStatus, 'employment')}
+            {getTranslatedValue(
+              formData.familyFinancial.employmentStatus,
+              'employment'
+            )}
           </Descriptions.Item>
           <Descriptions.Item label={t('monthlyIncome')}>
-            {formatValue(formData.familyFinancial.monthlyIncome || 0, 'currency')}
+            {formatValue(
+              formData.familyFinancial.monthlyIncome || 0,
+              'currency'
+            )}
           </Descriptions.Item>
           <Descriptions.Item label={t('housingStatus')} span={2}>
-            {getTranslatedValue(formData.familyFinancial.housingStatus, 'housing')}
+            {getTranslatedValue(
+              formData.familyFinancial.housingStatus,
+              'housing'
+            )}
           </Descriptions.Item>
         </Descriptions>
       </Card>
 
       {/* Situation Description */}
-      <Card 
+      <Card
         className="mb-6"
         title={
           <div className="flex justify-between items-center">
@@ -211,21 +219,31 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ formData }) => {
       >
         <Space direction="vertical" size="middle" className="w-full">
           <div>
-            <h4 className="font-medium text-gray-800 mb-2">{t('currentFinancialSituation')}</h4>
+            <h4 className="font-medium text-gray-800 mb-2">
+              {t('currentFinancialSituation')}
+            </h4>
             <div className="bg-gray-50 p-3 rounded border">
-              {formatValue(formData.situationDescription.currentFinancialSituation)}
+              {formatValue(
+                formData.situationDescription.currentFinancialSituation
+              )}
             </div>
           </div>
-          
+
           <div>
-            <h4 className="font-medium text-gray-800 mb-2">{t('employmentCircumstances')}</h4>
+            <h4 className="font-medium text-gray-800 mb-2">
+              {t('employmentCircumstances')}
+            </h4>
             <div className="bg-gray-50 p-3 rounded border">
-              {formatValue(formData.situationDescription.employmentCircumstances)}
+              {formatValue(
+                formData.situationDescription.employmentCircumstances
+              )}
             </div>
           </div>
-          
+
           <div>
-            <h4 className="font-medium text-gray-800 mb-2">{t('reasonForApplying')}</h4>
+            <h4 className="font-medium text-gray-800 mb-2">
+              {t('reasonForApplying')}
+            </h4>
             <div className="bg-gray-50 p-3 rounded border">
               {formatValue(formData.situationDescription.reasonForApplying)}
             </div>
@@ -244,14 +262,10 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ formData }) => {
 
       {/* Action Buttons */}
       <div className="flex justify-between">
-        <Button
-          size="large"
-          onClick={handleBack}
-          className="px-8 rounded-lg"
-        >
+        <Button size="large" onClick={handleBack} className="px-8 rounded-lg">
           {t('back')}
         </Button>
-        
+
         <Button
           type="primary"
           size="large"
@@ -273,7 +287,8 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ formData }) => {
         cancelText={t('cancel')}
         confirmLoading={isSubmitting}
         okButtonProps={{
-          className: 'bg-green-600 hover:bg-green-700 border-green-600 hover:border-green-700'
+          className:
+            'bg-green-600 hover:bg-green-700 border-green-600 hover:border-green-700',
         }}
       >
         <div className="py-4">
@@ -288,4 +303,4 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ formData }) => {
   );
 };
 
-export default ReviewStep; 
+export default ReviewStep;

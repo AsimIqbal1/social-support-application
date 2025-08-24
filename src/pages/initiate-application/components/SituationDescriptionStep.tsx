@@ -15,13 +15,15 @@ interface SituationDescriptionStepProps {
   updateData: (data: Partial<SituationDescriptionFormData>) => void;
 }
 
-const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({ data, updateData }) => {
+const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
+  data,
+  updateData,
+}) => {
   const { t } = useLanguage();
   const navigate = useNavigate();
   const {
     control,
     handleSubmit,
-    // watch,
     formState: { errors, isValid },
     trigger,
   } = useForm<SituationDescriptionFormData>({
@@ -44,7 +46,7 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({ dat
     return t(fieldError.message) || fieldError.message;
   };
 
-  const getCharacterCount = (text: string) => text ? text.length : 0;
+  const getCharacterCount = (text: string) => (text ? text.length : 0);
 
   return (
     <Card className="p-6">
@@ -52,9 +54,7 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({ dat
         <h2 className="text-xl font-semibold text-gray-800 mb-2">
           {t('stepSituationDescription')}
         </h2>
-        <p className="text-gray-600">
-          {t('stepSituationDescriptionDesc')}
-        </p>
+        <p className="text-gray-600">{t('stepSituationDescriptionDesc')}</p>
       </div>
 
       <Form
@@ -63,7 +63,7 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({ dat
         autoComplete="off"
         onFinish={handleSubmit(onSubmit)}
       >
-        <Form.Item 
+        <Form.Item
           label={
             <div className="flex items-center gap-2">
               <FileTextOutlined />
@@ -92,14 +92,15 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({ dat
                   }}
                 />
                 <div className="text-sm text-gray-500 mt-1">
-                  {t('minCharacters', { count: 20 })} • {getCharacterCount(field.value)}/1000
+                  {t('minCharacters', { count: 20 })} •{' '}
+                  {getCharacterCount(field.value)}/1000
                 </div>
               </div>
             )}
           />
         </Form.Item>
 
-        <Form.Item 
+        <Form.Item
           label={
             <div className="flex items-center gap-2">
               <InfoCircleOutlined />
@@ -128,14 +129,15 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({ dat
                   }}
                 />
                 <div className="text-sm text-gray-500 mt-1">
-                  {t('minCharacters', { count: 20 })} • {getCharacterCount(field.value)}/1000
+                  {t('minCharacters', { count: 20 })} •{' '}
+                  {getCharacterCount(field.value)}/1000
                 </div>
               </div>
             )}
           />
         </Form.Item>
 
-        <Form.Item 
+        <Form.Item
           label={
             <div className="flex items-center gap-2">
               <FileTextOutlined />
@@ -164,7 +166,8 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({ dat
                   }}
                 />
                 <div className="text-sm text-gray-500 mt-1">
-                  {t('minCharacters', { count: 20 })} • {getCharacterCount(field.value)}/1000
+                  {t('minCharacters', { count: 20 })} •{' '}
+                  {getCharacterCount(field.value)}/1000
                 </div>
               </div>
             )}
@@ -175,7 +178,9 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({ dat
           <div className="flex items-start gap-3">
             <InfoCircleOutlined className="text-blue-600 text-lg mt-1" />
             <div>
-              <h4 className="font-medium text-blue-800 mb-2">{t('helpfulTips')}</h4>
+              <h4 className="font-medium text-blue-800 mb-2">
+                {t('helpfulTips')}
+              </h4>
               <ul className="text-sm text-blue-700 space-y-1">
                 <li>• {t('tip1')}</li>
                 <li>• {t('tip2')}</li>
@@ -187,14 +192,10 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({ dat
         </div>
 
         <div className="flex justify-between mt-8">
-          <Button
-            size="large"
-            onClick={handleBack}
-            className="px-8 rounded-lg"
-          >
+          <Button size="large" onClick={handleBack} className="px-8 rounded-lg">
             {t('back')}
           </Button>
-          
+
           <Button
             type="primary"
             size="large"
@@ -210,4 +211,4 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({ dat
   );
 };
 
-export default SituationDescriptionStep; 
+export default SituationDescriptionStep;

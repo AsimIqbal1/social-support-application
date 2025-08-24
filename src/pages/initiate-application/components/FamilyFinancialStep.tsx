@@ -15,14 +15,16 @@ interface FamilyFinancialStepProps {
   updateData: (data: Partial<FamilyFinancialFormData>) => void;
 }
 
-const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({ data, updateData }) => {
+const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({
+  data,
+  updateData,
+}) => {
   const { t } = useLanguage();
   const navigate = useNavigate();
-  
+
   const {
     control,
     handleSubmit,
-    // watch,
     formState: { errors, isValid },
     trigger,
   } = useForm<FamilyFinancialFormData>({
@@ -51,9 +53,7 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({ data, updateD
         <h2 className="text-xl font-semibold text-gray-800 mb-2">
           {t('stepFamilyFinancial')}
         </h2>
-        <p className="text-gray-600">
-          {t('stepFamilyFinancialDesc')}
-        </p>
+        <p className="text-gray-600">{t('stepFamilyFinancialDesc')}</p>
       </div>
 
       <Form
@@ -64,7 +64,7 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({ data, updateD
       >
         <Row gutter={[16, 0]}>
           <Col xs={24} md={12}>
-            <Form.Item 
+            <Form.Item
               label={t('maritalStatus')}
               validateStatus={errors.maritalStatus ? 'error' : ''}
               help={getErrorMessage(errors.maritalStatus)}
@@ -79,7 +79,7 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({ data, updateD
                     placeholder={t('selectMaritalStatus')}
                     size="large"
                     className="w-full"
-                    onChange={(value) => {
+                    onChange={value => {
                       field.onChange(value);
                       trigger('maritalStatus');
                     }}
@@ -93,9 +93,9 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({ data, updateD
               />
             </Form.Item>
           </Col>
-          
+
           <Col xs={24} md={12}>
-            <Form.Item 
+            <Form.Item
               label={t('dependents')}
               validateStatus={errors.dependents ? 'error' : ''}
               help={getErrorMessage(errors.dependents)}
@@ -108,7 +108,7 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({ data, updateD
                   <InputNumber
                     placeholder={t('enterDependents')}
                     value={field.value}
-                    onChange={(value) => {
+                    onChange={value => {
                       field.onChange(value);
                       trigger('dependents');
                     }}
@@ -129,7 +129,7 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({ data, updateD
 
         <Row gutter={[16, 0]}>
           <Col xs={24} md={12}>
-            <Form.Item 
+            <Form.Item
               label={t('employmentStatus')}
               validateStatus={errors.employmentStatus ? 'error' : ''}
               help={getErrorMessage(errors.employmentStatus)}
@@ -144,7 +144,7 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({ data, updateD
                     placeholder={t('selectEmploymentStatus')}
                     size="large"
                     className="w-full"
-                    onChange={(value) => {
+                    onChange={value => {
                       field.onChange(value);
                       trigger('employmentStatus');
                     }}
@@ -160,9 +160,9 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({ data, updateD
               />
             </Form.Item>
           </Col>
-          
+
           <Col xs={24} md={12}>
-            <Form.Item 
+            <Form.Item
               label={t('monthlyIncome')}
               validateStatus={errors.monthlyIncome ? 'error' : ''}
               help={getErrorMessage(errors.monthlyIncome)}
@@ -176,7 +176,7 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({ data, updateD
                     prefix={<DollarOutlined />}
                     placeholder={t('enterMonthlyIncome')}
                     value={field.value}
-                    onChange={(value) => {
+                    onChange={value => {
                       field.onChange(value);
                       trigger('monthlyIncome');
                     }}
@@ -186,8 +186,10 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({ data, updateD
                     }}
                     min={0}
                     max={1000000}
-                    formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    parser={(value) => Number(value!.replace(/\$\s?|(,*)/g, ''))}
+                    formatter={value =>
+                      `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                    }
+                    parser={value => Number(value!.replace(/\$\s?|(,*)/g, ''))}
                     size="large"
                     className="w-full rounded-lg"
                   />
@@ -197,7 +199,7 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({ data, updateD
           </Col>
         </Row>
 
-        <Form.Item 
+        <Form.Item
           label={t('housingStatus')}
           validateStatus={errors.housingStatus ? 'error' : ''}
           help={getErrorMessage(errors.housingStatus)}
@@ -212,7 +214,7 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({ data, updateD
                 placeholder={t('selectHousingStatus')}
                 size="large"
                 className="w-full"
-                onChange={(value) => {
+                onChange={value => {
                   field.onChange(value);
                   trigger('housingStatus');
                 }}
@@ -228,14 +230,10 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({ data, updateD
         </Form.Item>
 
         <div className="flex justify-between mt-8">
-          <Button
-            size="large"
-            onClick={handleBack}
-            className="px-8 rounded-lg"
-          >
+          <Button size="large" onClick={handleBack} className="px-8 rounded-lg">
             {t('back')}
           </Button>
-          
+
           <Button
             type="primary"
             size="large"
@@ -251,4 +249,4 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({ data, updateD
   );
 };
 
-export default FamilyFinancialStep; 
+export default FamilyFinancialStep;

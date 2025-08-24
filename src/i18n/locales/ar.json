@@ -7,15 +7,15 @@
   "serviceFee": "رسوم الخدمة: مجاناً",
   "serviceTime": "مدة تقديم الطلب: 10 دقائق",
   "serviceSLA": "مستوى الخدمة: 21 يوم عمل",
-  
+
   "trustBadgesSecure": "آمن وسري",
   "trustBadgesOfficial": "بوابة حكومية رسمية",
   "trustBadgesFree": "خدمة مجانية",
   "trustBadgesSupport": "دعم متاح 24/7",
-  
+
   "programTitle": "نظرة عامة على البرنامج",
   "programDescription": "يركز هذا البرنامج على حماية أكثر فئات المجتمع ضعفاً، ويقدم نظام دعم شامل. يوفر بدلات شهرية أساسية مصممة حسب احتياجات أنواع الأسر المختلفة، إلى جانب بدلات تكميلية للأسر التي تتلقى هذا الدعم بالفعل.",
-  
+
   "benefitsTitle": "فوائد البرنامج",
   "benefitMonthly": "مساعدة مالية شهرية",
   "benefitMonthlyDesc": "بدلات شهرية منتظمة بناءً على حجم الأسرة واحتياجاتها",
@@ -25,13 +25,13 @@
   "benefitAcademicDesc": "دعم للأداء الأكاديمي المتميز",
   "benefitComplementary": "البدلات التكميلية",
   "benefitComplementaryDesc": "دعم إضافي للمستفيدين الحاليين",
-  
+
   "eligibilityTitle": "معايير الاستحقاق",
   "eligibilityIncome": "متطلبات الدخل المحدود",
   "eligibilityResidency": "حالة الإقامة في دولة الإمارات",
   "eligibilityCitizenship": "الجنسية الإماراتية",
   "eligibilityDocuments": "الوثائق المطلوبة",
-  
+
   "whatYouNeed": "الوثائق المطلوبة",
   "requirementId": "بطاقة الهوية الإماراتية سارية المفعول",
   "requirementIncome": "شهادة راتب أو إثبات دخل",
@@ -39,7 +39,7 @@
   "requirementHousehold": "خلاصة القيد (دفتر العائلة)",
   "requirementUtilities": "فواتير الخدمات",
   "requirementRental": "عقد الإيجار (إن وجد)",
-  
+
   "howItWorksTitle": "كيف يعمل النظام",
   "step1Title": "المعلومات الشخصية",
   "step1Desc": "قدم تفاصيلك الشخصية ومعلومات الهوية",
@@ -47,32 +47,32 @@
   "step2Desc": "شارك تكوين أسرتك ووضعك المالي",
   "step3Title": "الوثائق المؤيدة",
   "step3Desc": "ارفق الوثائق المطلوبة واوصف وضعك",
-  
+
   "whyApplyTitle": "لماذا التقديم عبر الإنترنت؟",
   "benefitQuick": "تطبيق سريع خلال 10 دقائق",
   "benefitSecure": "آمن ومشفر",
   "benefitConfirmation": "تأكيد فوري",
   "benefitTracking": "تتبع حالة طلبك",
-  
+
   "needHelpTitle": "تحتاج مساعدة؟",
   "contactPhone": "اتصل: 800-دعم",
   "contactEmail": "البريد الإلكتروني: support@socialwelfare.gov.ae",
   "contactHours": "متاح 24/7",
   "contactCenter": "زيارة مركز خدمة العملاء",
-  
+
   "readyToStart": "هل أنت مستعد للتقديم؟",
   "applicationTime": "تستغرق عملية التقديم حوالي 10 دقائق لإكمالها",
   "getStarted": "ابدأ الآن",
-  
+
   "footer": "© 2025 وزارة تنمية المجتمع. جميع الحقوق محفوظة.",
   "govPortal": "بوابة الرعاية الاجتماعية",
   "switchToArabic": "العربية",
   "switchToEnglish": "English",
-  
+
   "breadcrumbHome": "الرئيسية",
   "breadcrumbServices": "خدماتنا",
   "breadcrumbWelfare": "طلب الرعاية الاجتماعية",
-  
+
   "navigationHome": "الرئيسية",
   "navigationServices": "الخدمات",
   "navigationAbout": "حول",
@@ -81,7 +81,7 @@
 
   "applicationTitle": "طلب الرعاية الاجتماعية",
   "applicationSubtitle": "أكمل طلبك في 4 خطوات بسيطة",
-  
+
   "stepPersonalInfo": "المعلومات الشخصية",
   "stepPersonalInfoDesc": "قدم تفاصيلك الشخصية الأساسية",
   "stepFamilyFinancial": "معلومات الأسرة والمالية",
@@ -90,7 +90,7 @@
   "stepSituationDescriptionDesc": "اوصف ظروفك الحالية",
   "stepReview": "المراجعة والإرسال",
   "stepReviewDesc": "راجع معلوماتك قبل الإرسال",
-  
+
   "fullName": "الاسم الكامل",
   "enterFullName": "أدخل اسمك الكامل",
   "nationalId": "رقم الهوية الوطنية",
@@ -113,14 +113,14 @@
   "enterPhone": "أدخل رقم هاتفك",
   "email": "عنوان البريد الإلكتروني",
   "enterEmail": "أدخل عنوان بريدك الإلكتروني",
-  
+
   "uae": "دولة الإمارات العربية المتحدة",
   "saudiArabia": "المملكة العربية السعودية",
   "kuwait": "الكويت",
   "qatar": "قطر",
   "bahrain": "البحرين",
   "oman": "عُمان",
-  
+
   "maritalStatus": "الحالة الاجتماعية",
   "selectMaritalStatus": "اختر حالتك الاجتماعية",
   "single": "أعزب",
@@ -146,24 +146,24 @@
   "govHousing": "سكن حكومي",
   "familyHousing": "سكن العائلة",
   "temporaryHousing": "سكن مؤقت",
-  
+
   "currentFinancialSituation": "الوضع المالي الحالي",
   "describeFinancialSituation": "صف وضعك المالي الحالي بالتفصيل...",
   "employmentCircumstances": "ظروف التوظيف",
   "describeEmploymentCircumstances": "صف ظروف عملك...",
   "reasonForApplying": "سبب التقديم",
   "describeReasonForApplying": "اشرح سبب تقديمك لطلب المساعدة الاجتماعية...",
-  
+
   "helpfulTips": "نصائح مفيدة",
   "tip1": "كن محددًا وصادقًا حول وضعك المالي",
   "tip2": "اذكر أي تغييرات حديثة في العمل أو الدخل",
   "tip3": "اذكر أي مصاريف طبية أو ظروف خاصة",
   "tip4": "اوصف كيف ستساعدك هذه المساعدة في تحسين وضعك",
-  
+
   "minCharacters": "الحد الأدنى {{count}} حرف مطلوب",
   "minDescriptionLength": "يجب أن يكون الوصف 20 حرفًا على الأقل",
   "maxDescriptionLength": "يجب ألا يتجاوز الوصف 1000 حرف",
-  
+
   "fieldRequired": "هذا الحقل مطلوب",
   "invalidEmail": "يرجى إدخال عنوان بريد إلكتروني صالح",
   "invalidPhone": "يرجى إدخال رقم هاتف صالح",
@@ -171,23 +171,23 @@
   "nameMinLength": "يجب أن يكون الاسم حرفين على الأقل",
   "invalidNumber": "يرجى إدخال رقم صالح",
   "invalidAmount": "يرجى إدخال مبلغ صالح",
-  
+
   "continue": "متابعة",
   "back": "رجوع",
   "edit": "تحرير",
   "cancel": "إلغاء",
   "submitApplication": "إرسال الطلب",
   "yesSubmit": "نعم، أرسل",
-  
+
   "reviewNotice": "راجع معلوماتك",
   "reviewNoticeDesc": "يرجى مراجعة جميع المعلومات التي قدمتها قبل إرسال طلبك.",
   "submissionNotice": "إشعار مهم",
   "submissionNoticeDesc": "بإرسال هذا الطلب، تؤكد أن جميع المعلومات المقدمة دقيقة وكاملة.",
-  
+
   "confirmSubmission": "تأكيد الإرسال",
   "confirmSubmissionDesc": "هل أنت متأكد من أنك تريد إرسال طلبك؟ بمجرد الإرسال، لن تتمكن من إجراء تغييرات.",
   "readyToSubmit": "جاهز لإرسال طلبك",
-  
+
   "applicationSubmitted": "تم إرسال الطلب بنجاح",
   "applicationSubmittedDesc": "تم إرسال طلب الرعاية الاجتماعية الخاص بك. ستتلقى رسالة تأكيد بالبريد الإلكتروني قريبًا مع رقم مرجع طلبك.",
   "submissionError": "فشل في الإرسال. يرجى المحاولة مرة أخرى.",
@@ -211,4 +211,4 @@
   "invalidEmploymentStatus": "يرجى اختيار حالة توظيف صالحة",
   "invalidIncomeRange": "يجب أن يكون الدخل الشهري بين 0 و 1,000,000 درهم",
   "invalidHousingStatus": "يرجى اختيار حالة سكن صالحة"
-} 
+}

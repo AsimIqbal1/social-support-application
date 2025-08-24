@@ -19,8 +19,8 @@ const HowItWorks: React.FC = () => {
       </Title>
       <Row gutter={[24, 24]}>
         <Col xs={24} md={8}>
-          <Card 
-            bordered={false} 
+          <Card
+            bordered={false}
             className="text-center bg-gray-50 rounded-card h-full"
           >
             <Avatar
@@ -31,14 +31,12 @@ const HowItWorks: React.FC = () => {
             <Title level={5} className="text-gray-800 mb-2">
               {t('step1Title')}
             </Title>
-            <Text className="text-gray-500 text-sm">
-              {t('step1Desc')}
-            </Text>
+            <Text className="text-gray-500 text-sm">{t('step1Desc')}</Text>
           </Card>
         </Col>
         <Col xs={24} md={8}>
-          <Card 
-            bordered={false} 
+          <Card
+            bordered={false}
             className="text-center bg-gray-50 rounded-card h-full"
           >
             <Avatar
@@ -49,14 +47,12 @@ const HowItWorks: React.FC = () => {
             <Title level={5} className="text-gray-800 mb-2">
               {t('step2Title')}
             </Title>
-            <Text className="text-gray-500 text-sm">
-              {t('step2Desc')}
-            </Text>
+            <Text className="text-gray-500 text-sm">{t('step2Desc')}</Text>
           </Card>
         </Col>
         <Col xs={24} md={8}>
-          <Card 
-            bordered={false} 
+          <Card
+            bordered={false}
             className="text-center bg-gray-50 rounded-card h-full"
           >
             <Avatar
@@ -67,9 +63,7 @@ const HowItWorks: React.FC = () => {
             <Title level={5} className="text-gray-800 mb-2">
               {t('step3Title')}
             </Title>
-            <Text className="text-gray-500 text-sm">
-              {t('step3Desc')}
-            </Text>
+            <Text className="text-gray-500 text-sm">{t('step3Desc')}</Text>
           </Card>
         </Col>
       </Row>
@@ -77,4 +71,4 @@ const HowItWorks: React.FC = () => {
   );
 };
 
-export default HowItWorks; 
+export default HowItWorks;

@@ -20,7 +20,7 @@ const HomePage: React.FC = () => {
   return (
     <Layout className="min-h-screen bg-uae-cream">
       <ProfessionalHeader />
-      
+
       {/* Main Content with proper top margin */}
       <Content className="mt-42">
         {/* Breadcrumb Section */}
@@ -40,7 +40,7 @@ const HomePage: React.FC = () => {
             </Breadcrumb>
           </div>
         </div>
-        
+
         {/* Main Content Area */}
         <div className="bg-uae-cream min-h-screen py-10 pb-20">
           <div className="max-w-7xl mx-auto px-6">
@@ -54,7 +54,7 @@ const HomePage: React.FC = () => {
                   <HowItWorks />
                 </div>
               </Col>
-              
+
               {/* Right Sidebar */}
               <Col xs={24} lg={8}>
                 <Sidebar />
@@ -75,4 +75,4 @@ const HomePage: React.FC = () => {
   );
 };
 
-export default HomePage; 
+export default HomePage;

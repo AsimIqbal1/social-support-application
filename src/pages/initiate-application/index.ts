@@ -1,1 +1,1 @@
-export { default as InitiateApplication } from './InitiateApplication'; 
+export { default as InitiateApplication } from './InitiateApplication';

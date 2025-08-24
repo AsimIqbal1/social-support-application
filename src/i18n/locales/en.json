@@ -7,15 +7,15 @@
   "serviceFee": "Service Fee: Free of charge",
   "serviceTime": "Service Apply Time: 10 Minutes",
   "serviceSLA": "SLA: 21 working days",
-  
+
   "trustBadgesSecure": "Secure & Confidential",
   "trustBadgesOfficial": "Official Government Portal",
   "trustBadgesFree": "Free Service",
   "trustBadgesSupport": "24/7 Support Available",
-  
+
   "programTitle": "Program Overview",
   "programDescription": "This program focuses on protecting the most vulnerable groups of the community, offering a comprehensive support system. It provides basic monthly allowances tailored to the needs of different family types, along with complementary allowances for families already receiving this support.",
-  
+
   "benefitsTitle": "Program Benefits",
   "benefitMonthly": "Monthly Financial Assistance",
   "benefitMonthlyDesc": "Regular monthly allowances based on family size and needs",
@@ -25,13 +25,13 @@
   "benefitAcademicDesc": "Support for outstanding academic performance",
   "benefitComplementary": "Complementary Allowances",
   "benefitComplementaryDesc": "Additional support for existing beneficiaries",
-  
+
   "eligibilityTitle": "Eligibility Criteria",
   "eligibilityIncome": "Limited Income Requirements",
   "eligibilityResidency": "UAE Residency Status",
   "eligibilityCitizenship": "Emirati Citizenship",
   "eligibilityDocuments": "Required Documentation",
-  
+
   "whatYouNeed": "Required Documents",
   "requirementId": "Valid Emirates ID",
   "requirementIncome": "Salary Certificate or Income Proof",
@@ -39,7 +39,7 @@
   "requirementHousehold": "Family Book (Khulasat Al Qaid)",
   "requirementUtilities": "Utility Bills",
   "requirementRental": "Rental Contract (if applicable)",
-  
+
   "howItWorksTitle": "How It Works",
   "step1Title": "Personal Information",
   "step1Desc": "Provide your personal details and identification information",
@@ -47,32 +47,32 @@
   "step2Desc": "Share your household composition and financial situation",
   "step3Title": "Supporting Documents",
   "step3Desc": "Upload required documents and describe your situation",
-  
+
   "whyApplyTitle": "Why Apply Online?",
   "benefitQuick": "Quick 10-minute application",
   "benefitSecure": "Secure and encrypted",
   "benefitConfirmation": "Instant confirmation",
   "benefitTracking": "Track your application status",
-  
+
   "needHelpTitle": "Need Help?",
   "contactPhone": "Call: 800-SUPPORT",
   "contactEmail": "Email: support@socialwelfare.gov.ae",
   "contactHours": "Available 24/7",
   "contactCenter": "Visit Customer Service Center",
-  
+
   "readyToStart": "Ready to Apply?",
   "applicationTime": "The application process takes approximately 10 minutes to complete",
   "getStarted": "Get Started Now",
-  
+
   "footer": "© 2025 Ministry of Community Empowerment. All rights reserved.",
   "govPortal": "Social Welfare Portal",
   "switchToArabic": "العربية",
   "switchToEnglish": "English",
-  
+
   "breadcrumbHome": "Home",
   "breadcrumbServices": "Our Services",
   "breadcrumbWelfare": "Social Welfare Application",
-  
+
   "navigationHome": "Home",
   "navigationServices": "Services",
   "navigationAbout": "About",
@@ -81,7 +81,7 @@
 
   "applicationTitle": "Social Welfare Application",
   "applicationSubtitle": "Complete your application in 4 simple steps",
-  
+
   "stepPersonalInfo": "Personal Information",
   "stepPersonalInfoDesc": "Provide your basic personal details",
   "stepFamilyFinancial": "Family & Financial",
@@ -90,7 +90,7 @@
   "stepSituationDescriptionDesc": "Describe your current circumstances",
   "stepReview": "Review & Submit",
   "stepReviewDesc": "Review your information before submission",
-  
+
   "fullName": "Full Name",
   "enterFullName": "Enter your full name",
   "nationalId": "National ID",
@@ -113,14 +113,14 @@
   "enterPhone": "Enter your phone number",
   "email": "Email Address",
   "enterEmail": "Enter your email address",
-  
+
   "uae": "United Arab Emirates",
   "saudiArabia": "Saudi Arabia",
   "kuwait": "Kuwait",
   "qatar": "Qatar",
   "bahrain": "Bahrain",
   "oman": "Oman",
-  
+
   "maritalStatus": "Marital Status",
   "selectMaritalStatus": "Select your marital status",
   "single": "Single",
@@ -146,24 +146,24 @@
   "govHousing": "Government Housing",
   "familyHousing": "Family Housing",
   "temporaryHousing": "Temporary Housing",
-  
+
   "currentFinancialSituation": "Current Financial Situation",
   "describeFinancialSituation": "Describe your current financial situation in detail...",
   "employmentCircumstances": "Employment Circumstances",
   "describeEmploymentCircumstances": "Describe your employment circumstances...",
   "reasonForApplying": "Reason for Applying",
   "describeReasonForApplying": "Explain why you are applying for social welfare assistance...",
-  
+
   "helpfulTips": "Helpful Tips",
   "tip1": "Be specific and honest about your financial situation",
   "tip2": "Include any recent changes in employment or income",
   "tip3": "Mention any medical expenses or special circumstances",
   "tip4": "Describe how this assistance will help improve your situation",
-  
+
   "minCharacters": "Minimum {{count}} characters required",
   "minDescriptionLength": "Description must be at least 20 characters long",
   "maxDescriptionLength": "Description must not exceed 1000 characters",
-  
+
   "fieldRequired": "This field is required",
   "invalidEmail": "Please enter a valid email address",
   "invalidPhone": "Please enter a valid phone number",
@@ -171,23 +171,23 @@
   "nameMinLength": "Name must be at least 2 characters long",
   "invalidNumber": "Please enter a valid number",
   "invalidAmount": "Please enter a valid amount",
-  
+
   "continue": "Continue",
   "back": "Back",
   "edit": "Edit",
   "cancel": "Cancel",
   "submitApplication": "Submit Application",
   "yesSubmit": "Yes, Submit",
-  
+
   "reviewNotice": "Review Your Information",
   "reviewNoticeDesc": "Please review all the information you've provided before submitting your application.",
   "submissionNotice": "Important Notice",
   "submissionNoticeDesc": "By submitting this application, you confirm that all information provided is accurate and complete.",
-  
+
   "confirmSubmission": "Confirm Submission",
   "confirmSubmissionDesc": "Are you sure you want to submit your application? Once submitted, you won't be able to make changes.",
   "readyToSubmit": "Ready to submit your application",
-  
+
   "applicationSubmitted": "Application Submitted Successfully",
   "applicationSubmittedDesc": "Your social welfare application has been submitted. You will receive a confirmation email shortly with your application reference number.",
   "submissionError": "Submission failed. Please try again.",
@@ -211,4 +211,4 @@
   "invalidEmploymentStatus": "Please select a valid employment status",
   "invalidIncomeRange": "Monthly income must be between 0 and 1,000,000 AED",
   "invalidHousingStatus": "Please select a valid housing status"
-} 
+}
