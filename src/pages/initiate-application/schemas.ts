@@ -21,9 +21,10 @@ export const personalInfoSchema = z.object({
       const age = today.getFullYear() - birthDate.getFullYear();
       return age >= 18 && age <= 120;
     }, 'invalidAge'),
-  gender: z.enum(['male', 'female'], {
-    message: 'fieldRequired',
-  }),
+  gender: z.string().min(1, 'fieldRequired').refine(
+    (value) => ['male', 'female'].includes(value),
+    { message: 'invalidGender' }
+  ),
   address: z
     .string()
     .min(10, 'addressTooShort')
@@ -50,29 +51,31 @@ export const personalInfoSchema = z.object({
 
 // Family & Financial Information Schema
 export const familyFinancialSchema = z.object({
-  maritalStatus: z.enum(['single', 'married', 'divorced', 'widowed'], {
-    message: 'fieldRequired',
-  }),
+  maritalStatus: z.string().min(1, 'fieldRequired').refine(
+    (value) => ['single', 'married', 'divorced', 'widowed'].includes(value),
+    { message: 'invalidMaritalStatus' }
+  ),
   dependents: z
-    .string()
-    .regex(/^\d+$/, 'invalidNumber')
-    .refine((val) => {
-      const num = parseInt(val, 10);
-      return num >= 0 && num <= 20;
-    }, 'invalidDependentsRange'),
-  employmentStatus: z.enum(['employed', 'unemployed', 'self-employed', 'retired', 'student', 'disabled'], {
-    message: 'fieldRequired',
-  }),
+    .number()
+    .int('invalidNumber')
+    .min(0, 'invalidDependentsRange')
+    .max(20, 'invalidDependentsRange')
+    .optional()
+    .refine(val => val !== undefined, 'fieldRequired'),
+  employmentStatus: z.string().min(1, 'fieldRequired').refine(
+    (value) => ['employed', 'unemployed', 'self-employed', 'retired', 'student', 'disabled'].includes(value),
+    { message: 'invalidEmploymentStatus' }
+  ),
   monthlyIncome: z
-    .string()
-    .regex(/^\d+(\.\d{1,2})?$/, 'invalidAmount')
-    .refine((val) => {
-      const amount = parseFloat(val);
-      return amount >= 0 && amount <= 1000000;
-    }, 'invalidIncomeRange'),
-  housingStatus: z.enum(['owned', 'rented', 'gov-housing', 'family-housing', 'temporary'], {
-    message: 'fieldRequired',
-  }),
+    .number()
+    .min(0, 'invalidIncomeRange')
+    .max(1000000, 'invalidIncomeRange')
+    .optional()
+    .refine(val => val !== undefined, 'fieldRequired'),
+  housingStatus: z.string().min(1, 'fieldRequired').refine(
+    (value) => ['owned', 'rented', 'gov-housing', 'family-housing', 'temporary'].includes(value),
+    { message: 'invalidHousingStatus' }
+  ),
 });
 
 // Situation Description Schema

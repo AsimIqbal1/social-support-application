@@ -19,7 +19,6 @@ interface PersonalInfoStepProps {
 const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({ data, updateData }) => {
   const { t } = useLanguage();
   const navigate = useNavigate();
-  console.log("PersonalInfoStep");
 
   const {
     control,
@@ -31,14 +30,6 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({ data, updateData })
     defaultValues: data,
     mode: 'onBlur',
   });
-
-
-  // const watchedValues = watch();
-
-  // Update parent data when form values change
-  // useEffect(() => {
-  //   updateData(watchedValues);
-  // }, [watchedValues, updateData]);
 
   const onSubmit = (formData: PersonalInfoFormData) => {
     updateData(formData);

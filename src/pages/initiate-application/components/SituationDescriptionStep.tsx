@@ -18,7 +18,6 @@ interface SituationDescriptionStepProps {
 const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({ data, updateData }) => {
   const { t } = useLanguage();
   const navigate = useNavigate();
-  console.log("SituationDescriptionStep");
   const {
     control,
     handleSubmit,
@@ -30,13 +29,6 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({ dat
     defaultValues: data,
     mode: 'onBlur',
   });
-
-  // const watchedValues = watch();
-
-  // // Update parent data when form values change
-  // useEffect(() => {
-  //   updateData(watchedValues);
-  // }, [watchedValues, updateData]);
 
   const onSubmit = (formData: SituationDescriptionFormData) => {
     updateData(formData);

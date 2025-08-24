@@ -18,8 +18,6 @@ interface FamilyFinancialStepProps {
 const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({ data, updateData }) => {
   const { t } = useLanguage();
   const navigate = useNavigate();
-
-  console.log("FamilyFinancialStep");
   
   const {
     control,
@@ -32,13 +30,6 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({ data, updateD
     defaultValues: data,
     mode: 'onBlur',
   });
-
-  // const watchedValues = watch();
-
-  // // Update parent data when form values change
-  // useEffect(() => {
-  //   updateData(watchedValues);
-  // }, [watchedValues, updateData]);
 
   const onSubmit = (formData: FamilyFinancialFormData) => {
     updateData(formData);
@@ -116,9 +107,9 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({ data, updateD
                 render={({ field }) => (
                   <InputNumber
                     placeholder={t('enterDependents')}
-                    value={field.value ? parseInt(field.value, 10) : undefined}
+                    value={field.value}
                     onChange={(value) => {
-                      field.onChange(value ? value.toString() : '');
+                      field.onChange(value);
                       trigger('dependents');
                     }}
                     onBlur={() => {
@@ -184,9 +175,9 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({ data, updateD
                   <InputNumber
                     prefix={<DollarOutlined />}
                     placeholder={t('enterMonthlyIncome')}
-                    value={field.value ? parseFloat(field.value) : undefined}
+                    value={field.value}
                     onChange={(value) => {
-                      field.onChange(value ? value.toString() : '');
+                      field.onChange(value);
                       trigger('monthlyIncome');
                     }}
                     onBlur={() => {
