@@ -3,10 +3,10 @@ import { Card, Button, Descriptions, Space, Modal, message, Divider, Alert } fro
 import { CheckCircleOutlined, EditOutlined, SendOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../../i18n/hooks/useLanguage';
-import type { FormData } from '../InitiateApplication';
+import type { CompleteApplicationFormData } from '../schemas';
 
 interface ReviewStepProps {
-  formData: FormData;
+  formData: CompleteApplicationFormData;
 }
 
 const ReviewStep: React.FC<ReviewStepProps> = ({ formData }) => {

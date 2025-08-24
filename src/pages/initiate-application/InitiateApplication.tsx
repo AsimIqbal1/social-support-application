@@ -6,42 +6,21 @@ import PersonalInfoStep from './components/PersonalInfoStep';
 import FamilyFinancialStep from './components/FamilyFinancialStep';
 import SituationDescriptionStep from './components/SituationDescriptionStep';
 import ReviewStep from './components/ReviewStep';
+import type { 
+  PersonalInfoFormData, 
+  FamilyFinancialFormData, 
+  SituationDescriptionFormData,
+  CompleteApplicationFormData
+} from './schemas';
 
 const { Content } = Layout;
 
-export interface FormData {
-  personalInfo: {
-    name: string;
-    nationalId: string;
-    dateOfBirth: string;
-    gender: string;
-    address: string;
-    city: string;
-    state: string;
-    country: string;
-    phone: string;
-    email: string;
-  };
-  familyFinancial: {
-    maritalStatus: string;
-    dependents: string;
-    employmentStatus: string;
-    monthlyIncome: string;
-    housingStatus: string;
-  };
-  situationDescription: {
-    currentFinancialSituation: string;
-    employmentCircumstances: string;
-    reasonForApplying: string;
-  };
-}
-
-const initialFormData: FormData = {
+const initialFormData: CompleteApplicationFormData = {
   personalInfo: {
     name: '',
     nationalId: '',
     dateOfBirth: '',
-    gender: '',
+    gender: 'male',
     address: '',
     city: '',
     state: '',
@@ -50,11 +29,11 @@ const initialFormData: FormData = {
     email: '',
   },
   familyFinancial: {
-    maritalStatus: '',
-    dependents: '',
-    employmentStatus: '',
-    monthlyIncome: '',
-    housingStatus: '',
+    maritalStatus: 'single',
+    dependents: '0',
+    employmentStatus: 'unemployed',
+    monthlyIncome: '0',
+    housingStatus: 'rented',
   },
   situationDescription: {
     currentFinancialSituation: '',
@@ -64,11 +43,12 @@ const initialFormData: FormData = {
 };
 
 const InitiateApplication: React.FC = () => {
+  console.log("InitiateApplication");
   const { t, isRTL } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
   const [currentStep, setCurrentStep] = useState(0);
-  const [formData, setFormData] = useState<FormData>(() => {
+  const [formData, setFormData] = useState<CompleteApplicationFormData>(() => {
     // Load from localStorage if available
     const saved = localStorage.getItem('applicationFormData');
     return saved ? JSON.parse(saved) : initialFormData;
@@ -93,10 +73,24 @@ const InitiateApplication: React.FC = () => {
     }
   }, [location.pathname, navigate]);
 
-  const updateFormData = (section: keyof FormData, data: Partial<FormData[keyof FormData]>) => {
+  const updatePersonalInfo = (data: Partial<PersonalInfoFormData>) => {
     setFormData(prev => ({
       ...prev,
-      [section]: { ...prev[section], ...data }
+      personalInfo: { ...prev.personalInfo, ...data }
+    }));
+  };
+
+  const updateFamilyFinancial = (data: Partial<FamilyFinancialFormData>) => {
+    setFormData(prev => ({
+      ...prev,
+      familyFinancial: { ...prev.familyFinancial, ...data }
+    }));
+  };
+
+  const updateSituationDescription = (data: Partial<SituationDescriptionFormData>) => {
+    setFormData(prev => ({
+      ...prev,
+      situationDescription: { ...prev.situationDescription, ...data }
     }));
   };
 
@@ -151,7 +145,7 @@ const InitiateApplication: React.FC = () => {
                 element={
                   <PersonalInfoStep
                     data={formData.personalInfo}
-                    updateData={(data) => updateFormData('personalInfo', data)}
+                    updateData={updatePersonalInfo}
                   />
                 }
               />
@@ -160,7 +154,7 @@ const InitiateApplication: React.FC = () => {
                 element={
                   <FamilyFinancialStep
                     data={formData.familyFinancial}
-                    updateData={(data) => updateFormData('familyFinancial', data)}
+                    updateData={updateFamilyFinancial}
                   />
                 }
               />
@@ -169,7 +163,7 @@ const InitiateApplication: React.FC = () => {
                 element={
                   <SituationDescriptionStep
                     data={formData.situationDescription}
-                    updateData={(data) => updateFormData('situationDescription', data)}
+                    updateData={updateSituationDescription}
                   />
                 }
               />

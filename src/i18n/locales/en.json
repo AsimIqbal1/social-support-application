@@ -192,5 +192,23 @@
   "applicationSubmittedDesc": "Your social welfare application has been submitted. You will receive a confirmation email shortly with your application reference number.",
   "submissionError": "Submission failed. Please try again.",
   "returnHome": "Return to Home",
-  "notProvided": "Not Provided"
+  "notProvided": "Not Provided",
+
+  "nameTooLong": "Name is too long",
+  "invalidNameFormat": "Name can only contain letters and spaces",
+  "nationalIdNumbersOnly": "National ID can only contain numbers",
+  "invalidAge": "Age must be between 18 and 120 years",
+  "invalidGender": "Please select a valid gender",
+  "addressTooShort": "Address must be at least 10 characters",
+  "addressTooLong": "Address is too long",
+  "cityTooShort": "City name is too short",
+  "cityTooLong": "City name is too long",
+  "stateTooShort": "State/Emirate name is too short",
+  "stateTooLong": "State/Emirate name is too long",
+  "emailTooLong": "Email address is too long",
+  "invalidMaritalStatus": "Please select a valid marital status",
+  "invalidDependentsRange": "Number of dependents must be between 0 and 20",
+  "invalidEmploymentStatus": "Please select a valid employment status",
+  "invalidIncomeRange": "Monthly income must be between 0 and 1,000,000 AED",
+  "invalidHousingStatus": "Please select a valid housing status"
 } 

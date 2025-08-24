@@ -1,83 +1,57 @@
-import React, { useState } from 'react';
-import { Form, Input, Button, Select, Card, Space, Row, Col, InputNumber } from 'antd';
-import { TeamOutlined, DollarOutlined, BankOutlined } from '@ant-design/icons';
+import React, { useEffect } from 'react';
+import { Form, Input, Button, Select, Card, Row, Col, InputNumber } from 'antd';
+import { DollarOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useLanguage } from '../../../i18n/hooks/useLanguage';
+import { familyFinancialSchema } from '../schemas';
+import type { FamilyFinancialFormData } from '../schemas';
 
 const { Option } = Select;
 
-interface FamilyFinancialData {
-  maritalStatus: string;
-  dependents: string;
-  employmentStatus: string;
-  monthlyIncome: string;
-  housingStatus: string;
-}
-
 interface FamilyFinancialStepProps {
-  data: FamilyFinancialData;
-  updateData: (data: Partial<FamilyFinancialData>) => void;
+  data: FamilyFinancialFormData;
+  updateData: (data: Partial<FamilyFinancialFormData>) => void;
 }
 
 const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({ data, updateData }) => {
   const { t } = useLanguage();
   const navigate = useNavigate();
-  const [form] = Form.useForm();
-  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const handleFieldChange = (field: keyof FamilyFinancialData, value: string) => {
-    updateData({ [field]: value });
-    
-    // Clear error for this field
-    if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: '' }));
-    }
-  };
+  console.log("FamilyFinancialStep");
+  
+  const {
+    control,
+    handleSubmit,
+    // watch,
+    formState: { errors, isValid },
+    trigger,
+  } = useForm<FamilyFinancialFormData>({
+    resolver: zodResolver(familyFinancialSchema),
+    defaultValues: data,
+    mode: 'onBlur',
+  });
 
-  const handleFieldBlur = (field: keyof FamilyFinancialData, value: string) => {
-    let error = '';
-    
-    if (!value.trim()) {
-      error = t('fieldRequired');
-    } else {
-      switch (field) {
-        case 'dependents':
-          const numDependents = parseInt(value, 10);
-          if (isNaN(numDependents) || numDependents < 0) {
-            error = t('invalidNumber');
-          }
-          break;
-        case 'monthlyIncome':
-          const income = parseFloat(value);
-          if (isNaN(income) || income < 0) {
-            error = t('invalidAmount');
-          }
-          break;
-      }
-    }
-    
-    setErrors(prev => ({ ...prev, [field]: error }));
-  };
+  // const watchedValues = watch();
 
-  const isFormValid = (): boolean => {
-    const requiredFields: (keyof FamilyFinancialData)[] = [
-      'maritalStatus', 'dependents', 'employmentStatus', 'monthlyIncome', 'housingStatus'
-    ];
-    
-    return requiredFields.every(field => {
-      const value = data[field];
-      return value && value.trim() && !errors[field];
-    });
-  };
+  // // Update parent data when form values change
+  // useEffect(() => {
+  //   updateData(watchedValues);
+  // }, [watchedValues, updateData]);
 
-  const handleContinue = () => {
-    if (isFormValid()) {
-      navigate('/initiate-application/situation-description');
-    }
+  const onSubmit = (formData: FamilyFinancialFormData) => {
+    updateData(formData);
+    navigate('/initiate-application/situation-description');
   };
 
   const handleBack = () => {
     navigate('/initiate-application/personal-info');
+  };
+
+  const getErrorMessage = (fieldError: any) => {
+    if (!fieldError) return '';
+    return t(fieldError.message) || fieldError.message;
   };
 
   return (
@@ -92,29 +66,40 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({ data, updateD
       </div>
 
       <Form
-        form={form}
         layout="vertical"
         className="space-y-4"
         autoComplete="off"
+        onFinish={handleSubmit(onSubmit)}
       >
         <Row gutter={[16, 0]}>
           <Col xs={24} md={12}>
             <Form.Item 
               label={t('maritalStatus')}
+              validateStatus={errors.maritalStatus ? 'error' : ''}
+              help={getErrorMessage(errors.maritalStatus)}
               required
             >
-              <Select
-                placeholder={t('selectMaritalStatus')}
-                value={data.maritalStatus || undefined}
-                onChange={(value) => handleFieldChange('maritalStatus', value)}
-                size="large"
-                className="w-full"
-              >
-                <Option value="single">{t('single')}</Option>
-                <Option value="married">{t('married')}</Option>
-                <Option value="divorced">{t('divorced')}</Option>
-                <Option value="widowed">{t('widowed')}</Option>
-              </Select>
+              <Controller
+                name="maritalStatus"
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    placeholder={t('selectMaritalStatus')}
+                    size="large"
+                    className="w-full"
+                    onChange={(value) => {
+                      field.onChange(value);
+                      trigger('maritalStatus');
+                    }}
+                  >
+                    <Option value="single">{t('single')}</Option>
+                    <Option value="married">{t('married')}</Option>
+                    <Option value="divorced">{t('divorced')}</Option>
+                    <Option value="widowed">{t('widowed')}</Option>
+                  </Select>
+                )}
+              />
             </Form.Item>
           </Col>
           
@@ -122,18 +107,30 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({ data, updateD
             <Form.Item 
               label={t('dependents')}
               validateStatus={errors.dependents ? 'error' : ''}
-              help={errors.dependents}
+              help={getErrorMessage(errors.dependents)}
               required
             >
-              <InputNumber
-                placeholder={t('enterDependents')}
-                value={data.dependents ? parseInt(data.dependents, 10) : undefined}
-                onChange={(value) => handleFieldChange('dependents', value ? value.toString() : '')}
-                onBlur={(e) => handleFieldBlur('dependents', e.target.value)}
-                min={0}
-                max={20}
-                size="large"
-                className="w-full rounded-lg"
+              <Controller
+                name="dependents"
+                control={control}
+                render={({ field }) => (
+                  <InputNumber
+                    placeholder={t('enterDependents')}
+                    value={field.value ? parseInt(field.value, 10) : undefined}
+                    onChange={(value) => {
+                      field.onChange(value ? value.toString() : '');
+                      trigger('dependents');
+                    }}
+                    onBlur={() => {
+                      field.onBlur();
+                      trigger('dependents');
+                    }}
+                    min={0}
+                    max={20}
+                    size="large"
+                    className="w-full rounded-lg"
+                  />
+                )}
               />
             </Form.Item>
           </Col>
@@ -143,22 +140,33 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({ data, updateD
           <Col xs={24} md={12}>
             <Form.Item 
               label={t('employmentStatus')}
+              validateStatus={errors.employmentStatus ? 'error' : ''}
+              help={getErrorMessage(errors.employmentStatus)}
               required
             >
-              <Select
-                placeholder={t('selectEmploymentStatus')}
-                value={data.employmentStatus || undefined}
-                onChange={(value) => handleFieldChange('employmentStatus', value)}
-                size="large"
-                className="w-full"
-              >
-                <Option value="employed">{t('employed')}</Option>
-                <Option value="unemployed">{t('unemployed')}</Option>
-                <Option value="self-employed">{t('selfEmployed')}</Option>
-                <Option value="retired">{t('retired')}</Option>
-                <Option value="student">{t('student')}</Option>
-                <Option value="disabled">{t('disabled')}</Option>
-              </Select>
+              <Controller
+                name="employmentStatus"
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    placeholder={t('selectEmploymentStatus')}
+                    size="large"
+                    className="w-full"
+                    onChange={(value) => {
+                      field.onChange(value);
+                      trigger('employmentStatus');
+                    }}
+                  >
+                    <Option value="employed">{t('employed')}</Option>
+                    <Option value="unemployed">{t('unemployed')}</Option>
+                    <Option value="self-employed">{t('selfEmployed')}</Option>
+                    <Option value="retired">{t('retired')}</Option>
+                    <Option value="student">{t('student')}</Option>
+                    <Option value="disabled">{t('disabled')}</Option>
+                  </Select>
+                )}
+              />
             </Form.Item>
           </Col>
           
@@ -166,21 +174,33 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({ data, updateD
             <Form.Item 
               label={t('monthlyIncome')}
               validateStatus={errors.monthlyIncome ? 'error' : ''}
-              help={errors.monthlyIncome}
+              help={getErrorMessage(errors.monthlyIncome)}
               required
             >
-              <InputNumber
-                prefix={<DollarOutlined />}
-                placeholder={t('enterMonthlyIncome')}
-                value={data.monthlyIncome ? parseFloat(data.monthlyIncome) : undefined}
-                onChange={(value) => handleFieldChange('monthlyIncome', value ? value.toString() : '')}
-                onBlur={(e) => handleFieldBlur('monthlyIncome', e.target.value)}
-                min={0}
-                max={1000000}
-                formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                parser={(value) => Number(value!.replace(/\$\s?|(,*)/g, ''))}
-                size="large"
-                className="w-full rounded-lg"
+              <Controller
+                name="monthlyIncome"
+                control={control}
+                render={({ field }) => (
+                  <InputNumber
+                    prefix={<DollarOutlined />}
+                    placeholder={t('enterMonthlyIncome')}
+                    value={field.value ? parseFloat(field.value) : undefined}
+                    onChange={(value) => {
+                      field.onChange(value ? value.toString() : '');
+                      trigger('monthlyIncome');
+                    }}
+                    onBlur={() => {
+                      field.onBlur();
+                      trigger('monthlyIncome');
+                    }}
+                    min={0}
+                    max={1000000}
+                    formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                    parser={(value) => Number(value!.replace(/\$\s?|(,*)/g, ''))}
+                    size="large"
+                    className="w-full rounded-lg"
+                  />
+                )}
               />
             </Form.Item>
           </Col>
@@ -188,43 +208,54 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({ data, updateD
 
         <Form.Item 
           label={t('housingStatus')}
+          validateStatus={errors.housingStatus ? 'error' : ''}
+          help={getErrorMessage(errors.housingStatus)}
           required
         >
-          <Select
-            placeholder={t('selectHousingStatus')}
-            value={data.housingStatus || undefined}
-            onChange={(value) => handleFieldChange('housingStatus', value)}
-            size="large"
-            className="w-full"
-          >
-            <Option value="owned">{t('owned')}</Option>
-            <Option value="rented">{t('rented')}</Option>
-            <Option value="gov-housing">{t('govHousing')}</Option>
-            <Option value="family-housing">{t('familyHousing')}</Option>
-            <Option value="temporary">{t('temporaryHousing')}</Option>
-          </Select>
+          <Controller
+            name="housingStatus"
+            control={control}
+            render={({ field }) => (
+              <Select
+                {...field}
+                placeholder={t('selectHousingStatus')}
+                size="large"
+                className="w-full"
+                onChange={(value) => {
+                  field.onChange(value);
+                  trigger('housingStatus');
+                }}
+              >
+                <Option value="owned">{t('owned')}</Option>
+                <Option value="rented">{t('rented')}</Option>
+                <Option value="gov-housing">{t('govHousing')}</Option>
+                <Option value="family-housing">{t('familyHousing')}</Option>
+                <Option value="temporary">{t('temporaryHousing')}</Option>
+              </Select>
+            )}
+          />
         </Form.Item>
-      </Form>
 
-      <div className="flex justify-between mt-8">
-        <Button
-          size="large"
-          onClick={handleBack}
-          className="px-8 rounded-lg"
-        >
-          {t('back')}
-        </Button>
-        
-        <Button
-          type="primary"
-          size="large"
-          onClick={handleContinue}
-          disabled={!isFormValid()}
-          className="bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 px-8 rounded-lg"
-        >
-          {t('continue')}
-        </Button>
-      </div>
+        <div className="flex justify-between mt-8">
+          <Button
+            size="large"
+            onClick={handleBack}
+            className="px-8 rounded-lg"
+          >
+            {t('back')}
+          </Button>
+          
+          <Button
+            type="primary"
+            size="large"
+            htmlType="submit"
+            disabled={!isValid}
+            className="bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 px-8 rounded-lg"
+          >
+            {t('continue')}
+          </Button>
+        </div>
+      </Form>
     </Card>
   );
 };

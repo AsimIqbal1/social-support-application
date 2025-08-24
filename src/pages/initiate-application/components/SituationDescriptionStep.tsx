@@ -1,70 +1,55 @@
-import React, { useState } from 'react';
-import { Form, Input, Button, Card, Space, Row, Col } from 'antd';
+import React, { useEffect } from 'react';
+import { Form, Input, Button, Card, Row, Col } from 'antd';
 import { FileTextOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useLanguage } from '../../../i18n/hooks/useLanguage';
+import { situationDescriptionSchema } from '../schemas';
+import type { SituationDescriptionFormData } from '../schemas';
 
 const { TextArea } = Input;
 
-interface SituationDescriptionData {
-  currentFinancialSituation: string;
-  employmentCircumstances: string;
-  reasonForApplying: string;
-}
-
 interface SituationDescriptionStepProps {
-  data: SituationDescriptionData;
-  updateData: (data: Partial<SituationDescriptionData>) => void;
+  data: SituationDescriptionFormData;
+  updateData: (data: Partial<SituationDescriptionFormData>) => void;
 }
 
 const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({ data, updateData }) => {
   const { t } = useLanguage();
   const navigate = useNavigate();
-  const [form] = Form.useForm();
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  console.log("SituationDescriptionStep");
+  const {
+    control,
+    handleSubmit,
+    // watch,
+    formState: { errors, isValid },
+    trigger,
+  } = useForm<SituationDescriptionFormData>({
+    resolver: zodResolver(situationDescriptionSchema),
+    defaultValues: data,
+    mode: 'onBlur',
+  });
 
-  const handleFieldChange = (field: keyof SituationDescriptionData, value: string) => {
-    updateData({ [field]: value });
-    
-    // Clear error for this field
-    if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: '' }));
-    }
-  };
+  // const watchedValues = watch();
 
-  const handleFieldBlur = (field: keyof SituationDescriptionData, value: string) => {
-    let error = '';
-    
-    if (!value.trim()) {
-      error = t('fieldRequired');
-    } else if (value.trim().length < 20) {
-      error = t('minDescriptionLength');
-    } else if (value.trim().length > 1000) {
-      error = t('maxDescriptionLength');
-    }
-    
-    setErrors(prev => ({ ...prev, [field]: error }));
-  };
+  // // Update parent data when form values change
+  // useEffect(() => {
+  //   updateData(watchedValues);
+  // }, [watchedValues, updateData]);
 
-  const isFormValid = (): boolean => {
-    const requiredFields: (keyof SituationDescriptionData)[] = [
-      'currentFinancialSituation', 'employmentCircumstances', 'reasonForApplying'
-    ];
-    
-    return requiredFields.every(field => {
-      const value = data[field];
-      return value && value.trim() && value.trim().length >= 20 && !errors[field];
-    });
-  };
-
-  const handleContinue = () => {
-    if (isFormValid()) {
-      navigate('/initiate-application/review');
-    }
+  const onSubmit = (formData: SituationDescriptionFormData) => {
+    updateData(formData);
+    navigate('/initiate-application/review');
   };
 
   const handleBack = () => {
     navigate('/initiate-application/family-financial');
+  };
+
+  const getErrorMessage = (fieldError: any) => {
+    if (!fieldError) return '';
+    return t(fieldError.message) || fieldError.message;
   };
 
   const getCharacterCount = (text: string) => text ? text.length : 0;
@@ -81,10 +66,10 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({ dat
       </div>
 
       <Form
-        form={form}
         layout="vertical"
         className="space-y-6"
         autoComplete="off"
+        onFinish={handleSubmit(onSubmit)}
       >
         <Form.Item 
           label={
@@ -94,22 +79,32 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({ dat
             </div>
           }
           validateStatus={errors.currentFinancialSituation ? 'error' : ''}
-          help={errors.currentFinancialSituation}
+          help={getErrorMessage(errors.currentFinancialSituation)}
           required
         >
-          <TextArea
-            placeholder={t('describeFinancialSituation')}
-            value={data.currentFinancialSituation}
-            onChange={(e) => handleFieldChange('currentFinancialSituation', e.target.value)}
-            onBlur={(e) => handleFieldBlur('currentFinancialSituation', e.target.value)}
-            rows={4}
-            className="rounded-lg"
-            showCount
-            maxLength={1000}
+          <Controller
+            name="currentFinancialSituation"
+            control={control}
+            render={({ field }) => (
+              <div>
+                <TextArea
+                  {...field}
+                  placeholder={t('describeFinancialSituation')}
+                  rows={4}
+                  className="rounded-lg"
+                  showCount
+                  maxLength={1000}
+                  onBlur={() => {
+                    field.onBlur();
+                    trigger('currentFinancialSituation');
+                  }}
+                />
+                <div className="text-sm text-gray-500 mt-1">
+                  {t('minCharacters', { count: 20 })} • {getCharacterCount(field.value)}/1000
+                </div>
+              </div>
+            )}
           />
-          <div className="text-sm text-gray-500 mt-1">
-            {t('minCharacters', { count: 20 })} • {getCharacterCount(data.currentFinancialSituation)}/1000
-          </div>
         </Form.Item>
 
         <Form.Item 
@@ -120,22 +115,32 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({ dat
             </div>
           }
           validateStatus={errors.employmentCircumstances ? 'error' : ''}
-          help={errors.employmentCircumstances}
+          help={getErrorMessage(errors.employmentCircumstances)}
           required
         >
-          <TextArea
-            placeholder={t('describeEmploymentCircumstances')}
-            value={data.employmentCircumstances}
-            onChange={(e) => handleFieldChange('employmentCircumstances', e.target.value)}
-            onBlur={(e) => handleFieldBlur('employmentCircumstances', e.target.value)}
-            rows={4}
-            className="rounded-lg"
-            showCount
-            maxLength={1000}
+          <Controller
+            name="employmentCircumstances"
+            control={control}
+            render={({ field }) => (
+              <div>
+                <TextArea
+                  {...field}
+                  placeholder={t('describeEmploymentCircumstances')}
+                  rows={4}
+                  className="rounded-lg"
+                  showCount
+                  maxLength={1000}
+                  onBlur={() => {
+                    field.onBlur();
+                    trigger('employmentCircumstances');
+                  }}
+                />
+                <div className="text-sm text-gray-500 mt-1">
+                  {t('minCharacters', { count: 20 })} • {getCharacterCount(field.value)}/1000
+                </div>
+              </div>
+            )}
           />
-          <div className="text-sm text-gray-500 mt-1">
-            {t('minCharacters', { count: 20 })} • {getCharacterCount(data.employmentCircumstances)}/1000
-          </div>
         </Form.Item>
 
         <Form.Item 
@@ -146,22 +151,32 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({ dat
             </div>
           }
           validateStatus={errors.reasonForApplying ? 'error' : ''}
-          help={errors.reasonForApplying}
+          help={getErrorMessage(errors.reasonForApplying)}
           required
         >
-          <TextArea
-            placeholder={t('describeReasonForApplying')}
-            value={data.reasonForApplying}
-            onChange={(e) => handleFieldChange('reasonForApplying', e.target.value)}
-            onBlur={(e) => handleFieldBlur('reasonForApplying', e.target.value)}
-            rows={4}
-            className="rounded-lg"
-            showCount
-            maxLength={1000}
+          <Controller
+            name="reasonForApplying"
+            control={control}
+            render={({ field }) => (
+              <div>
+                <TextArea
+                  {...field}
+                  placeholder={t('describeReasonForApplying')}
+                  rows={4}
+                  className="rounded-lg"
+                  showCount
+                  maxLength={1000}
+                  onBlur={() => {
+                    field.onBlur();
+                    trigger('reasonForApplying');
+                  }}
+                />
+                <div className="text-sm text-gray-500 mt-1">
+                  {t('minCharacters', { count: 20 })} • {getCharacterCount(field.value)}/1000
+                </div>
+              </div>
+            )}
           />
-          <div className="text-sm text-gray-500 mt-1">
-            {t('minCharacters', { count: 20 })} • {getCharacterCount(data.reasonForApplying)}/1000
-          </div>
         </Form.Item>
 
         <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
@@ -178,27 +193,27 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({ dat
             </div>
           </div>
         </div>
-      </Form>
 
-      <div className="flex justify-between mt-8">
-        <Button
-          size="large"
-          onClick={handleBack}
-          className="px-8 rounded-lg"
-        >
-          {t('back')}
-        </Button>
-        
-        <Button
-          type="primary"
-          size="large"
-          onClick={handleContinue}
-          disabled={!isFormValid()}
-          className="bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 px-8 rounded-lg"
-        >
-          {t('continue')}
-        </Button>
-      </div>
+        <div className="flex justify-between mt-8">
+          <Button
+            size="large"
+            onClick={handleBack}
+            className="px-8 rounded-lg"
+          >
+            {t('back')}
+          </Button>
+          
+          <Button
+            type="primary"
+            size="large"
+            htmlType="submit"
+            disabled={!isValid}
+            className="bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 px-8 rounded-lg"
+          >
+            {t('continue')}
+          </Button>
+        </div>
+      </Form>
     </Card>
   );
 };

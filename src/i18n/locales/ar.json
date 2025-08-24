@@ -192,5 +192,23 @@
   "applicationSubmittedDesc": "تم إرسال طلب الرعاية الاجتماعية الخاص بك. ستتلقى رسالة تأكيد بالبريد الإلكتروني قريبًا مع رقم مرجع طلبك.",
   "submissionError": "فشل في الإرسال. يرجى المحاولة مرة أخرى.",
   "returnHome": "العودة للرئيسية",
-  "notProvided": "غير مقدم"
+  "notProvided": "غير مقدم",
+
+  "nameTooLong": "الاسم طويل جداً",
+  "invalidNameFormat": "يمكن أن يحتوي الاسم على الأحرف والمسافات فقط",
+  "nationalIdNumbersOnly": "يمكن أن يحتوي رقم الهوية على أرقام فقط",
+  "invalidAge": "يجب أن يكون العمر بين 18 و 120 سنة",
+  "invalidGender": "يرجى اختيار جنس صالح",
+  "addressTooShort": "يجب أن يكون العنوان 10 أحرف على الأقل",
+  "addressTooLong": "العنوان طويل جداً",
+  "cityTooShort": "اسم المدينة قصير جداً",
+  "cityTooLong": "اسم المدينة طويل جداً",
+  "stateTooShort": "اسم الولاية/الإمارة قصير جداً",
+  "stateTooLong": "اسم الولاية/الإمارة طويل جداً",
+  "emailTooLong": "عنوان البريد الإلكتروني طويل جداً",
+  "invalidMaritalStatus": "يرجى اختيار حالة اجتماعية صالحة",
+  "invalidDependentsRange": "يجب أن يكون عدد المعالين بين 0 و 20",
+  "invalidEmploymentStatus": "يرجى اختيار حالة توظيف صالحة",
+  "invalidIncomeRange": "يجب أن يكون الدخل الشهري بين 0 و 1,000,000 درهم",
+  "invalidHousingStatus": "يرجى اختيار حالة سكن صالحة"
 } 
