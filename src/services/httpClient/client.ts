@@ -64,5 +64,4 @@ export class HTTPClient {
 
 }
 
-// Export singleton instance
 export const httpClient = HTTPClient.getInstance(); 
