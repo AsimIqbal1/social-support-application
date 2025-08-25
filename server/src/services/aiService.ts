@@ -46,33 +46,44 @@ const buildContextString = (context?: Record<string, any>): string => {
 
 // System prompts for different fields
 export const getSystemPrompt = (field: ValidFieldType, context?: Record<string, any>): string => {
-  const basePrompt = `You are a helpful assistant for social welfare applications. 
-Generate professional, empathetic content that helps users describe their situation clearly.
-Keep responses under 800 characters, be respectful and professional.
-Do not include personal information or specific details that the user hasn't provided.
-Provide general guidance that users can customize for their specific situation. 
-Write a response in a ready to submit format.`;
+  const basePrompt = `You are helping someone write their social welfare application. You must write content FROM THE APPLICANT'S PERSPECTIVE that they will submit in their application form.
+
+CRITICAL ROLE:
+- You are writing AS THE APPLICANT (the person applying for help)
+- The user will copy-paste your response into their application form
+- Use the provided context about their situation to create personalized content
+- DO NOT ask for more information - write based on what's provided
+- DO NOT respond as a case worker or evaluator
+- Write as if YOU are the person seeking assistance
+
+FORMATTING RULES:
+- Generate ONLY the main content/body text for the application
+- NO letter headers, subjects, salutations ("Dear Sir"), or closings ("Sincerely")
+- Write direct, professional paragraphs ready for form submission
+- Keep responses under 800 characters
+- Use first person: "I am experiencing..." (you ARE the applicant)
+- Create content ready for copy-paste into application forms`;
 
   const contextString = buildContextString(context);
   
   const fieldSpecificPrompts: Record<ValidFieldType, string> = {
     currentFinancialSituation: `${basePrompt}
 
-Help users describe their financial hardship professionally while maintaining dignity.
-Focus on current income, expenses, and financial challenges.
-Use respectful language that acknowledges their difficulties without being dramatic. ${contextString}`,
+Write as the applicant describing YOUR current financial hardship professionally while maintaining dignity.
+Describe YOUR current income, expenses, and financial challenges using the context provided.
+Write in first person as someone experiencing these difficulties. ${contextString}`,
 
     employmentCircumstances: `${basePrompt}
 
-Help users explain employment challenges constructively.
-Focus on employment status, recent changes, and efforts to find work.
-Present the situation positively while being honest about challenges. ${contextString}`,
+Write as the applicant explaining YOUR employment challenges constructively.
+Describe YOUR employment status, recent changes, and efforts to find work using the context provided.
+Present YOUR situation positively while being honest about challenges. ${contextString}`,
 
     reasonForApplying: `${basePrompt}
 
-Help users articulate their need for assistance clearly and respectfully.
-Focus on why support is needed and how it will help.
-Emphasize the temporary nature of assistance and commitment to self-sufficiency. ${contextString}`
+Write as the applicant articulating YOUR need for assistance clearly and respectfully.
+Explain why YOU need support and how it will help YOU using the context provided.
+Emphasize that YOU view this as temporary assistance and YOUR commitment to self-sufficiency. ${contextString}`
   };
 
   return fieldSpecificPrompts[field];
@@ -81,32 +92,26 @@ Emphasize the temporary nature of assistance and commitment to self-sufficiency.
 // Mock AI response for development/testing
 export const generateMockResponse = (field: ValidFieldType, userPrompt: string, context?: Record<string, any>): string => {
   const mockResponses: Record<ValidFieldType, string> = {
-    currentFinancialSituation: `Based on your situation, here's a professional description:
+    currentFinancialSituation: `I am currently experiencing financial difficulties due to reduced income and increased expenses. My monthly income has been significantly impacted, making it challenging to meet essential living costs including housing, utilities, and basic necessities.
 
-I am currently experiencing financial difficulties due to reduced income and increased expenses. My monthly income has been significantly impacted, making it challenging to meet essential living costs including housing, utilities, and basic necessities.
-
-The primary factors contributing to my financial hardship include the circumstances you've described. Despite my efforts to manage expenses and explore additional income sources, I require temporary financial assistance to maintain stability during this challenging period.
+The primary factors contributing to my financial hardship include recent changes in my employment situation. Despite my efforts to manage expenses and explore additional income sources, I require temporary financial assistance to maintain stability during this challenging period.
 
 I have taken steps to address the situation including budgeting and reducing non-essential expenses, but the gap between my current resources and essential needs remains significant.`,
 
-    employmentCircumstances: `Here's a professional description of your employment situation:
-
-I am currently facing employment challenges that have affected my financial stability. My employment status has changed due to the circumstances you've outlined, impacting my ability to maintain consistent income.
+    employmentCircumstances: `I am currently facing employment challenges that have affected my financial stability. My employment status has changed, impacting my ability to maintain consistent income.
 
 Prior to this situation, I maintained steady employment and have valuable work experience. I am actively pursuing new employment opportunities through job applications, networking, and skill development activities.
 
 My goal is to secure stable employment that will allow me to regain financial independence. I am committed to returning to full-time work and have been exploring opportunities in relevant fields that match my experience and skills.`,
 
-    reasonForApplying: `Here's a clear explanation for your application:
-
-I am applying for social welfare assistance because I am currently experiencing temporary financial hardship that has made it difficult to meet my basic living needs. Despite my best efforts to manage my finances and seek additional income, I require support to ensure stability for myself and my family.
+    reasonForApplying: `I am applying for social welfare assistance because I am currently experiencing temporary financial hardship that has made it difficult to meet my basic living needs. Despite my best efforts to manage my finances and seek additional income, I require support to ensure stability for myself and my family.
 
 This assistance would provide crucial support during this challenging period, helping me maintain housing, nutrition, and other essential needs while I work toward regaining financial independence.
 
 I am committed to using this support responsibly and am actively working on improving my situation through job searching and financial planning. My goal is to become self-sufficient again as soon as possible.`
   };
 
-  return mockResponses[field] || `Professional response for ${field}: ${userPrompt}`;
+  return mockResponses[field] || `I am seeking assistance with ${field}. ${userPrompt} I would appreciate your consideration of my application for support during this challenging time.`;
 };
 
 // Main AI generation function
