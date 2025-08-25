@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Input, Button, Space, Typography, Divider, Card, message } from 'antd';
+import { Modal, Input, Button, Space, Typography, Card, message } from 'antd';
 import {
     OpenAIOutlined,
     SendOutlined,
@@ -10,6 +10,7 @@ import {
     LoadingOutlined
 } from '@ant-design/icons';
 import { useLanguage } from '../../i18n/hooks/useLanguage';
+import { useAIGeneration } from '../../services/api/ai/hooks';
 
 const { TextArea } = Input;
 const { Text, Title } = Typography;
@@ -32,12 +33,22 @@ const WriteWithAI: React.FC<WriteWithAIProps> = ({
     maxLength = 1000,
 }) => {
     const { t } = useLanguage();
+    
+    const {
+        data: aiResponseData,
+        isLoading: isGenerating,
+        error: aiError,
+        isError,
+        generateContent,
+        reset: resetAI
+    } = useAIGeneration();
+
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [userPrompt, setUserPrompt] = useState('');
-    const [aiResponse, setAiResponse] = useState('');
-    const [isGenerating, setIsGenerating] = useState(false);
     const [step, setStep] = useState<'prompt' | 'response' | 'edit'>('prompt');
     const [editableContent, setEditableContent] = useState('');
+
+    const aiResponse = aiResponseData?.content || '';
 
     const handleOpenModal = () => {
         setIsModalVisible(true);
@@ -46,10 +57,9 @@ const WriteWithAI: React.FC<WriteWithAIProps> = ({
 
     const resetModal = () => {
         setUserPrompt('');
-        setAiResponse('');
         setEditableContent('');
         setStep('prompt');
-        setIsGenerating(false);
+        resetAI();
     };
 
     const handleCloseModal = () => {
@@ -57,50 +67,17 @@ const WriteWithAI: React.FC<WriteWithAIProps> = ({
         resetModal();
     };
 
-    const simulateAIGeneration = async () => {
-        setIsGenerating(true);
-
-        // Simulate AI processing time
-        await new Promise(resolve => setTimeout(resolve, 2000));
-
-        // Mock AI response based on field type and user prompt
-        const mockResponses = {
-            currentFinancialSituation: `Based on your request, here's a draft for your current financial situation:
-
-I am currently experiencing financial difficulties due to reduced income and increased expenses. My monthly income has decreased by approximately 40% over the past six months, making it challenging to meet basic living expenses including rent, utilities, and groceries. 
-
-The main factors contributing to my financial hardship include [specific reasons based on your situation]. Despite my efforts to manage expenses and seek additional income sources, I require temporary financial assistance to stabilize my situation and get back on track.
-
-I have explored various options including budgeting, reducing non-essential expenses, and seeking part-time work opportunities. However, the gap between my current income and essential expenses remains significant.`,
-
-            employmentCircumstances: `Here's a professional description of your employment circumstances:
-
-Currently, I am facing employment challenges that have significantly impacted my financial stability. [Specific employment situation - unemployed/underemployed/recent job loss]. 
-
-Prior to this situation, I was employed as [previous position] where I gained valuable experience and maintained steady employment for [duration]. However, due to [circumstances - company downsizing/industry changes/personal circumstances], my employment status changed.
-
-I am actively seeking new employment opportunities and have been [specific actions taken - submitting applications, attending interviews, networking, skills training]. I am committed to returning to full-time employment and have been exploring opportunities in [relevant fields/industries].
-
-My goal is to secure stable employment that will allow me to regain financial independence and no longer require assistance.`,
-
-            reasonForApplying: `Here's a compelling reason for your application:
-
-I am applying for social welfare assistance because I am currently facing temporary financial hardship that has made it difficult to meet my basic living needs. Despite my best efforts to manage my finances and seek additional income sources, I find myself in need of support to ensure stability for myself and my family.
-
-This assistance would provide crucial support during this challenging period and help me maintain housing, nutrition, and other essential needs while I work toward regaining financial independence. I view this support as a temporary bridge that will enable me to get back on my feet.
-
-I am committed to using this assistance responsibly and am actively working on improving my situation through [specific steps - job searching, skills development, budgeting]. My goal is to become self-sufficient again as soon as possible.
-
-The support would make a significant difference in maintaining stability and dignity during this difficult time.`
-        };
-
-        const response = mockResponses[fieldName as keyof typeof mockResponses] ||
-            `Here's a professional response for ${fieldLabel.toLowerCase()}:\n\n${userPrompt}\n\nThis content has been enhanced for clarity and professionalism while maintaining your personal voice and circumstances.`;
-
-        setAiResponse(response);
-        setEditableContent(response);
-        setStep('response');
-        setIsGenerating(false);
+    const callAIGeneration = async () => {
+        try {
+            const result = await generateContent(userPrompt, fieldName);
+            
+            if (result?.content) {
+                setEditableContent(result.content);
+                setStep('response');
+            }
+        } catch (error) {
+            console.error('AI generation failed:', error);
+        }
     };
 
     const handleGenerate = () => {
@@ -108,7 +85,7 @@ The support would make a significant difference in maintaining stability and dig
             message.warning(t('pleaseEnterPrompt'));
             return;
         }
-        simulateAIGeneration();
+        callAIGeneration();
     };
 
     const handleAcceptContent = () => {
@@ -125,8 +102,8 @@ The support would make a significant difference in maintaining stability and dig
 
     const handleDiscardContent = () => {
         setStep('prompt');
-        setAiResponse('');
         setEditableContent('');
+        resetAI();
     };
 
     const renderPromptStep = () => (
@@ -214,6 +191,23 @@ The support would make a significant difference in maintaining stability and dig
                     <LoadingOutlined className="text-4xl text-blue-500 mb-4" />
                     <Title level={4}>{t('aiGenerating')}</Title>
                     <Text type="secondary">{t('pleaseWait')}</Text>
+                </div>
+            );
+        }
+
+        if (isError && aiError && step === 'prompt') {
+            return (
+                <div className="text-center py-8">
+                    <div className="text-red-500 text-4xl mb-4">⚠️</div>
+                    <Title level={4} type="danger">Generation Failed</Title>
+                    <Text type="secondary">
+                        {aiError.message || 'Something went wrong. Please try again.'}
+                    </Text>
+                    <div className="mt-4">
+                        <Button onClick={() => resetAI()}>
+                            Try Again
+                        </Button>
+                    </div>
                 </div>
             );
         }
