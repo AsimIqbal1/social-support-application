@@ -45,17 +45,11 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ formData }) => {
 
       localStorage.removeItem('applicationFormData');
 
-      Modal.success({
-        title: t('applicationSubmitted'),
-        content: t('applicationSubmittedDesc'),
-        okText: t('returnHome'),
-        onOk: () => {
-          navigate('/');
-        },
-      });
+      setIsSubmitting(false);
+      setShowConfirmModal(false);
+      navigate('/');
     } catch {
       message.error(t('submissionError'));
-    } finally {
       setIsSubmitting(false);
       setShowConfirmModal(false);
     }
