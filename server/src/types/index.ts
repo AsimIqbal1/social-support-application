@@ -1,7 +1,7 @@
-// Request/Response types
 export interface AIGenerateRequest {
   userPrompt: string;
   field: string;
+  context?: Record<string, any>;
 }
 
 export interface AIGenerateResponse {
@@ -17,7 +17,6 @@ export interface HealthCheckResponse {
   service: string;
 }
 
-// OpenAI types
 export interface OpenAIUsage {
   promptTokens: number;
   completionTokens: number;
@@ -29,10 +28,8 @@ export interface AIGenerationResult {
   usage: OpenAIUsage | undefined;
 }
 
-// Valid field types for AI generation
 export type ValidFieldType = 'currentFinancialSituation' | 'employmentCircumstances' | 'reasonForApplying';
 
-// Environment variables type
 export interface EnvironmentConfig {
   PORT: number;
   NODE_ENV: string;
@@ -41,7 +38,6 @@ export interface EnvironmentConfig {
   AI_DAILY_LIMIT_PER_IP: number;
 }
 
-// Error response type
 export interface ErrorResponse {
   success: false;
   error: string;

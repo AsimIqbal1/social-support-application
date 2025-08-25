@@ -6,7 +6,7 @@ import { useForm, Controller, type FieldError } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLanguage } from '../../../i18n/hooks/useLanguage';
 import { situationDescriptionSchema } from '../schemas';
-import type { SituationDescriptionFormData } from '../schemas';
+import type { FamilyFinancialFormData, SituationDescriptionFormData } from '../schemas';
 import { WriteWithAI } from '../../../components/writeWithAI';
 
 const { TextArea } = Input;
@@ -16,11 +16,13 @@ const MAXIMAM_CHARACTERS = 1000;
 interface SituationDescriptionStepProps {
   data: SituationDescriptionFormData;
   updateData: (data: Partial<SituationDescriptionFormData>) => void;
+  familyData?: FamilyFinancialFormData;
 }
 
 const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
   data,
   updateData,
+  familyData,
 }) => {
   const { t } = useLanguage();
   const navigate = useNavigate();
@@ -77,6 +79,13 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
         currentValue={currentValue}
         onAccept={(content) => handleAIAccept(fieldName, content)}
         maxLength={MAXIMAM_CHARACTERS}
+        context={{
+          maritalStatus: familyData?.maritalStatus,
+          dependents: familyData?.dependents,
+          monthlyIncome: familyData?.monthlyIncome,
+          housingStatus: familyData?.housingStatus,
+          employmentStatus: familyData?.employmentStatus,
+        }}
       />
     </div>
   );

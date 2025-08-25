@@ -20,6 +20,10 @@ export const validateAIRequest = [
     .trim()
     .isIn(VALID_FIELD_TYPES)
     .withMessage(`Invalid field type. Must be one of: ${VALID_FIELD_TYPES.join(', ')}`),
+  body('context')
+    .optional()
+    .isObject()
+    .withMessage('Context must be an object'),
 ];
 
 // Error handling middleware for validation results

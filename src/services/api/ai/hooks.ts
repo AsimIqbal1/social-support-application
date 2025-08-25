@@ -14,8 +14,8 @@ export const useAIGeneration = (): UseAIGenerationReturn => {
     reset
   } = useAsync(generateAIContent);
 
-  const generateContent = async (userPrompt: string, field: string) => {
-    return execute({ userPrompt, field } as AIGenerateRequest);
+  const generateContent = async (userPrompt: string, field: string, context?: Record<string, any>) => {
+    return execute({ userPrompt, field, context } as AIGenerateRequest);
   };
 
   return {

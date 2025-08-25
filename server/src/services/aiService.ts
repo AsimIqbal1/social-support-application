@@ -10,46 +10,76 @@ import {
 } from '../constants';
 import { env, hasRealApiKey } from '../config/environment';
 
-// Initialize OpenAI client
 const openai = new OpenAI({
   apiKey: env.OPENAI_API_KEY || 'mock-api-key-for-development',
 });
 
+const buildContextString = (context?: Record<string, any>): string => {
+  if (!context || Object.keys(context).length === 0) {
+    return '';
+  }
+
+  const contextParts: string[] = [];
+  
+  if (context.maritalStatus) {
+    contextParts.push(`Marital Status: ${context.maritalStatus}`);
+  }
+  if (context.dependents !== undefined) {
+    contextParts.push(`Number of Dependents: ${context.dependents}`);
+  }
+  if (context.employmentStatus) {
+    contextParts.push(`Employment Status: ${context.employmentStatus}`);
+  }
+  if (context.monthlyIncome !== undefined) {
+    contextParts.push(`Monthly Income: ${context.monthlyIncome} AED`);
+  }
+  if (context.housingStatus) {
+    contextParts.push(`Housing Status: ${context.housingStatus}`);
+  }
+
+  if (contextParts.length === 0) {
+    return '';
+  }
+
+  return `\n\nUser's Current Situation:\n${contextParts.join('\n')}\n\nPlease use this information to provide more personalized and relevant assistance.`;
+};
+
 // System prompts for different fields
-export const getSystemPrompt = (field: ValidFieldType): string => {
+export const getSystemPrompt = (field: ValidFieldType, context?: Record<string, any>): string => {
   const basePrompt = `You are a helpful assistant for social welfare applications. 
 Generate professional, empathetic content that helps users describe their situation clearly.
 Keep responses under 800 characters, be respectful and professional.
 Do not include personal information or specific details that the user hasn't provided.
 Provide general guidance that users can customize for their specific situation. 
-Write the response to the point, without any markdown formatting or intro or follow up text.
-Do not include any other text than the response.`;
+Write a response in a ready to submit format.`;
 
+  const contextString = buildContextString(context);
+  
   const fieldSpecificPrompts: Record<ValidFieldType, string> = {
     currentFinancialSituation: `${basePrompt}
 
 Help users describe their financial hardship professionally while maintaining dignity.
 Focus on current income, expenses, and financial challenges.
-Use respectful language that acknowledges their difficulties without being dramatic.`,
+Use respectful language that acknowledges their difficulties without being dramatic. ${contextString}`,
 
     employmentCircumstances: `${basePrompt}
 
 Help users explain employment challenges constructively.
 Focus on employment status, recent changes, and efforts to find work.
-Present the situation positively while being honest about challenges.`,
+Present the situation positively while being honest about challenges. ${contextString}`,
 
     reasonForApplying: `${basePrompt}
 
 Help users articulate their need for assistance clearly and respectfully.
 Focus on why support is needed and how it will help.
-Emphasize the temporary nature of assistance and commitment to self-sufficiency.`
+Emphasize the temporary nature of assistance and commitment to self-sufficiency. ${contextString}`
   };
 
   return fieldSpecificPrompts[field];
 };
 
 // Mock AI response for development/testing
-export const generateMockResponse = (field: ValidFieldType, userPrompt: string): string => {
+export const generateMockResponse = (field: ValidFieldType, userPrompt: string, context?: Record<string, any>): string => {
   const mockResponses: Record<ValidFieldType, string> = {
     currentFinancialSituation: `Based on your situation, here's a professional description:
 
@@ -82,12 +112,14 @@ I am committed to using this support responsibly and am actively working on impr
 // Main AI generation function
 export const generateAIContent = async (
   userPrompt: string, 
-  field: ValidFieldType
+  field: ValidFieldType,
+  context?: Record<string, any>
 ): Promise<AIGenerationResult> => {
+  console.log("context", context);
   if (!hasRealApiKey()) {
     console.log('🔧 Using mock AI response (no OpenAI API key configured)');
     return {
-      content: generateMockResponse(field, userPrompt),
+      content: generateMockResponse(field, userPrompt, context),
       usage: MOCK_USAGE
     };
   }
@@ -96,7 +128,7 @@ export const generateAIContent = async (
     const completion = await openai.chat.completions.create({
       model: OPENAI_MODEL,
       messages: [
-        { role: "system", content: getSystemPrompt(field) },
+        { role: "system", content: getSystemPrompt(field, context) },
         { role: "user", content: userPrompt }
       ],
       max_tokens: MAX_TOKENS,

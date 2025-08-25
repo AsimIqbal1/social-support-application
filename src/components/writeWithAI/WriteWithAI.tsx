@@ -22,6 +22,7 @@ interface WriteWithAIProps {
     onAccept: (content: string) => void;
     placeholder?: string;
     maxLength?: number;
+    context?: Record<string, any>;
 }
 
 const WriteWithAI: React.FC<WriteWithAIProps> = ({
@@ -31,6 +32,7 @@ const WriteWithAI: React.FC<WriteWithAIProps> = ({
     onAccept,
     placeholder = '',
     maxLength = 1000,
+    context = {},
 }) => {
     const { t } = useLanguage();
     
@@ -69,7 +71,7 @@ const WriteWithAI: React.FC<WriteWithAIProps> = ({
 
     const callAIGeneration = async () => {
         try {
-            const result = await generateContent(userPrompt, fieldName);
+            const result = await generateContent(userPrompt, fieldName, context);
             
             if (result?.content) {
                 setEditableContent(result.content);

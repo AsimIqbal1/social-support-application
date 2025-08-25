@@ -157,6 +157,7 @@ const InitiateApplication: React.FC = () => {
                   <SituationDescriptionStep
                     data={formData.situationDescription}
                     updateData={updateSituationDescription}
+                    familyData={formData.familyFinancial}
                   />
                 }
               />

@@ -2,6 +2,7 @@
 export interface AIGenerateRequest {
   userPrompt: string;
   field: string;
+  context?: Record<string, any>; // Additional context for better AI responses
 }
 
 export interface AIGenerateResponse {
@@ -20,6 +21,6 @@ export interface UseAIGenerationReturn {
   error: any;
   isError: boolean;
   isSuccess: boolean;
-  generateContent: (userPrompt: string, field: string) => Promise<AIGenerateResponse | undefined>;
+  generateContent: (userPrompt: string, field: string, context?: Record<string, any>) => Promise<AIGenerateResponse | undefined>;
   reset: () => void;
 } 

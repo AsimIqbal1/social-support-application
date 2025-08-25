@@ -15,11 +15,11 @@ router.post('/generate',
   validateAIRequest,
   handleValidationErrors,
   asyncHandler(async (req: Request<{}, AIGenerateResponse, AIGenerateRequest>, res: Response<AIGenerateResponse>) => {
-    const { userPrompt, field } = req.body;
+    const { userPrompt, field, context } = req.body;
     
-    console.log(`🚀 AI generation request - Field: ${field}, Prompt length: ${userPrompt.length}`);
+    console.log(`🚀 AI generation request - Field: ${field}, Prompt length: ${userPrompt.length}${context ? ', With context' : ''}`);
     
-    const result = await generateAIContent(userPrompt, field as ValidFieldType);
+    const result = await generateAIContent(userPrompt, field as ValidFieldType, context);
     
     const response: AIGenerateResponse = {
       success: true,
