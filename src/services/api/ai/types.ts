@@ -1,4 +1,4 @@
-import type { Language } from '@/i18n/config/languages';
+import type { Language } from '@/i18n';
 import type { HttpError } from '@/services/httpClient';
 
 export interface AIGenerateRequest {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout, Typography, Button, Space } from 'antd';
 import { GlobalOutlined } from '@ant-design/icons';
-import { useLanguage } from '@/i18n/hooks/useLanguage';
+import { useLanguage } from '@/i18n';
 
 const { Header } = Layout;
 const { Title, Text } = Typography;

@@ -2,7 +2,7 @@
 import { useAsync } from '@/hooks/useAsync';
 import { generateAIContent } from './http';
 import type { AIGenerateRequest, UseAIGenerationReturn } from './types';
-import type { Language } from '@/i18n/config/languages';
+import type { Language } from '@/i18n';
 
 export const useAIGeneration = (): UseAIGenerationReturn => {
   const {

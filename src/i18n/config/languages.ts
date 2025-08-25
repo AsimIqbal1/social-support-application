@@ -22,17 +22,6 @@ export const LANGUAGE_CONFIG: Record<Language, LanguageConfig> = {
   },
 };
 
-// Helper function to get language config
 export const getLanguageConfig = (language: Language): LanguageConfig => {
-  return LANGUAGE_CONFIG[language] || LANGUAGE_CONFIG.en; // fallback to English
-};
-
-// Get all supported languages
-export const getSupportedLanguages = (): LanguageConfig[] => {
-  return Object.values(LANGUAGE_CONFIG);
-};
-
-// Check if a language is supported
-export const isLanguageSupported = (language: string): language is Language => {
-  return language in LANGUAGE_CONFIG;
+  return LANGUAGE_CONFIG[language] || LANGUAGE_CONFIG.en;
 };

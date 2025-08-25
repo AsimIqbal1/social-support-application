@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout, Typography, Row, Col } from 'antd';
-import { useLanguage } from '@/i18n/hooks/useLanguage';
+import { useLanguage } from '@/i18n';
 
 // Import all the extracted components
 import HeroSection from './components/HeroSection';

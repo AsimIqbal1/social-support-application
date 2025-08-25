@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography, Tag } from 'antd';
-import { useLanguage } from '@/i18n/hooks/useLanguage';
+import { useLanguage } from '@/i18n';
 
 const { Title, Paragraph } = Typography;
 

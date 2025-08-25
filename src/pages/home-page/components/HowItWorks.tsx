@@ -5,7 +5,7 @@ import {
   TeamOutlined,
   FileProtectOutlined,
 } from '@ant-design/icons';
-import { useLanguage } from '@/i18n/hooks/useLanguage';
+import { useLanguage } from '@/i18n';
 
 const { Title, Text } = Typography;
 

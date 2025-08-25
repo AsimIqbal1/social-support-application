@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography, Button } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-import { useLanguage } from '@/i18n/hooks/useLanguage';
+import { useLanguage } from '@/i18n';
 
 const { Title, Paragraph } = Typography;
 
