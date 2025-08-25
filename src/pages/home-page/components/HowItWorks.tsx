@@ -20,7 +20,6 @@ const HowItWorks: React.FC = () => {
       <Row gutter={[24, 24]}>
         <Col xs={24} md={8}>
           <Card
-            bordered={false}
             className="text-center bg-gray-50 rounded-card h-full"
           >
             <Avatar

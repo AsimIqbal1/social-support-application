@@ -21,31 +21,10 @@ const HomePage: React.FC = () => {
     <Layout className="min-h-screen bg-uae-cream">
       <ProfessionalHeader />
 
-      {/* Main Content with proper top margin */}
-      <Content className="mt-42">
-        {/* Breadcrumb Section */}
-        <div className="bg-uae-cream py-5">
-          <div className="max-w-7xl mx-auto px-6">
-            <Breadcrumb>
-              <Breadcrumb.Item>
-                <HomeOutlined />
-                <span className="ml-2">{t('breadcrumbHome')}</span>
-              </Breadcrumb.Item>
-              <Breadcrumb.Item>{t('breadcrumbServices')}</Breadcrumb.Item>
-              <Breadcrumb.Item>
-                <span className="text-uae-brown font-medium">
-                  {t('breadcrumbWelfare')}
-                </span>
-              </Breadcrumb.Item>
-            </Breadcrumb>
-          </div>
-        </div>
-
-        {/* Main Content Area */}
+      <Content className="mt-10">
         <div className="bg-uae-cream min-h-screen py-10 pb-20">
           <div className="max-w-7xl mx-auto px-6">
             <Row gutter={[40, 40]}>
-              {/* Left Content */}
               <Col xs={24} lg={16}>
                 <div className="bg-white rounded-card overflow-hidden shadow-card">
                   <HeroSection />
@@ -55,7 +34,6 @@ const HomePage: React.FC = () => {
                 </div>
               </Col>
 
-              {/* Right Sidebar */}
               <Col xs={24} lg={8}>
                 <Sidebar />
               </Col>

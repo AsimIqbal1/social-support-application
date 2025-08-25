@@ -3,9 +3,8 @@ import { Card, Button, Space, Typography } from 'antd';
 import {
   LeftOutlined,
   RightOutlined,
-  PrinterOutlined,
-  ShareAltOutlined,
   IdcardOutlined,
+  FieldTimeOutlined,
   DollarOutlined,
   BankOutlined,
   TeamOutlined,
@@ -42,12 +41,8 @@ const Sidebar: React.FC = () => {
             {t('startApplication')}
           </Button>
           <div className="flex gap-3 justify-center">
-            <Button icon={<PrinterOutlined />} size="small">
-              Print
-            </Button>
-            <Button icon={<ShareAltOutlined />} size="small">
-              Share
-            </Button>
+            <FieldTimeOutlined />
+            <Text>Estimated time: 10 minutes</Text>
           </div>
         </div>
       </Card>
