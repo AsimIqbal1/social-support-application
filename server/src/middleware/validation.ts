@@ -1,10 +1,10 @@
 import { body, validationResult } from 'express-validator';
 import type { Request, Response, NextFunction } from 'express';
-import { 
-  MAX_PROMPT_LENGTH, 
-  MIN_PROMPT_LENGTH, 
+import {
+  MAX_PROMPT_LENGTH,
+  MIN_PROMPT_LENGTH,
   VALID_FIELD_TYPES,
-  HTTP_STATUS 
+  HTTP_STATUS
 } from '../constants';
 import type { ErrorResponse } from '../types';
 
@@ -20,6 +20,11 @@ export const validateAIRequest = [
     .trim()
     .isIn(VALID_FIELD_TYPES)
     .withMessage(`Invalid field type. Must be one of: ${VALID_FIELD_TYPES.join(', ')}`),
+  body('language')
+    .notEmpty()
+    .withMessage('Language is required')
+    .isIn(['en', 'ar'])
+    .withMessage('Language must be either "en" or "ar"'),
   body('context')
     .optional()
     .isObject()
@@ -28,8 +33,8 @@ export const validateAIRequest = [
 
 // Error handling middleware for validation results
 export const handleValidationErrors = (
-  req: Request, 
-  res: Response<ErrorResponse>, 
+  req: Request,
+  res: Response<ErrorResponse>,
   next: NextFunction
 ): void => {
   const errors = validationResult(req);

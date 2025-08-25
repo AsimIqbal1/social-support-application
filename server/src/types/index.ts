@@ -1,14 +1,15 @@
 export interface AIGenerateRequest {
   userPrompt: string;
   field: string;
+  language: 'en' | 'ar'; 
   context?: Record<string, any>;
 }
 
 export interface AIGenerateResponse {
   success: boolean;
-  content?: string;
-  error?: string;
-  usage: OpenAIUsage | undefined;
+  content?: string | undefined;
+  error?: string | undefined;
+  usage?: OpenAIUsage | undefined;
 }
 
 export interface HealthCheckResponse {
@@ -25,7 +26,7 @@ export interface OpenAIUsage {
 
 export interface AIGenerationResult {
   content: string;
-  usage: OpenAIUsage | undefined;
+  usage?: OpenAIUsage;
 }
 
 export type ValidFieldType = 'currentFinancialSituation' | 'employmentCircumstances' | 'reasonForApplying';

@@ -10,26 +10,32 @@ import { generateAIContent } from '../services/aiService';
 const router = Router();
 
 // AI generate endpoint
-router.post('/generate', 
-  aiRateLimit,
-  validateAIRequest,
-  handleValidationErrors,
-  asyncHandler(async (req: Request<{}, AIGenerateResponse, AIGenerateRequest>, res: Response<AIGenerateResponse>) => {
-    const { userPrompt, field, context } = req.body;
-    
-    console.log(`🚀 AI generation request - Field: ${field}, Prompt length: ${userPrompt.length}${context ? ', With context' : ''}`);
-    
-    const result = await generateAIContent(userPrompt, field as ValidFieldType, context);
+router.post('/generate', aiRateLimit, validateAIRequest, handleValidationErrors, asyncHandler(async (req, res) => {
+  const { userPrompt, field, language, context } = req.body as AIGenerateRequest;
+  
+  console.log(`📨 AI generation request: field=${field}, language=${language}, prompt length=${userPrompt.length}`);
+  
+  try {
+    const result = await generateAIContent(userPrompt, field as ValidFieldType, language, context);
     
     const response: AIGenerateResponse = {
       success: true,
       content: result.content,
       usage: result.usage
     };
-
-    console.log(`✅ AI generation successful - Tokens used: ${result.usage?.totalTokens || 'unknown'}`);
+    
+    console.log(`✅ AI generation completed successfully for ${field} in ${language}`);
     res.status(HTTP_STATUS.OK).json(response);
-  })
-);
+  } catch (error) {
+    console.error('❌ AI generation failed:', error);
+    
+    const response: AIGenerateResponse = {
+      success: false,
+      error: 'Failed to generate AI content'
+    };
+    
+    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json(response);
+  }
+}));
 
 export default router; 

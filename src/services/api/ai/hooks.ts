@@ -2,6 +2,7 @@
 import { useAsync } from '@/hooks/useAsync';
 import { generateAIContent } from './http';
 import type { AIGenerateRequest, UseAIGenerationReturn } from './types';
+import type { Language } from '@/i18n/config/languages';
 
 export const useAIGeneration = (): UseAIGenerationReturn => {
   const {
@@ -14,8 +15,8 @@ export const useAIGeneration = (): UseAIGenerationReturn => {
     reset
   } = useAsync(generateAIContent);
 
-  const generateContent = async (userPrompt: string, field: string, context?: Record<string, any>) => {
-    return execute({ userPrompt, field, context } as AIGenerateRequest);
+  const generateContent = async (userPrompt: string, field: string, language: Language, context?: Record<string, any>) => {
+    return execute({ userPrompt, field, language, context } as AIGenerateRequest);
   };
 
   return {
@@ -25,6 +26,6 @@ export const useAIGeneration = (): UseAIGenerationReturn => {
     isError,
     isSuccess,
     generateContent,
-    reset
+    reset,
   };
 };

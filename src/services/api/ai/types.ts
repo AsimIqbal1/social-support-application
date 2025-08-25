@@ -1,26 +1,25 @@
+import type { Language } from '@/i18n/config/languages';
+import type { HttpError } from '@/services/httpClient';
 
 export interface AIGenerateRequest {
   userPrompt: string;
   field: string;
-  context?: Record<string, any>; // Additional context for better AI responses
+  language: Language;
+  context?: Record<string, any>;
 }
 
 export interface AIGenerateResponse {
   success: boolean;
-  content: string;
-  usage?: {
-    promptTokens: number;
-    completionTokens: number;
-    totalTokens: number;
-  };
+  content?: string;
+  error?: string;
 }
 
 export interface UseAIGenerationReturn {
   data: AIGenerateResponse | undefined;
   isLoading: boolean;
-  error: any;
+  error: HttpError | null;
   isError: boolean;
   isSuccess: boolean;
-  generateContent: (userPrompt: string, field: string, context?: Record<string, any>) => Promise<AIGenerateResponse | undefined>;
+  generateContent: (userPrompt: string, field: string, language: Language, context?: Record<string, any>) => Promise<AIGenerateResponse | undefined>;
   reset: () => void;
 } 

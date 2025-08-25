@@ -45,7 +45,11 @@ const buildContextString = (context?: Record<string, any>): string => {
 };
 
 // System prompts for different fields
-export const getSystemPrompt = (field: ValidFieldType, context?: Record<string, any>): string => {
+export const getSystemPrompt = (field: ValidFieldType, language: 'en' | 'ar', context?: Record<string, any>): string => {
+  const languageInstructions = language === 'ar' 
+    ? 'You MUST write your response in Arabic language only. Use proper Arabic grammar and vocabulary.'
+    : 'You MUST write your response in English language only.';
+
   const basePrompt = `You are helping someone write their social welfare application. You must write content FROM THE APPLICANT'S PERSPECTIVE that they will submit in their application form.
 
 CRITICAL ROLE:
@@ -55,6 +59,9 @@ CRITICAL ROLE:
 - DO NOT ask for more information - write based on what's provided
 - DO NOT respond as a case worker or evaluator
 - Write as if YOU are the person seeking assistance
+
+LANGUAGE RULES:
+${languageInstructions}
 
 FORMATTING RULES:
 - Generate ONLY the main content/body text for the application
@@ -90,78 +97,79 @@ Emphasize that YOU view this as temporary assistance and YOUR commitment to self
 };
 
 // Mock AI response for development/testing
-export const generateMockResponse = (field: ValidFieldType, userPrompt: string, context?: Record<string, any>): string => {
-  const mockResponses: Record<ValidFieldType, string> = {
-    currentFinancialSituation: `I am currently experiencing financial difficulties due to reduced income and increased expenses. My monthly income has been significantly impacted, making it challenging to meet essential living costs including housing, utilities, and basic necessities.
+export const generateMockResponse = (field: ValidFieldType, language: 'en' | 'ar', context?: Record<string, any>): string => {
+  const contextInfo = context ? 
+    ` (Based on your context: ${Object.entries(context).map(([key, value]) => `${key}: ${value}`).join(', ')})` : 
+    '';
 
-The primary factors contributing to my financial hardship include recent changes in my employment situation. Despite my efforts to manage expenses and explore additional income sources, I require temporary financial assistance to maintain stability during this challenging period.
-
-I have taken steps to address the situation including budgeting and reducing non-essential expenses, but the gap between my current resources and essential needs remains significant.`,
-
-    employmentCircumstances: `I am currently facing employment challenges that have affected my financial stability. My employment status has changed, impacting my ability to maintain consistent income.
-
-Prior to this situation, I maintained steady employment and have valuable work experience. I am actively pursuing new employment opportunities through job applications, networking, and skill development activities.
-
-My goal is to secure stable employment that will allow me to regain financial independence. I am committed to returning to full-time work and have been exploring opportunities in relevant fields that match my experience and skills.`,
-
-    reasonForApplying: `I am applying for social welfare assistance because I am currently experiencing temporary financial hardship that has made it difficult to meet my basic living needs. Despite my best efforts to manage my finances and seek additional income, I require support to ensure stability for myself and my family.
-
-This assistance would provide crucial support during this challenging period, helping me maintain housing, nutrition, and other essential needs while I work toward regaining financial independence.
-
-I am committed to using this support responsibly and am actively working on improving my situation through job searching and financial planning. My goal is to become self-sufficient again as soon as possible.`
+  const mockResponses = {
+    en: {
+      currentFinancialSituation: `I am currently facing significant financial hardship due to limited income sources. My monthly income of ${context?.monthlyIncome || 'minimal amount'} is insufficient to cover basic living expenses including housing, utilities, and food costs. With ${context?.dependents || 'family members'} depending on me, I am struggling to meet our essential needs and require assistance to maintain a stable living situation.${contextInfo}`,
+      
+      employmentCircumstances: `I am currently ${context?.employmentStatus || 'seeking employment opportunities'} and face challenges in securing stable work. Despite my efforts to find employment, I encounter barriers that prevent me from achieving financial stability. I am committed to improving my employment situation and would benefit from support during this transitional period.${contextInfo}`,
+      
+      reasonForApplying: `I am applying for social support because my current financial situation prevents me from meeting basic needs for myself and my family. This assistance would provide crucial support while I work towards improving my circumstances. I view this as temporary help that will enable me to achieve greater stability and self-sufficiency.${contextInfo}`,
+    },
+    ar: {
+      currentFinancialSituation: `أواجه حاليًا صعوبات مالية كبيرة بسبب محدودية مصادر الدخل. راتبي الشهري البالغ ${context?.monthlyIncome || 'مبلغ محدود'} درهم غير كافٍ لتغطية النفقات الأساسية للمعيشة بما في ذلك السكن والمرافق والطعام. مع وجود ${context?.dependents || 'أفراد العائلة'} يعتمدون علي، أكافح لتلبية احتياجاتنا الأساسية وأحتاج إلى المساعدة للحفاظ على وضع معيشي مستقر.${contextInfo}`,
+      
+      employmentCircumstances: `أنا حاليًا ${context?.employmentStatus === 'employed' ? 'موظف' : context?.employmentStatus === 'unemployed' ? 'عاطل عن العمل' : 'أبحث عن فرص عمل'} وأواجه تحديات في الحصول على عمل مستقر. رغم جهودي للعثور على عمل، أواجه عوائق تمنعني من تحقيق الاستقرار المالي. أنا ملتزم بتحسين وضعي الوظيفي وسأستفيد من الدعم خلال هذه الفترة الانتقالية.${contextInfo}`,
+      
+      reasonForApplying: `أتقدم بطلب للحصول على الدعم الاجتماعي لأن وضعي المالي الحالي يمنعني من تلبية الاحتياجات الأساسية لي ولعائلتي. هذه المساعدة ستوفر دعمًا حيويًا بينما أعمل على تحسين ظروفي. أنظر إلى هذا كمساعدة مؤقتة ستمكنني من تحقيق استقرار أكبر والاعتماد على الذات.${contextInfo}`,
+    }
   };
 
-  return mockResponses[field] || `I am seeking assistance with ${field}. ${userPrompt} I would appreciate your consideration of my application for support during this challenging time.`;
+  return mockResponses[language][field];
 };
 
 // Main AI generation function
 export const generateAIContent = async (
-  userPrompt: string, 
+  userPrompt: string,
   field: ValidFieldType,
+  language: 'en' | 'ar',
   context?: Record<string, any>
 ): Promise<AIGenerationResult> => {
-  console.log("context", context);
+  console.log(`🤖 Generating AI content for field: ${field}, language: ${language}`);
+  
+  // Mock response if no real API key
   if (!hasRealApiKey()) {
-    console.log('🔧 Using mock AI response (no OpenAI API key configured)');
+    console.log('📝 Using mock response (no API key)');
     return {
-      content: generateMockResponse(field, userPrompt, context),
+      content: generateMockResponse(field, language, context),
       usage: MOCK_USAGE
     };
   }
 
-  try {    
+  try {
     const completion = await openai.chat.completions.create({
       model: OPENAI_MODEL,
       messages: [
-        { role: "system", content: getSystemPrompt(field, context) },
+        { role: "system", content: getSystemPrompt(field, language, context) },
         { role: "user", content: userPrompt }
       ],
       max_tokens: MAX_TOKENS,
       temperature: OPENAI_TEMPERATURE,
       frequency_penalty: OPENAI_FREQUENCY_PENALTY,
-      presence_penalty: OPENAI_PRESENCE_PENALTY
+      presence_penalty: OPENAI_PRESENCE_PENALTY,
     });
 
-    const content = completion.choices[0]?.message?.content;
-    if (!content) {
-      throw new Error('No content generated from OpenAI');
-    }
+    const content = completion.choices[0]?.message?.content || '';
+    const usage = completion.usage ? {
+      promptTokens: completion.usage.prompt_tokens,
+      completionTokens: completion.usage.completion_tokens,
+      totalTokens: completion.usage.total_tokens
+    } : MOCK_USAGE;
 
-    return {
-      content,
-      usage: completion.usage ? {
-        promptTokens: completion.usage.prompt_tokens,
-        completionTokens: completion.usage.completion_tokens,
-        totalTokens: completion.usage.total_tokens
-      } : undefined
-    };
+    console.log(`✅ AI content generated successfully, tokens used: ${usage.totalTokens}`);
+    
+    return { content, usage };
   } catch (error) {
-    console.error('🚨 OpenAI API error:', error);
+    console.error('❌ OpenAI API error:', error);
     
     // Fallback to mock response on API error
-    console.log('🔄 Falling back to mock response due to API error');
+    console.log('📝 Falling back to mock response due to API error');
     return {
-      content: generateMockResponse(field, userPrompt),
+      content: generateMockResponse(field, language, context),
       usage: MOCK_USAGE
     };
   }

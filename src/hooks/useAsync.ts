@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import type { HttpError } from '@/services/httpClient';
 
 interface AsyncState<T> {
-  data: T | undefined;
+  data?: T;
   isLoading: boolean;
   error: HttpError | null;
   isError: boolean;
