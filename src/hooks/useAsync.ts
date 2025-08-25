@@ -12,7 +12,7 @@ interface AsyncState<T> {
 interface UseAsyncReturn<T, P extends any[]> extends AsyncState<T> {
   execute: (...params: P) => Promise<T | undefined>;
   reset: () => void;
-  mutate: (...params: P) => Promise<T | undefined>; 
+  mutate: (...params: P) => Promise<T | undefined>;
 }
 
 export const useAsync = <T, P extends any[]>(
@@ -23,40 +23,43 @@ export const useAsync = <T, P extends any[]>(
     isLoading: false,
     error: null,
     isError: false,
-    isSuccess: false
+    isSuccess: false,
   });
 
-  const execute = useCallback(async (...params: P): Promise<T | undefined> => {
-    setState(prev => ({
-      ...prev,
-      isLoading: true,
-      error: null,
-      isError: false,
-      isSuccess: false
-    }));
-
-    try {
-      const result = await asyncFunction(...params);
-      setState({
-        data: result,
-        isLoading: false,
-        error: null,
-        isError: false,
-        isSuccess: true
-      });
-      return result;
-    } catch (error) {
-      const httpError = error as HttpError;
+  const execute = useCallback(
+    async (...params: P): Promise<T | undefined> => {
       setState(prev => ({
         ...prev,
-        isLoading: false,
-        error: httpError,
-        isError: true,
-        isSuccess: false
+        isLoading: true,
+        error: null,
+        isError: false,
+        isSuccess: false,
       }));
-      return undefined;
-    }
-  }, [asyncFunction]);
+
+      try {
+        const result = await asyncFunction(...params);
+        setState({
+          data: result,
+          isLoading: false,
+          error: null,
+          isError: false,
+          isSuccess: true,
+        });
+        return result;
+      } catch (error) {
+        const httpError = error as HttpError;
+        setState(prev => ({
+          ...prev,
+          isLoading: false,
+          error: httpError,
+          isError: true,
+          isSuccess: false,
+        }));
+        return undefined;
+      }
+    },
+    [asyncFunction]
+  );
 
   const reset = useCallback(() => {
     setState({
@@ -64,7 +67,7 @@ export const useAsync = <T, P extends any[]>(
       isLoading: false,
       error: null,
       isError: false,
-      isSuccess: false
+      isSuccess: false,
     });
   }, []);
 
@@ -72,6 +75,6 @@ export const useAsync = <T, P extends any[]>(
     ...state,
     execute,
     mutate: execute,
-    reset
+    reset,
   };
-}; 
+};

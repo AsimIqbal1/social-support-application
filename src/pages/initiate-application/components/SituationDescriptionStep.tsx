@@ -6,7 +6,10 @@ import { useForm, Controller, type FieldError } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLanguage } from '@/i18n';
 import { situationDescriptionSchema } from '../schemas';
-import type { FamilyFinancialFormData, SituationDescriptionFormData } from '../schemas';
+import type {
+  FamilyFinancialFormData,
+  SituationDescriptionFormData,
+} from '../schemas';
 import { WriteWithAI } from '@/components';
 
 const { TextArea } = Input;
@@ -57,7 +60,10 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
 
   const getCharacterCount = (text: string) => (text ? text.length : 0);
 
-  const handleAIAccept = (fieldName: keyof SituationDescriptionFormData, content: string) => {
+  const handleAIAccept = (
+    fieldName: keyof SituationDescriptionFormData,
+    content: string
+  ) => {
     setValue(fieldName, content);
     trigger(fieldName);
   };
@@ -77,7 +83,7 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
         fieldName={fieldName}
         fieldLabel={label}
         currentValue={currentValue}
-        onAccept={(content) => handleAIAccept(fieldName, content)}
+        onAccept={content => handleAIAccept(fieldName, content)}
         maxLength={MAXIMAM_CHARACTERS}
         context={{
           maritalStatus: familyData?.maritalStatus,
@@ -115,7 +121,7 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
           validateStatus={errors.currentFinancialSituation ? 'error' : ''}
           help={getErrorMessage(errors.currentFinancialSituation)}
           required
-          className=''
+          className=""
         >
           <Controller
             name="currentFinancialSituation"

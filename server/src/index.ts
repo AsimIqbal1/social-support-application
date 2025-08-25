@@ -44,8 +44,12 @@ app.use(globalErrorHandler);
 // Start server
 app.listen(env.PORT, () => {
   console.log(`🚀 ${SERVICE_NAME} running on port ${env.PORT}`);
-  console.log(`🌍 CORS enabled for: ${Array.isArray(dynamicCorsConfig.origin) ? dynamicCorsConfig.origin.join(', ') : dynamicCorsConfig.origin}`);
-  console.log(`🔑 OpenAI API key: ${hasRealApiKey() ? '✅ Configured' : '❌ Not configured (using mock responses)'}`);
+  console.log(
+    `🌍 CORS enabled for: ${Array.isArray(dynamicCorsConfig.origin) ? dynamicCorsConfig.origin.join(', ') : dynamicCorsConfig.origin}`
+  );
+  console.log(
+    `🔑 OpenAI API key: ${hasRealApiKey() ? '✅ Configured' : '❌ Not configured (using mock responses)'}`
+  );
   console.log(`🤖 AI endpoint: http://localhost:${env.PORT}/api/ai/generate`);
 });
 

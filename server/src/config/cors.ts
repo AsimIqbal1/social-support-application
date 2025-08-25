@@ -16,15 +16,15 @@ export const getCorsOrigins = (): string | string[] => {
       'http://localhost:5174',
       'http://localhost:5175',
       'http://localhost:5176',
-      env.FRONTEND_URL
+      env.FRONTEND_URL,
     ].filter((url, index, arr) => arr.indexOf(url) === index); // Remove duplicates
   }
-  
+
   return env.FRONTEND_URL;
 };
 
 // Update CORS config with dynamic origins
 export const dynamicCorsConfig: CorsOptions = {
   ...corsConfig,
-  origin: getCorsOrigins()
-}; 
+  origin: getCorsOrigins(),
+};

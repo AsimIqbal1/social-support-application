@@ -19,9 +19,7 @@ const HowItWorks: React.FC = () => {
       </Title>
       <Row gutter={[24, 24]}>
         <Col xs={24} md={8}>
-          <Card
-            className="text-center bg-gray-50 rounded-card h-full"
-          >
+          <Card className="text-center bg-gray-50 rounded-card h-full">
             <Avatar
               size={60}
               className="bg-blue-100 text-gov-primary mb-4"

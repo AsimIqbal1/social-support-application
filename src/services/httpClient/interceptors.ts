@@ -1,5 +1,10 @@
 import { message } from 'antd';
-import type { AxiosInstance, AxiosResponse, AxiosError, InternalAxiosRequestConfig } from 'axios';
+import type {
+  AxiosInstance,
+  AxiosResponse,
+  AxiosError,
+  InternalAxiosRequestConfig,
+} from 'axios';
 import { HttpStatus, type HttpError, type RequestConfig } from './types';
 import { ERROR_MESSAGES, isDevelopment } from './config';
 
@@ -17,7 +22,9 @@ export const setupRequestInterceptor = (axiosInstance: AxiosInstance): void => {
 };
 
 // Response interceptor
-export const setupResponseInterceptor = (axiosInstance: AxiosInstance): void => {
+export const setupResponseInterceptor = (
+  axiosInstance: AxiosInstance
+): void => {
   axiosInstance.interceptors.response.use(
     (response: AxiosResponse): AxiosResponse => {
       return response;
@@ -40,12 +47,12 @@ const handleResponseError = (error: AxiosError): HttpError => {
 
   if (error.response) {
     const { status, statusText, data } = error.response;
-    
+
     httpError = {
       message: getErrorMessage(status, data) || errorMessage,
       status,
       statusText,
-      data
+      data,
     };
 
     if (showToast) {
@@ -58,14 +65,14 @@ const handleResponseError = (error: AxiosError): HttpError => {
         method: error.config?.method,
         status,
         statusText,
-        data
+        data,
       });
     }
   } else {
     httpError = {
       message: customMessage || ERROR_MESSAGES.GENERIC_ERROR,
       status: 0,
-      statusText: 'Request Error'
+      statusText: 'Request Error',
     };
 
     if (showToast) {
@@ -124,6 +131,6 @@ const showErrorToast = (errorMessage: string, status?: number): void => {
   message.error({
     content: errorMessage,
     duration,
-    key: 'http-error' // Prevent duplicate toasts
+    key: 'http-error', // Prevent duplicate toasts
   });
-}; 
+};

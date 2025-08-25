@@ -19,7 +19,7 @@ export interface HttpError {
 // Custom request configuration
 export interface RequestConfig extends AxiosRequestConfig {
   showErrorToast?: boolean; // Whether to show error toast for this request
-  errorMessage?: string;    // Custom error message to show
+  errorMessage?: string; // Custom error message to show
 }
 
 // Response wrapper
@@ -33,10 +33,10 @@ export const HttpMethod = {
   POST: 'POST',
   PUT: 'PUT',
   DELETE: 'DELETE',
-  PATCH: 'PATCH'
+  PATCH: 'PATCH',
 } as const;
 
-export type HttpMethodType = typeof HttpMethod[keyof typeof HttpMethod];
+export type HttpMethodType = (typeof HttpMethod)[keyof typeof HttpMethod];
 
 // Common HTTP status codes
 export const HttpStatus = {
@@ -51,7 +51,7 @@ export const HttpStatus = {
   TOO_MANY_REQUESTS: 429,
   INTERNAL_SERVER_ERROR: 500,
   BAD_GATEWAY: 502,
-  SERVICE_UNAVAILABLE: 503
+  SERVICE_UNAVAILABLE: 503,
 } as const;
 
-export type HttpStatusType = typeof HttpStatus[keyof typeof HttpStatus]; 
+export type HttpStatusType = (typeof HttpStatus)[keyof typeof HttpStatus];

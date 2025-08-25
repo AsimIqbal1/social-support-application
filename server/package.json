@@ -12,7 +12,12 @@
     "clean": "rm -rf dist",
     "type-check": "tsc --noEmit"
   },
-  "keywords": ["ai", "openai", "express", "api"],
+  "keywords": [
+    "ai",
+    "openai",
+    "express",
+    "api"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -31,4 +36,4 @@
     "tsx": "^4.19.2",
     "typescript": "^5.8.3"
   }
-} 
+}

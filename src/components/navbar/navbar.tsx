@@ -16,7 +16,10 @@ const Navbar: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 md:px-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-4">
           <div className="flex items-center gap-2 md:gap-4 flex-1 min-w-0">
             <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 min-w-0">
-              <Title level={5} className="!m-0 !text-uae-brown !font-semibold text-sm md:text-base lg:text-lg whitespace-nowrap">
+              <Title
+                level={5}
+                className="!m-0 !text-uae-brown !font-semibold text-sm md:text-base lg:text-lg whitespace-nowrap"
+              >
                 {t('uae')} |
               </Title>
               <Text className="text-uae-brown text-xs md:text-sm lg:text-base truncate">
@@ -47,4 +50,4 @@ const Navbar: React.FC = () => {
   );
 };
 
-export default Navbar; 
+export default Navbar;

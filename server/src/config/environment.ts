@@ -3,7 +3,7 @@ import type { EnvironmentConfig } from '../types';
 import {
   DEFAULT_PORT,
   DEFAULT_FRONTEND_URL,
-  DEFAULT_AI_DAILY_LIMIT
+  DEFAULT_AI_DAILY_LIMIT,
 } from '../constants';
 
 // Load environment variables
@@ -17,11 +17,11 @@ export const env: EnvironmentConfig = {
   AI_DAILY_LIMIT_PER_IP: parseInt(
     process.env.AI_DAILY_LIMIT_PER_IP || DEFAULT_AI_DAILY_LIMIT.toString(),
     10
-  )
+  ),
 };
 
 export const isProduction = (): boolean => env.NODE_ENV === 'production';
 export const isDevelopment = (): boolean => env.NODE_ENV === 'development';
 export const hasRealApiKey = (): boolean => {
-  return !!(env.OPENAI_API_KEY);
-}; 
+  return !!env.OPENAI_API_KEY;
+};

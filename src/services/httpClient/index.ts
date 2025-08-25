@@ -6,8 +6,13 @@ export type {
   RequestConfig,
   HttpResponse,
   HttpMethodType,
-  HttpStatusType
+  HttpStatusType,
 } from './types';
 
 export { HttpMethod, HttpStatus } from './types';
-export { ERROR_MESSAGES, BASE_URL, isDevelopment, isProduction } from './config';
+export {
+  ERROR_MESSAGES,
+  BASE_URL,
+  isDevelopment,
+  isProduction,
+} from './config';

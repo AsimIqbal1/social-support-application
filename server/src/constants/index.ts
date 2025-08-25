@@ -25,7 +25,7 @@ export const OPENAI_PRESENCE_PENALTY = 0.3;
 export const VALID_FIELD_TYPES: ValidFieldType[] = [
   'currentFinancialSituation',
   'employmentCircumstances',
-  'reasonForApplying'
+  'reasonForApplying',
 ];
 
 // Service name
@@ -35,7 +35,7 @@ export const SERVICE_NAME = 'social-support-ai-server';
 export const MOCK_USAGE = {
   promptTokens: 50,
   completionTokens: 200,
-  totalTokens: 250
+  totalTokens: 250,
 };
 
 // HTTP status codes
@@ -45,5 +45,5 @@ export const HTTP_STATUS = {
   UNAUTHORIZED: 401,
   NOT_FOUND: 404,
   TOO_MANY_REQUESTS: 429,
-  INTERNAL_SERVER_ERROR: 500
-} as const; 
+  INTERNAL_SERVER_ERROR: 500,
+} as const;

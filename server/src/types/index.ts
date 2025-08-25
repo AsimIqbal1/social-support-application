@@ -1,7 +1,7 @@
 export interface AIGenerateRequest {
   userPrompt: string;
   field: string;
-  language: 'en' | 'ar'; 
+  language: 'en' | 'ar';
   context?: Record<string, any>;
 }
 
@@ -29,7 +29,10 @@ export interface AIGenerationResult {
   usage?: OpenAIUsage;
 }
 
-export type ValidFieldType = 'currentFinancialSituation' | 'employmentCircumstances' | 'reasonForApplying';
+export type ValidFieldType =
+  | 'currentFinancialSituation'
+  | 'employmentCircumstances'
+  | 'reasonForApplying';
 
 export interface EnvironmentConfig {
   PORT: number;
@@ -43,4 +46,4 @@ export interface ErrorResponse {
   success: false;
   error: string;
   details?: any[];
-} 
+}

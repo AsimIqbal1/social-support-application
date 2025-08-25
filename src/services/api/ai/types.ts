@@ -20,6 +20,11 @@ export interface UseAIGenerationReturn {
   error: HttpError | null;
   isError: boolean;
   isSuccess: boolean;
-  generateContent: (userPrompt: string, field: string, language: Language, context?: Record<string, any>) => Promise<AIGenerateResponse | undefined>;
+  generateContent: (
+    userPrompt: string,
+    field: string,
+    language: Language,
+    context?: Record<string, any>
+  ) => Promise<AIGenerateResponse | undefined>;
   reset: () => void;
-} 
+}

@@ -9,7 +9,7 @@ const ServiceInfo: React.FC = () => {
 
   return (
     <div className="p-6">
-      <div className='flex justify-start items-center gap-2'>
+      <div className="flex justify-start items-center gap-2">
         <Tag color="green" className="text-sm py-2 px-4 rounded-full">
           {t('serviceFee')}
         </Tag>

@@ -1,4 +1,3 @@
-
 const API_BASE = '/api';
 
 export const AI_ENDPOINTS = {
@@ -7,4 +6,4 @@ export const AI_ENDPOINTS = {
 
 export const ENDPOINTS = {
   AI: AI_ENDPOINTS,
-} as const; 
+} as const;

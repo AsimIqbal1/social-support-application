@@ -1,7 +1,10 @@
 import axios, { type AxiosInstance } from 'axios';
 import type { RequestConfig, HttpResponse } from './types';
 import { httpConfig } from './config';
-import { setupRequestInterceptor, setupResponseInterceptor } from './interceptors';
+import {
+  setupRequestInterceptor,
+  setupResponseInterceptor,
+} from './interceptors';
 
 export class HTTPClient {
   private static instance: HTTPClient;
@@ -9,7 +12,7 @@ export class HTTPClient {
 
   private constructor() {
     this.axiosInstance = axios.create(httpConfig);
-    
+
     this.setupInterceptors();
   }
 
@@ -30,23 +33,53 @@ export class HTTPClient {
     return response.data;
   }
 
-  public async post<T = any>(url: string, data?: any, config?: RequestConfig): Promise<T> {
-    const response: HttpResponse<T> = await this.axiosInstance.post(url, data, config);
+  public async post<T = any>(
+    url: string,
+    data?: any,
+    config?: RequestConfig
+  ): Promise<T> {
+    const response: HttpResponse<T> = await this.axiosInstance.post(
+      url,
+      data,
+      config
+    );
     return response.data;
   }
 
-  public async put<T = any>(url: string, data?: any, config?: RequestConfig): Promise<T> {
-    const response: HttpResponse<T> = await this.axiosInstance.put(url, data, config);
+  public async put<T = any>(
+    url: string,
+    data?: any,
+    config?: RequestConfig
+  ): Promise<T> {
+    const response: HttpResponse<T> = await this.axiosInstance.put(
+      url,
+      data,
+      config
+    );
     return response.data;
   }
 
-  public async delete<T = any>(url: string, config?: RequestConfig): Promise<T> {
-    const response: HttpResponse<T> = await this.axiosInstance.delete(url, config);
+  public async delete<T = any>(
+    url: string,
+    config?: RequestConfig
+  ): Promise<T> {
+    const response: HttpResponse<T> = await this.axiosInstance.delete(
+      url,
+      config
+    );
     return response.data;
   }
 
-  public async patch<T = any>(url: string, data?: any, config?: RequestConfig): Promise<T> {
-    const response: HttpResponse<T> = await this.axiosInstance.patch(url, data, config);
+  public async patch<T = any>(
+    url: string,
+    data?: any,
+    config?: RequestConfig
+  ): Promise<T> {
+    const response: HttpResponse<T> = await this.axiosInstance.patch(
+      url,
+      data,
+      config
+    );
     return response.data;
   }
 
@@ -61,7 +94,6 @@ export class HTTPClient {
   public removeDefaultHeader(key: string): void {
     delete this.axiosInstance.defaults.headers.common[key];
   }
-
 }
 
-export const httpClient = HTTPClient.getInstance(); 
+export const httpClient = HTTPClient.getInstance();

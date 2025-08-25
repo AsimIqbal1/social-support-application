@@ -4,7 +4,7 @@ import {
   MAX_PROMPT_LENGTH,
   MIN_PROMPT_LENGTH,
   VALID_FIELD_TYPES,
-  HTTP_STATUS
+  HTTP_STATUS,
 } from '../constants';
 import type { ErrorResponse } from '../types';
 
@@ -14,12 +14,16 @@ export const validateAIRequest = [
     .isString()
     .trim()
     .isLength({ min: MIN_PROMPT_LENGTH, max: MAX_PROMPT_LENGTH })
-    .withMessage(`Prompt must be between ${MIN_PROMPT_LENGTH} and ${MAX_PROMPT_LENGTH} characters`),
+    .withMessage(
+      `Prompt must be between ${MIN_PROMPT_LENGTH} and ${MAX_PROMPT_LENGTH} characters`
+    ),
   body('field')
     .isString()
     .trim()
     .isIn(VALID_FIELD_TYPES)
-    .withMessage(`Invalid field type. Must be one of: ${VALID_FIELD_TYPES.join(', ')}`),
+    .withMessage(
+      `Invalid field type. Must be one of: ${VALID_FIELD_TYPES.join(', ')}`
+    ),
   body('language')
     .notEmpty()
     .withMessage('Language is required')
@@ -42,9 +46,9 @@ export const handleValidationErrors = (
     res.status(HTTP_STATUS.BAD_REQUEST).json({
       success: false,
       error: 'Validation failed',
-      details: errors.array()
+      details: errors.array(),
     });
     return;
   }
   next();
-}; 
+};
