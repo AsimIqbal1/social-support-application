@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Steps, Card, Layout } from 'antd';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { useLanguage } from '@/i18n';
@@ -13,35 +13,9 @@ import type {
   CompleteApplicationFormData,
 } from './schemas';
 import { ROUTES } from '@/constants';
+import { initialFormData, STORAGE_KEY } from './constants';
 
 const { Content } = Layout;
-
-const initialFormData: CompleteApplicationFormData = {
-  personalInfo: {
-    name: '',
-    nationalId: '',
-    dateOfBirth: '',
-    gender: '',
-    address: '',
-    city: '',
-    state: '',
-    country: '',
-    phone: '',
-    email: '',
-  },
-  familyFinancial: {
-    maritalStatus: '',
-    dependents: undefined,
-    employmentStatus: '',
-    monthlyIncome: undefined,
-    housingStatus: '',
-  },
-  situationDescription: {
-    currentFinancialSituation: '',
-    employmentCircumstances: '',
-    reasonForApplying: '',
-  },
-};
 
 const formRoutes = ROUTES.INITIATE_APPLICATION.children;
 
@@ -51,12 +25,12 @@ const InitiateApplication: React.FC = () => {
   const location = useLocation();
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<CompleteApplicationFormData>(() => {
-    const saved = localStorage.getItem('applicationFormData');
+    const saved = localStorage.getItem(STORAGE_KEY);
     return saved ? JSON.parse(saved) : initialFormData;
   });
 
   useEffect(() => {
-    localStorage.setItem('applicationFormData', JSON.stringify(formData));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
   }, [formData]);
 
   useEffect(() => {
@@ -69,32 +43,32 @@ const InitiateApplication: React.FC = () => {
       navigate(formRoutes.PERSONAL_INFO.path);
       setCurrentStep(0);
     }
-  }, [location.pathname, navigate]);
+  }, [location.pathname]);
 
-  const updatePersonalInfo = (data: Partial<PersonalInfoFormData>) => {
+  const updatePersonalInfo = useCallback((data: Partial<PersonalInfoFormData>) => {
     setFormData(prev => ({
       ...prev,
       personalInfo: { ...prev.personalInfo, ...data },
     }));
-  };
+  }, []);
 
-  const updateFamilyFinancial = (data: Partial<FamilyFinancialFormData>) => {
+  const updateFamilyFinancial = useCallback((data: Partial<FamilyFinancialFormData>) => {
     setFormData(prev => ({
       ...prev,
       familyFinancial: { ...prev.familyFinancial, ...data },
     }));
-  };
+  }, []);
 
-  const updateSituationDescription = (
+  const updateSituationDescription = useCallback((
     data: Partial<SituationDescriptionFormData>
   ) => {
     setFormData(prev => ({
       ...prev,
       situationDescription: { ...prev.situationDescription, ...data },
     }));
-  };
+  }, []);
 
-  const steps = [
+  const steps = useMemo(() => [
     {
       title: t('stepPersonalInfo'),
       description: t('stepPersonalInfoDesc'),
@@ -111,7 +85,7 @@ const InitiateApplication: React.FC = () => {
       title: t('stepReview'),
       description: t('stepReviewDesc'),
     },
-  ];
+  ], []);
 
   return (
     <Layout className="min-h-screen bg-gray-50 pt-20">

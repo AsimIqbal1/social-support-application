@@ -8,6 +8,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/i18n';
 import type { CompleteApplicationFormData } from '../schemas';
+import { STORAGE_KEY } from '../constants';
 
 interface ReviewStepProps {
   formData: CompleteApplicationFormData;
@@ -43,7 +44,7 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ formData }) => {
     try {
       await new Promise(resolve => setTimeout(resolve, 2000));
 
-      localStorage.removeItem('applicationFormData');
+      localStorage.removeItem(STORAGE_KEY);
 
       setIsSubmitting(false);
       setShowConfirmModal(false);
