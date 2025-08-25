@@ -17,10 +17,10 @@ const Navbar: React.FC = () => {
           <div className="flex items-center gap-2 md:gap-4 flex-1 min-w-0">
             <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 min-w-0">
               <Title level={5} className="!m-0 !text-uae-brown !font-semibold text-sm md:text-base lg:text-lg whitespace-nowrap">
-                UAE |
+                {t('uae')} |
               </Title>
               <Text className="text-uae-brown text-xs md:text-sm lg:text-base truncate">
-                MINISTRY OF COMMUNITY EMPOWERMENT
+                {t('ministryOfCommunityEmpowerment')}
               </Text>
             </div>
           </div>

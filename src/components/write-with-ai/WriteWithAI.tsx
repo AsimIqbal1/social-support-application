@@ -292,9 +292,8 @@ const WriteWithAI: React.FC<WriteWithAIProps> = ({
                 type="text"
                 onClick={handleOpenModal}
                 className="text-blue-500 hover:text-blue-700 p-1"
-                title={t('writeWithAI')}
             >
-                Write with AI <OpenAIOutlined />
+                <OpenAIOutlined /> {t('writeWithAI')}
             </Button>
 
             <Modal

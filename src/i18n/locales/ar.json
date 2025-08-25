@@ -232,5 +232,8 @@
   "accept": "قبول",
   "acceptChanges": "قبول التغييرات",
   "pleaseEnterPrompt": "يرجى إدخال ما تريد مني كتابته",
-  "contentAccepted": "تم إضافة المحتوى إلى النموذج"
+  "contentAccepted": "تم إضافة المحتوى إلى النموذج",
+
+  "ministryOfCommunityEmpowerment": "وزارة المجتمع والمواطنين",
+  "estimatedTime": "الوقت المتوقع: 10 دقائق"
 }

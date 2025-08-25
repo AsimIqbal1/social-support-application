@@ -232,5 +232,9 @@
   "accept": "Accept",
   "acceptChanges": "Accept Changes",
   "pleaseEnterPrompt": "Please enter what you'd like me to write",
-  "contentAccepted": "Content has been added to your form"
+  "contentAccepted": "Content has been added to your form",
+
+  "ministryOfCommunityEmpowerment": "Ministry of Community Empowerment",
+  "estimatedTime": "Estimated time: 10 minutes"
+
 }

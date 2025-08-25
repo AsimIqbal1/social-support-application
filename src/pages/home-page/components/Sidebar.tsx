@@ -42,7 +42,7 @@ const Sidebar: React.FC = () => {
           </Button>
           <div className="flex gap-3 justify-center">
             <FieldTimeOutlined />
-            <Text>Estimated time: 10 minutes</Text>
+            <Text>{t('estimatedTime')}</Text>
           </div>
         </div>
       </Card>
