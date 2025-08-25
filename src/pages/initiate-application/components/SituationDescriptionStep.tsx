@@ -10,6 +10,8 @@ import type { SituationDescriptionFormData } from '../schemas';
 
 const { TextArea } = Input;
 
+const MAXIMAM_CHARACTERS = 1000;
+
 interface SituationDescriptionStepProps {
   data: SituationDescriptionFormData;
   updateData: (data: Partial<SituationDescriptionFormData>) => void;
@@ -85,7 +87,7 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
                   rows={4}
                   className="rounded-lg"
                   showCount
-                  maxLength={1000}
+                  maxLength={MAXIMAM_CHARACTERS}
                   onBlur={() => {
                     field.onBlur();
                     trigger('currentFinancialSituation');
@@ -93,7 +95,7 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
                 />
                 <div className="text-sm text-gray-500 mt-1">
                   {t('minCharacters', { count: 20 })} •{' '}
-                  {getCharacterCount(field.value)}/1000
+                  {getCharacterCount(field.value)}/{MAXIMAM_CHARACTERS}
                 </div>
               </div>
             )}
@@ -122,7 +124,7 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
                   rows={4}
                   className="rounded-lg"
                   showCount
-                  maxLength={1000}
+                  maxLength={MAXIMAM_CHARACTERS}
                   onBlur={() => {
                     field.onBlur();
                     trigger('employmentCircumstances');
@@ -130,7 +132,7 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
                 />
                 <div className="text-sm text-gray-500 mt-1">
                   {t('minCharacters', { count: 20 })} •{' '}
-                  {getCharacterCount(field.value)}/1000
+                  {getCharacterCount(field.value)}/{MAXIMAM_CHARACTERS}
                 </div>
               </div>
             )}
@@ -159,7 +161,7 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
                   rows={4}
                   className="rounded-lg"
                   showCount
-                  maxLength={1000}
+                  maxLength={MAXIMAM_CHARACTERS}
                   onBlur={() => {
                     field.onBlur();
                     trigger('reasonForApplying');
@@ -167,7 +169,7 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
                 />
                 <div className="text-sm text-gray-500 mt-1">
                   {t('minCharacters', { count: 20 })} •{' '}
-                  {getCharacterCount(field.value)}/1000
+                  {getCharacterCount(field.value)}/{MAXIMAM_CHARACTERS}
                 </div>
               </div>
             )}
