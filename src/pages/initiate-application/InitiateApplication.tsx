@@ -12,6 +12,7 @@ import type {
   SituationDescriptionFormData,
   CompleteApplicationFormData,
 } from './schemas';
+import { ROUTES } from '@/constants';
 
 const { Content } = Layout;
 
@@ -42,6 +43,8 @@ const initialFormData: CompleteApplicationFormData = {
   },
 };
 
+const formRoutes = ROUTES.INITIATE_APPLICATION.children;
+
 const InitiateApplication: React.FC = () => {
   const { t, isRTL } = useLanguage();
   const navigate = useNavigate();
@@ -58,12 +61,12 @@ const InitiateApplication: React.FC = () => {
 
   useEffect(() => {
     const path = location.pathname;
-    if (path.includes('/personal-info')) setCurrentStep(0);
-    else if (path.includes('/family-financial')) setCurrentStep(1);
-    else if (path.includes('/situation-description')) setCurrentStep(2);
-    else if (path.includes('/review')) setCurrentStep(3);
+    if (path.includes(formRoutes.PERSONAL_INFO.subPath)) setCurrentStep(0);
+    else if (path.includes(formRoutes.FAMILY_FINANCIAL.subPath)) setCurrentStep(1);
+    else if (path.includes(formRoutes.SITUATION_DESCRIPTION.subPath)) setCurrentStep(2);
+    else if (path.includes(formRoutes.REVIEW.subPath)) setCurrentStep(3);
     else {
-      navigate('/initiate-application/personal-info');
+      navigate(formRoutes.PERSONAL_INFO.path);
       setCurrentStep(0);
     }
   }, [location.pathname, navigate]);
@@ -134,7 +137,7 @@ const InitiateApplication: React.FC = () => {
           <div className="bg-white rounded-lg shadow-lg">
             <Routes>
               <Route
-                path="personal-info"
+                path={formRoutes.PERSONAL_INFO.subPath}
                 element={
                   <PersonalInfoStep
                     data={formData.personalInfo}
@@ -143,7 +146,7 @@ const InitiateApplication: React.FC = () => {
                 }
               />
               <Route
-                path="family-financial"
+                path={formRoutes.FAMILY_FINANCIAL.subPath}
                 element={
                   <FamilyFinancialStep
                     data={formData.familyFinancial}
@@ -152,7 +155,7 @@ const InitiateApplication: React.FC = () => {
                 }
               />
               <Route
-                path="situation-description"
+                path={formRoutes.SITUATION_DESCRIPTION.subPath}
                 element={
                   <SituationDescriptionStep
                     data={formData.situationDescription}
@@ -162,7 +165,7 @@ const InitiateApplication: React.FC = () => {
                 }
               />
               <Route
-                path="review"
+                path={formRoutes.REVIEW.subPath}
                 element={<ReviewStep formData={formData} />}
               />
             </Routes>

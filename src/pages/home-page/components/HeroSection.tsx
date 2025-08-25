@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Typography, Button } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { useLanguage } from '@/i18n';
@@ -6,8 +7,14 @@ import { useLanguage } from '@/i18n';
 const { Title, Paragraph } = Typography;
 
 const HeroSection: React.FC = () => {
+  const navigate = useNavigate();
+
   const { t, isRTL } = useLanguage();
 
+  const handleStartApplication = () => {
+    navigate('/initiate-application');
+  };
+  
   return (
     <div className="bg-gradient-to-r from-gov-primary to-gov-secondary text-white p-6 px-10 text-center">
       <Title level={1} className="!text-white text-4xl !font-bold !mb-4">
@@ -24,6 +31,7 @@ const HeroSection: React.FC = () => {
         size="large"
         icon={isRTL ? <LeftOutlined /> : <RightOutlined />}
         className="bg-gov-success border-gov-success h-12 text-lg px-10 rounded-lg shadow-button"
+        onClick={handleStartApplication}
       >
         {t('startApplication')}
       </Button>
