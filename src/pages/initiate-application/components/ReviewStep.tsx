@@ -6,7 +6,7 @@ import {
   SendOutlined,
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import { useLanguage } from '../../../i18n/hooks/useLanguage';
+import { useLanguage } from '@/i18n/hooks/useLanguage';
 import type { CompleteApplicationFormData } from '../schemas';
 
 interface ReviewStepProps {

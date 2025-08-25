@@ -4,7 +4,7 @@ import { DollarOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useForm, Controller, type FieldError } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useLanguage } from '../../../i18n/hooks/useLanguage';
+import { useLanguage } from '@/i18n/hooks/useLanguage';
 import { familyFinancialSchema } from '../schemas';
 import type { FamilyFinancialFormData } from '../schemas';
 

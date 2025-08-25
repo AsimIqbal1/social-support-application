@@ -1,7 +1,6 @@
 import React from 'react';
-import { Layout, Typography, Breadcrumb, Row, Col } from 'antd';
-import { HomeOutlined } from '@ant-design/icons';
-import { useLanguage } from '../../i18n/hooks/useLanguage';
+import { Layout, Typography, Row, Col } from 'antd';
+import { useLanguage } from '@/i18n/hooks/useLanguage';
 
 // Import all the extracted components
 import HeroSection from './components/HeroSection';

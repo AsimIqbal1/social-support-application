@@ -5,7 +5,7 @@ import {
   TeamOutlined,
   FileProtectOutlined,
 } from '@ant-design/icons';
-import { useLanguage } from '../../../i18n/hooks/useLanguage';
+import { useLanguage } from '@/i18n/hooks/useLanguage';
 
 const { Title, Text } = Typography;
 
@@ -35,7 +35,7 @@ const HowItWorks: React.FC = () => {
         </Col>
         <Col xs={24} md={8}>
           <Card
-            bordered={false}
+            variant="outlined"
             className="text-center bg-gray-50 rounded-card h-full"
           >
             <Avatar
@@ -51,7 +51,7 @@ const HowItWorks: React.FC = () => {
         </Col>
         <Col xs={24} md={8}>
           <Card
-            bordered={false}
+            variant="outlined"
             className="text-center bg-gray-50 rounded-card h-full"
           >
             <Avatar

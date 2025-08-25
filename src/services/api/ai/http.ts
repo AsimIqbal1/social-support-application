@@ -1,5 +1,5 @@
-import { httpClient } from '../../httpClient';
-import { AI_ENDPOINTS } from '../endpoints';
+import { httpClient } from '@/services/httpClient';
+import { AI_ENDPOINTS } from '@/services/api/endpoints';
 import type { AIGenerateRequest, AIGenerateResponse } from './types';
 
 export const generateAIContent = async (

@@ -13,7 +13,7 @@ import {
   ClockCircleOutlined,
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import { useLanguage } from '../../../i18n/hooks/useLanguage';
+import { useLanguage } from '@/i18n/hooks/useLanguage';
 
 const { Text } = Typography;
 

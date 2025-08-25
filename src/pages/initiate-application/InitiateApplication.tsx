@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Steps, Card, Layout } from 'antd';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
-import { useLanguage } from '../../i18n/hooks/useLanguage';
+import { useLanguage } from '@/i18n/hooks/useLanguage';
 import PersonalInfoStep from './components/PersonalInfoStep';
 import FamilyFinancialStep from './components/FamilyFinancialStep';
 import SituationDescriptionStep from './components/SituationDescriptionStep';

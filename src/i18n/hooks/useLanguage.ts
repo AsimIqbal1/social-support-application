@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { getLanguageConfig, type Language } from '../config/languages';
+import { getLanguageConfig, type Language } from '@/i18n/config/languages';
 
 export const useLanguage = () => {
   const { t, i18n } = useTranslation();

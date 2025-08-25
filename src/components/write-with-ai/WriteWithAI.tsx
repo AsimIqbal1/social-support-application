@@ -9,8 +9,8 @@ import {
     RobotOutlined,
     LoadingOutlined
 } from '@ant-design/icons';
-import { useLanguage } from '../../i18n/hooks/useLanguage';
-import { useAIGeneration } from '../../services/api/ai/hooks';
+import { useLanguage } from '@/i18n/hooks/useLanguage';
+import { useAIGeneration } from '@/services/api/ai/hooks';
 
 const { TextArea } = Input;
 const { Text, Title } = Typography;

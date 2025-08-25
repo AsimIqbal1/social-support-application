@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import type { HttpError } from '../services/httpClient';
+import type { HttpError } from '@/services/httpClient';
 
 interface AsyncState<T> {
   data: T | undefined;

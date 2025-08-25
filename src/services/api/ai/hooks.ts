@@ -1,5 +1,5 @@
 
-import { useAsync } from '../../../hooks/useAsync';
+import { useAsync } from '@/hooks/useAsync';
 import { generateAIContent } from './http';
 import type { AIGenerateRequest, UseAIGenerationReturn } from './types';
 
