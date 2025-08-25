@@ -1,2 +1,2 @@
 export * from './navbar';
-export * from './writeWithAI'; 
+export * from './write-with-ai'; 

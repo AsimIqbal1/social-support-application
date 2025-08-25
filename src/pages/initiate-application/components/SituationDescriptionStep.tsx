@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Form, Input, Button, Card } from 'antd';
 import { FileTextOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useLanguage } from '../../../i18n/hooks/useLanguage';
 import { situationDescriptionSchema } from '../schemas';
 import type { FamilyFinancialFormData, SituationDescriptionFormData } from '../schemas';
-import { WriteWithAI } from '../../../components/writeWithAI';
+import { WriteWithAI } from '../../../components/write-with-ai';
 
 const { TextArea } = Input;
 
