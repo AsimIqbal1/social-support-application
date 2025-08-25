@@ -111,7 +111,7 @@ const InitiateApplication: React.FC = () => {
   ];
 
   return (
-    <Layout className="min-h-screen bg-gray-50">
+    <Layout className="min-h-screen bg-gray-50 pt-20">
       <Content className="p-4 md:p-8">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">

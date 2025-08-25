@@ -4,7 +4,6 @@ import { HomeOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../i18n/hooks/useLanguage';
 
 // Import all the extracted components
-import ProfessionalHeader from './components/ProfessionalHeader';
 import HeroSection from './components/HeroSection';
 import ServiceInfo from './components/ServiceInfo';
 import BenefitsGrid from './components/BenefitsGrid';
@@ -19,9 +18,7 @@ const HomePage: React.FC = () => {
 
   return (
     <Layout className="min-h-screen bg-uae-cream">
-      <ProfessionalHeader />
-
-      <Content className="mt-10">
+      <Content className="pt-20">
         <div className="bg-uae-cream min-h-screen py-10 pb-20">
           <div className="max-w-7xl mx-auto px-6">
             <Row gutter={[40, 40]}>
