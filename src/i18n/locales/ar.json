@@ -210,5 +210,27 @@
   "invalidDependentsRange": "يجب أن يكون عدد المعالين بين 0 و 20",
   "invalidEmploymentStatus": "يرجى اختيار حالة توظيف صالحة",
   "invalidIncomeRange": "يجب أن يكون الدخل الشهري بين 0 و 1,000,000 درهم",
-  "invalidHousingStatus": "يرجى اختيار حالة سكن صالحة"
+  "invalidHousingStatus": "يرجى اختيار حالة سكن صالحة",
+
+  "writeWithAI": "الكتابة بالذكاء الاصطناعي",
+  "aiWritingAssistant": "مساعد الكتابة بالذكاء الاصطناعي",
+  "aiAssistantDescription": "صف ما تريد مني مساعدتك في كتابته، وسأنشئ محتوى مهني لطلبك.",
+  "describeWhatYouWant": "ماذا تريد مني أن أكتب؟",
+  "aiPromptPlaceholder": "على سبيل المثال: 'فقدت وظيفتي منذ 3 أشهر وأواجه صعوبة في دفع الإيجار' أو 'ساعدني في شرح صعوباتي المالية بسبب المصاريف الطبية'",
+  "currentContent": "المحتوى الحالي",
+  "generateContent": "إنشاء المحتوى",
+  "aiGeneratedContent": "المحتوى المُنشأ بالذكاء الاصطناعي",
+  "reviewAndChooseAction": "راجع المحتوى المُنشأ واختر إجراءك:",
+  "generatedContent": "المحتوى المُنشأ",
+  "characters": "حرف",
+  "editContent": "تحرير المحتوى",
+  "makeChangesAsNeeded": "قم بإجراء أي تغييرات تحتاجها على المحتوى أدناه:",
+  "editableContent": "محتوى قابل للتحرير",
+  "aiGenerating": "الذكاء الاصطناعي ينشئ المحتوى...",
+  "pleaseWait": "يرجى الانتظار بينما ننشئ محتواك",
+  "discard": "تجاهل",
+  "accept": "قبول",
+  "acceptChanges": "قبول التغييرات",
+  "pleaseEnterPrompt": "يرجى إدخال ما تريد مني كتابته",
+  "contentAccepted": "تم إضافة المحتوى إلى النموذج"
 }

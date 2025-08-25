@@ -210,5 +210,27 @@
   "invalidDependentsRange": "Number of dependents must be between 0 and 20",
   "invalidEmploymentStatus": "Please select a valid employment status",
   "invalidIncomeRange": "Monthly income must be between 0 and 1,000,000 AED",
-  "invalidHousingStatus": "Please select a valid housing status"
+  "invalidHousingStatus": "Please select a valid housing status",
+
+  "writeWithAI": "Write with AI",
+  "aiWritingAssistant": "AI Writing Assistant",
+  "aiAssistantDescription": "Describe what you'd like me to help you write, and I'll create professional content for your application.",
+  "describeWhatYouWant": "What would you like me to write?",
+  "aiPromptPlaceholder": "For example: 'I lost my job 3 months ago and have been struggling to pay rent' or 'Help me explain my financial difficulties due to medical expenses'",
+  "currentContent": "Current Content",
+  "generateContent": "Generate Content",
+  "aiGeneratedContent": "AI Generated Content",
+  "reviewAndChooseAction": "Review the generated content and choose your action:",
+  "generatedContent": "Generated Content",
+  "characters": "characters",
+  "editContent": "Edit Content",
+  "makeChangesAsNeeded": "Make any changes you need to the content below:",
+  "editableContent": "Editable Content",
+  "aiGenerating": "AI is generating content...",
+  "pleaseWait": "Please wait while we create your content",
+  "discard": "Discard",
+  "accept": "Accept",
+  "acceptChanges": "Accept Changes",
+  "pleaseEnterPrompt": "Please enter what you'd like me to write",
+  "contentAccepted": "Content has been added to your form"
 }

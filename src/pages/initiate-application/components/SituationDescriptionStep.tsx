@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, Input, Button, Card } from 'antd';
 import { FileTextOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useLanguage } from '../../../i18n/hooks/useLanguage';
 import { situationDescriptionSchema } from '../schemas';
 import type { SituationDescriptionFormData } from '../schemas';
+import { WriteWithAI } from '../../../components/writeWithAI';
 
 const { TextArea } = Input;
 
@@ -26,6 +27,8 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
   const {
     control,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors, isValid },
     trigger,
   } = useForm<SituationDescriptionFormData>({
@@ -33,6 +36,8 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
     defaultValues: data,
     mode: 'onBlur',
   });
+
+  const watchedValues = watch();
 
   const onSubmit = (formData: SituationDescriptionFormData) => {
     updateData(formData);
@@ -50,6 +55,32 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
 
   const getCharacterCount = (text: string) => (text ? text.length : 0);
 
+  const handleAIAccept = (fieldName: keyof SituationDescriptionFormData, content: string) => {
+    setValue(fieldName, content);
+    trigger(fieldName);
+  };
+
+  const renderFieldLabel = (
+    icon: React.ReactNode,
+    label: string,
+    fieldName: keyof SituationDescriptionFormData,
+    currentValue: string
+  ) => (
+    <div className="flex items-center justify-between">
+      <div className="flex items-center gap-2">
+        {icon}
+        {label}
+      </div>
+      <WriteWithAI
+        fieldName={fieldName}
+        fieldLabel={label}
+        currentValue={currentValue}
+        onAccept={(content) => handleAIAccept(fieldName, content)}
+        maxLength={MAXIMAM_CHARACTERS}
+      />
+    </div>
+  );
+
   return (
     <Card className="p-6">
       <div className="mb-6">
@@ -66,15 +97,16 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
         onFinish={handleSubmit(onSubmit)}
       >
         <Form.Item
-          label={
-            <div className="flex items-center gap-2">
-              <FileTextOutlined />
-              {t('currentFinancialSituation')}
-            </div>
-          }
+          label={renderFieldLabel(
+            <FileTextOutlined />,
+            t('currentFinancialSituation'),
+            'currentFinancialSituation',
+            watchedValues.currentFinancialSituation || ''
+          )}
           validateStatus={errors.currentFinancialSituation ? 'error' : ''}
           help={getErrorMessage(errors.currentFinancialSituation)}
           required
+          className=''
         >
           <Controller
             name="currentFinancialSituation"
@@ -94,8 +126,7 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
                   }}
                 />
                 <div className="text-sm text-gray-500 mt-1">
-                  {t('minCharacters', { count: 20 })} •{' '}
-                  {getCharacterCount(field.value)}/{MAXIMAM_CHARACTERS}
+                  {t('minCharacters', { count: 20 })}
                 </div>
               </div>
             )}
@@ -103,12 +134,12 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
         </Form.Item>
 
         <Form.Item
-          label={
-            <div className="flex items-center gap-2">
-              <InfoCircleOutlined />
-              {t('employmentCircumstances')}
-            </div>
-          }
+          label={renderFieldLabel(
+            <InfoCircleOutlined />,
+            t('employmentCircumstances'),
+            'employmentCircumstances',
+            watchedValues.employmentCircumstances || ''
+          )}
           validateStatus={errors.employmentCircumstances ? 'error' : ''}
           help={getErrorMessage(errors.employmentCircumstances)}
           required
@@ -131,8 +162,7 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
                   }}
                 />
                 <div className="text-sm text-gray-500 mt-1">
-                  {t('minCharacters', { count: 20 })} •{' '}
-                  {getCharacterCount(field.value)}/{MAXIMAM_CHARACTERS}
+                  {t('minCharacters', { count: 20 })}
                 </div>
               </div>
             )}
@@ -140,12 +170,12 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
         </Form.Item>
 
         <Form.Item
-          label={
-            <div className="flex items-center gap-2">
-              <FileTextOutlined />
-              {t('reasonForApplying')}
-            </div>
-          }
+          label={renderFieldLabel(
+            <FileTextOutlined />,
+            t('reasonForApplying'),
+            'reasonForApplying',
+            watchedValues.reasonForApplying || ''
+          )}
           validateStatus={errors.reasonForApplying ? 'error' : ''}
           help={getErrorMessage(errors.reasonForApplying)}
           required
@@ -168,8 +198,7 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
                   }}
                 />
                 <div className="text-sm text-gray-500 mt-1">
-                  {t('minCharacters', { count: 20 })} •{' '}
-                  {getCharacterCount(field.value)}/{MAXIMAM_CHARACTERS}
+                  {t('minCharacters', { count: 20 })}
                 </div>
               </div>
             )}
