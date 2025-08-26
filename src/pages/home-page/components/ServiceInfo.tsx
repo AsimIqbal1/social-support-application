@@ -8,7 +8,7 @@ const ServiceInfo: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-    <div className="p-6">
+    <div className="p-10">
       <div className="flex justify-start items-center gap-2">
         <Tag color="green" className="text-sm py-2 px-4 rounded-full">
           {t('serviceFee')}

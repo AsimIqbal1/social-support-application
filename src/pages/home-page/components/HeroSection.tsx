@@ -16,7 +16,7 @@ const HeroSection: React.FC = () => {
   };
   
   return (
-    <div className="bg-gradient-to-r from-gov-primary to-gov-secondary text-white p-6 px-10 text-center">
+    <div className="bg-gradient-to-r from-gov-primary to-gov-secondary text-white p-10 text-center">
       <Title level={1} className="!text-white text-4xl !font-bold !mb-4">
         {t('heroTitle')}
       </Title>
