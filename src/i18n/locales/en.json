@@ -237,5 +237,13 @@
   "contentAccepted": "Content has been added to your form",
 
   "ministryOfCommunityEmpowerment": "Ministry of Community Empowerment",
-  "estimatedTime": "Estimated time: 10 minutes"
+  "estimatedTime": "Estimated time: 10 minutes",
+
+  "exitApplication": "Exit Application",
+  "exitApplicationAriaLabel": "Exit application and return to home page",
+  "confirmExitTitle": "Exit Application?",
+  "confirmExitMessage": "Are you sure you want to exit the application process?",
+  "exitWarningTitle": "Important Notice",
+  "exitWarningMessage": "You will lose all your progress and need to start over.",
+  "yesExit": "Yes, Exit"
 }

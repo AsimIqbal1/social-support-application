@@ -1,6 +1,9 @@
-import React, { useMemo } from 'react';
-import { Steps, Card, Layout } from 'antd';
+import React, { useMemo, useState } from 'react';
+import { Steps, Card, Layout, Button, Modal } from 'antd';
+import { ExclamationCircleOutlined, LogoutOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/i18n';
+import { ROUTES } from '@/constants';
 import PersonalInfoStep from './components/PersonalInfoStep';
 import FamilyFinancialStep from './components/FamilyFinancialStep';
 import SituationDescriptionStep from './components/SituationDescriptionStep';
@@ -12,6 +15,8 @@ const { Content } = Layout;
 
 const InitiateApplication: React.FC = () => {
   const { t, isRTL } = useLanguage();
+  const navigate = useNavigate();
+  const [showExitModal, setShowExitModal] = useState(false);
   const {
     currentStep,
     formData,
@@ -21,6 +26,7 @@ const InitiateApplication: React.FC = () => {
     updatePersonalInfo,
     updateFamilyFinancial,
     updateSituationDescription,
+    resetForm,
   } = useFormSteps();
 
   const steps = useMemo(() => [
@@ -61,6 +67,20 @@ const InitiateApplication: React.FC = () => {
     if (step <= currentStep) {
       goToStep(step);
     }
+  };
+
+  const handleExitApplication = () => {
+    setShowExitModal(true);
+  };
+
+  const confirmExit = () => {
+    resetForm();
+    setShowExitModal(false);
+    navigate(ROUTES.HOME.path);
+  };
+
+  const cancelExit = () => {
+    setShowExitModal(false);
   };
 
   const renderCurrentStep = () => {
@@ -135,7 +155,65 @@ const InitiateApplication: React.FC = () => {
           <div className="bg-white rounded-lg shadow-lg">
             {renderCurrentStep()}
           </div>
+
+          {/* Exit Application Button */}
+          <div className="mt-6">
+            <Button
+              type="text"
+              danger
+              icon={<LogoutOutlined />}
+              onClick={handleExitApplication}
+              className="text-red-600 hover:text-red-700 hover:bg-red-50 px-4 py-2 rounded-lg transition-colors duration-200"
+              size="large"
+              aria-label={t('exitApplicationAriaLabel')}
+            >
+              {t('exitApplication')}
+            </Button>
+          </div>
         </div>
+
+        {/* Exit Confirmation Modal */}
+        <Modal
+          title={
+            <div className="flex items-center gap-2">
+              <ExclamationCircleOutlined className="text-orange-500" />
+              {t('confirmExitTitle')}
+            </div>
+          }
+          open={showExitModal}
+          onOk={confirmExit}
+          onCancel={cancelExit}
+          okText={t('yesExit')}
+          cancelText={t('cancel')}
+          okButtonProps={{
+            danger: true,
+            className: 'bg-red-600 hover:bg-red-700 border-red-600 hover:border-red-700',
+          }}
+          cancelButtonProps={{
+            className: 'border-gray-300 hover:border-gray-400',
+          }}
+          aria-labelledby="exit-modal-title"
+          aria-describedby="exit-modal-content"
+        >
+          <div id="exit-modal-content" className="py-4">
+            <p className="mb-4 text-gray-700">
+              {t('confirmExitMessage')}
+            </p>
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+              <div className="flex items-start gap-2">
+                <ExclamationCircleOutlined className="text-yellow-600 text-lg mt-0.5" />
+                <div>
+                  <p className="text-yellow-800 font-medium text-sm">
+                    {t('exitWarningTitle')}
+                  </p>
+                  <p className="text-yellow-700 text-sm mt-1">
+                    {t('exitWarningMessage')}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Modal>
       </Content>
     </Layout>
   );

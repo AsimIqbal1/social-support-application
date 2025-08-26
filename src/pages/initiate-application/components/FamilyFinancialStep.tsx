@@ -150,7 +150,6 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({
                 control={control}
                 render={({ field }) => (
                   <InputNumber
-                    prefix={<DollarOutlined />}
                     placeholder={t('enterMonthlyIncome')}
                     value={field.value}
                     onChange={field.onChange}

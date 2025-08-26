@@ -237,5 +237,13 @@
   "contentAccepted": "تم إضافة المحتوى إلى النموذج",
 
   "ministryOfCommunityEmpowerment": "وزارة المجتمع والمواطنين",
-  "estimatedTime": "الوقت المتوقع: 10 دقائق"
+  "estimatedTime": "الوقت المتوقع: 10 دقائق",
+
+  "exitApplication": "إنهاء الطلب",
+  "exitApplicationAriaLabel": "إنهاء الطلب والعودة للصفحة الرئيسية",
+  "confirmExitTitle": "إنهاء الطلب؟",
+  "confirmExitMessage": "هل أنت متأكد من أنك تريد إنهاء عملية تقديم الطلب؟",
+  "exitWarningTitle": "إشعار مهم",
+  "exitWarningMessage": "سيتم إنهاء جميع التقدم وسيتم إعادة البدء من البداية.",
+  "yesExit": "نعم، إنهاء"
 }

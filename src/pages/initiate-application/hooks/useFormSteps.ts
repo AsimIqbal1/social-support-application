@@ -84,8 +84,6 @@ export const useFormSteps = (): UseFormStepsReturn => {
   }, []);
 
   const resetForm = useCallback(() => {
-    setFormData(initialFormData);
-    setCurrentStep(STEP_INDICES.PERSONAL_INFO);
     localStorage.removeItem(STORAGE_KEY);
   }, []);
 
