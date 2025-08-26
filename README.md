@@ -61,16 +61,28 @@ A modern, accessible web application that streamlines the social support applica
 
 ## 📸 Screenshots
 
-<!-- Add your screenshots here -->
+<img width="1728" height="993" alt="Screenshot 2025-08-26 at 2 03 46 PM" src="https://github.com/user-attachments/assets/bf94b5fb-6258-4914-9fd7-4b50914420e0" />
+<img width="772" height="548" alt="Screenshot 2025-08-26 at 2 04 10 PM" src="https://github.com/user-attachments/assets/3907cc8e-dbfd-43d4-a9fb-ac5713cf479c" />
+
 
 ### Application Steps
-*Add screenshots of each form step here*
+<img width="937" height="975" alt="Screenshot 2025-08-26 at 2 04 42 PM" src="https://github.com/user-attachments/assets/c2359d4b-cace-482c-b817-a52f1e84c69b" />
+<img width="851" height="308" alt="Screenshot 2025-08-26 at 2 05 32 PM" src="https://github.com/user-attachments/assets/2c251ebf-df1a-4adb-8cc9-f10e233e8fbf" />
+<img width="940" height="873" alt="Screenshot 2025-08-26 at 2 07 17 PM" src="https://github.com/user-attachments/assets/263101e3-fc25-451d-bf10-7a9137c7ec94" />
+<img width="942" height="893" alt="Screenshot 2025-08-26 at 2 08 49 PM" src="https://github.com/user-attachments/assets/46cec08f-aad2-4748-b389-565f5a568b14" />
+<img width="853" height="500" alt="Screenshot 2025-08-26 at 2 09 31 PM" src="https://github.com/user-attachments/assets/c832a70d-dc0b-49a1-80a6-eca4f06b33ae" />
+<img width="618" height="275" alt="Screenshot 2025-08-26 at 2 10 45 PM" src="https://github.com/user-attachments/assets/cb94a97f-4816-4bc1-95ab-0ed4e75830a7" />
+<img width="639" height="462" alt="Screenshot 2025-08-26 at 2 09 47 PM" src="https://github.com/user-attachments/assets/4252aaeb-3687-4363-9e7a-5a6a76b92598" />
+<img width="924" height="892" alt="Screenshot 2025-08-26 at 2 11 14 PM" src="https://github.com/user-attachments/assets/2facf1c0-0190-4a83-a791-d5b383638ca2" />
+<img width="935" height="889" alt="Screenshot 2025-08-26 at 2 11 30 PM" src="https://github.com/user-attachments/assets/50f24250-b921-47f6-b35d-2aa57787a72c" />
+<img width="1728" height="989" alt="Screenshot 2025-08-26 at 2 11 46 PM" src="https://github.com/user-attachments/assets/4e81e67c-a120-49e4-b948-08ac2b57127a" />
+<img width="1527" height="989" alt="Screenshot 2025-08-26 at 2 12 15 PM" src="https://github.com/user-attachments/assets/add67a1f-2826-49a8-990e-bf6cf05809ce" />
 
-### AI Writing Assistant
-*Add screenshots of the AI assistance feature*
+
 
 ### Responsive Design
-*Add mobile and desktop screenshots*
+<img width="527" height="738" alt="Screenshot 2025-08-26 at 2 13 45 PM" src="https://github.com/user-attachments/assets/8a4c2ed5-8927-442a-b110-a65c91027c8a" />
+<img width="348" height="585" alt="Screenshot 2025-08-26 at 2 14 16 PM" src="https://github.com/user-attachments/assets/f1282354-92f4-47e8-8dd4-971c2ca834f8" />
 
 ## 🚀 Getting Started
 
