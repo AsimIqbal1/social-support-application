@@ -1,7 +1,6 @@
 import React from 'react';
 import { Form, Input, Button, Card } from 'antd';
 import { FileTextOutlined, InfoCircleOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
 import { useForm, Controller, type FieldError } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLanguage } from '@/i18n';
@@ -11,26 +10,25 @@ import type {
   SituationDescriptionFormData,
 } from '../schemas';
 import { WriteWithAI } from '@/components';
-import { ROUTES } from '@/constants';
 
 const { TextArea } = Input;
-const formRoutes = ROUTES.INITIATE_APPLICATION.children;
 const MAXIMAM_CHARACTERS = 1000;
 
 
 interface SituationDescriptionStepProps {
   data: SituationDescriptionFormData;
-  updateData: (data: Partial<SituationDescriptionFormData>) => void;
   familyData?: FamilyFinancialFormData;
+  onSubmit: (data: SituationDescriptionFormData) => void;
+  onBack: () => void;
 }
 
 const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
   data,
-  updateData,
   familyData,
+  onSubmit,
+  onBack,
 }) => {
   const { t } = useLanguage();
-  const navigate = useNavigate();
   const {
     control,
     handleSubmit,
@@ -46,21 +44,10 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
 
   const watchedValues = watch();
 
-  const onSubmit = (formData: SituationDescriptionFormData) => {
-    updateData(formData);
-    navigate(formRoutes.REVIEW.path);
-  };
-
-  const handleBack = () => {
-    navigate(formRoutes.FAMILY_FINANCIAL.path);
-  };
-
   const getErrorMessage = (fieldError?: FieldError) => {
     if (!fieldError?.message) return '';
     return t(fieldError.message) || fieldError.message;
   };
-
-  const getCharacterCount = (text: string) => (text ? text.length : 0);
 
   const handleAIAccept = (
     fieldName: keyof SituationDescriptionFormData,
@@ -137,10 +124,7 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
                   className="rounded-lg"
                   showCount
                   maxLength={MAXIMAM_CHARACTERS}
-                  onBlur={() => {
-                    field.onBlur();
-                    trigger('currentFinancialSituation');
-                  }}
+                  onBlur={field.onBlur}
                 />
                 <div className="text-sm text-gray-500 mt-1">
                   {t('minCharacters', { count: 20 })}
@@ -173,10 +157,7 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
                   className="rounded-lg"
                   showCount
                   maxLength={MAXIMAM_CHARACTERS}
-                  onBlur={() => {
-                    field.onBlur();
-                    trigger('employmentCircumstances');
-                  }}
+                  onBlur={field.onBlur}
                 />
                 <div className="text-sm text-gray-500 mt-1">
                   {t('minCharacters', { count: 20 })}
@@ -209,10 +190,7 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
                   className="rounded-lg"
                   showCount
                   maxLength={MAXIMAM_CHARACTERS}
-                  onBlur={() => {
-                    field.onBlur();
-                    trigger('reasonForApplying');
-                  }}
+                  onBlur={field.onBlur}
                 />
                 <div className="text-sm text-gray-500 mt-1">
                   {t('minCharacters', { count: 20 })}
@@ -240,7 +218,7 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
         </div>
 
         <div className="flex justify-between mt-8">
-          <Button size="large" onClick={handleBack} className="px-8 rounded-lg">
+          <Button size="large" onClick={onBack} className="px-8 rounded-lg">
             {t('back')}
           </Button>
 

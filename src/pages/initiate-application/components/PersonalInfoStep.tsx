@@ -6,44 +6,36 @@ import {
   MailOutlined,
   PhoneOutlined,
 } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
 import { useForm, Controller, type FieldError } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLanguage } from '@/i18n';
 import { personalInfoSchema } from '../schemas';
 import type { PersonalInfoFormData } from '../schemas';
 import dayjs from 'dayjs';
-import { ROUTES } from '@/constants';
 
 const { Option } = Select;
 
 interface PersonalInfoStepProps {
   data: PersonalInfoFormData;
-  updateData: (data: Partial<PersonalInfoFormData>) => void;
+  onSubmit: (data: PersonalInfoFormData) => void;
 }
 
 const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
   data,
-  updateData,
+  onSubmit,
 }) => {
   const { t } = useLanguage();
-  const navigate = useNavigate();
 
   const {
     control,
     handleSubmit,
     formState: { errors, isValid },
-    trigger,
   } = useForm<PersonalInfoFormData>({
     resolver: zodResolver(personalInfoSchema),
     defaultValues: data,
     mode: 'onBlur',
   });
 
-  const onSubmit = (formData: PersonalInfoFormData) => {
-    updateData(formData);
-    navigate(ROUTES.INITIATE_APPLICATION.children.FAMILY_FINANCIAL.path);
-  };
 
   const getErrorMessage = (fieldError?: FieldError) => {
     if (!fieldError?.message) return '';
@@ -83,10 +75,7 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
                     placeholder={t('enterFullName')}
                     size="large"
                     className="rounded-lg"
-                    onBlur={() => {
-                      field.onBlur();
-                      trigger('name');
-                    }}
+                    onBlur={field.onBlur}
                   />
                 )}
               />
@@ -110,10 +99,7 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
                     placeholder={t('enterNationalId')}
                     size="large"
                     className="rounded-lg"
-                    onBlur={() => {
-                      field.onBlur();
-                      trigger('nationalId');
-                    }}
+                    onBlur={field.onBlur}
                   />
                 )}
               />
@@ -138,7 +124,6 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
                     value={field.value ? dayjs(field.value) : null}
                     onChange={date => {
                       field.onChange(date ? date.format('YYYY-MM-DD') : '');
-                      trigger('dateOfBirth');
                     }}
                     size="large"
                     className="w-full rounded-lg"
@@ -167,10 +152,7 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
                     placeholder={t('selectGender')}
                     size="large"
                     className="w-full"
-                    onChange={value => {
-                      field.onChange(value);
-                      trigger('gender');
-                    }}
+                    onChange={field.onChange}
                   >
                     <Option value="male">{t('male')}</Option>
                     <Option value="female">{t('female')}</Option>
@@ -196,10 +178,7 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
                 placeholder={t('enterAddress')}
                 rows={3}
                 className="rounded-lg"
-                onBlur={() => {
-                  field.onBlur();
-                  trigger('address');
-                }}
+                onBlur={field.onBlur}
               />
             )}
           />
@@ -222,10 +201,7 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
                     placeholder={t('enterCity')}
                     size="large"
                     className="rounded-lg"
-                    onBlur={() => {
-                      field.onBlur();
-                      trigger('city');
-                    }}
+                    onBlur={field.onBlur}
                   />
                 )}
               />
@@ -248,10 +224,7 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
                     placeholder={t('enterState')}
                     size="large"
                     className="rounded-lg"
-                    onBlur={() => {
-                      field.onBlur();
-                      trigger('state');
-                    }}
+                    onBlur={field.onBlur}
                   />
                 )}
               />
@@ -274,10 +247,7 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
                     placeholder={t('selectCountry')}
                     size="large"
                     className="w-full"
-                    onChange={value => {
-                      field.onChange(value);
-                      trigger('country');
-                    }}
+                    onChange={field.onChange}
                   >
                     <Option value="UAE">{t('uae')}</Option>
                     <Option value="Saudi Arabia">{t('saudiArabia')}</Option>
@@ -310,10 +280,7 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
                     placeholder={t('enterPhone')}
                     size="large"
                     className="rounded-lg"
-                    onBlur={() => {
-                      field.onBlur();
-                      trigger('phone');
-                    }}
+                    onBlur={field.onBlur}
                   />
                 )}
               />
@@ -337,10 +304,7 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
                     placeholder={t('enterEmail')}
                     size="large"
                     className="rounded-lg"
-                    onBlur={() => {
-                      field.onBlur();
-                      trigger('email');
-                    }}
+                    onBlur={field.onBlur}
                   />
                 )}
               />

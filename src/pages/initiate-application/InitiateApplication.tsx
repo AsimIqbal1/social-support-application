@@ -1,72 +1,27 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useMemo } from 'react';
 import { Steps, Card, Layout } from 'antd';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { useLanguage } from '@/i18n';
 import PersonalInfoStep from './components/PersonalInfoStep';
 import FamilyFinancialStep from './components/FamilyFinancialStep';
 import SituationDescriptionStep from './components/SituationDescriptionStep';
 import ReviewStep from './components/ReviewStep';
-import type {
-  PersonalInfoFormData,
-  FamilyFinancialFormData,
-  SituationDescriptionFormData,
-  CompleteApplicationFormData,
-} from './schemas';
-import { ROUTES } from '@/constants';
-import { initialFormData, STORAGE_KEY } from './constants';
+import { useFormSteps, STEP_INDICES } from './hooks/useFormSteps';
+import type { FamilyFinancialFormData, PersonalInfoFormData, SituationDescriptionFormData } from './schemas';
 
 const { Content } = Layout;
 
-const formRoutes = ROUTES.INITIATE_APPLICATION.children;
-
 const InitiateApplication: React.FC = () => {
   const { t, isRTL } = useLanguage();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [currentStep, setCurrentStep] = useState(0);
-  const [formData, setFormData] = useState<CompleteApplicationFormData>(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    return saved ? JSON.parse(saved) : initialFormData;
-  });
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
-  }, [formData]);
-
-  useEffect(() => {
-    const path = location.pathname;
-    if (path.includes(formRoutes.PERSONAL_INFO.subPath)) setCurrentStep(0);
-    else if (path.includes(formRoutes.FAMILY_FINANCIAL.subPath)) setCurrentStep(1);
-    else if (path.includes(formRoutes.SITUATION_DESCRIPTION.subPath)) setCurrentStep(2);
-    else if (path.includes(formRoutes.REVIEW.subPath)) setCurrentStep(3);
-    else {
-      navigate(formRoutes.PERSONAL_INFO.path);
-      setCurrentStep(0);
-    }
-  }, [location.pathname]);
-
-  const updatePersonalInfo = useCallback((data: Partial<PersonalInfoFormData>) => {
-    setFormData(prev => ({
-      ...prev,
-      personalInfo: { ...prev.personalInfo, ...data },
-    }));
-  }, []);
-
-  const updateFamilyFinancial = useCallback((data: Partial<FamilyFinancialFormData>) => {
-    setFormData(prev => ({
-      ...prev,
-      familyFinancial: { ...prev.familyFinancial, ...data },
-    }));
-  }, []);
-
-  const updateSituationDescription = useCallback((
-    data: Partial<SituationDescriptionFormData>
-  ) => {
-    setFormData(prev => ({
-      ...prev,
-      situationDescription: { ...prev.situationDescription, ...data },
-    }));
-  }, []);
+  const {
+    currentStep,
+    formData,
+    nextStep,
+    prevStep,
+    goToStep,
+    updatePersonalInfo,
+    updateFamilyFinancial,
+    updateSituationDescription,
+  } = useFormSteps();
 
   const steps = useMemo(() => [
     {
@@ -85,7 +40,76 @@ const InitiateApplication: React.FC = () => {
       title: t('stepReview'),
       description: t('stepReviewDesc'),
     },
-  ], []);
+  ], [t]);
+
+  const handlePersonalInfoSubmit = (data: PersonalInfoFormData) => {
+    updatePersonalInfo(data);
+    nextStep();
+  };
+
+  const handleFamilyFinancialSubmit = (data: FamilyFinancialFormData) => {
+    updateFamilyFinancial(data);
+    nextStep();
+  };
+
+  const handleSituationDescriptionSubmit = (data: SituationDescriptionFormData) => {
+    updateSituationDescription(data);
+    nextStep();
+  };
+
+  const handleStepClick = (step: number) => {
+    if (step <= currentStep) {
+      goToStep(step);
+    }
+  };
+
+  const renderCurrentStep = () => {
+    switch (currentStep) {
+      case STEP_INDICES.PERSONAL_INFO:
+        return (
+          <PersonalInfoStep
+            data={formData.personalInfo}
+            onSubmit={handlePersonalInfoSubmit}
+          />
+        );
+      
+      case STEP_INDICES.FAMILY_FINANCIAL:
+        return (
+          <FamilyFinancialStep
+            data={formData.familyFinancial}
+            onSubmit={handleFamilyFinancialSubmit}
+            onBack={prevStep}
+          />
+        );
+      
+      case STEP_INDICES.SITUATION_DESCRIPTION:
+        return (
+          <SituationDescriptionStep
+            data={formData.situationDescription}
+            onSubmit={handleSituationDescriptionSubmit}
+            onBack={prevStep}
+            familyData={formData.familyFinancial}
+          />
+        );
+      
+      case STEP_INDICES.REVIEW:
+        return (
+          <ReviewStep
+            formData={formData}
+            onBack={prevStep}
+            onEdit={goToStep}
+          />
+        );
+      
+      default:
+        return (
+          <PersonalInfoStep
+            data={formData.personalInfo}
+            onSubmit={handlePersonalInfoSubmit}
+          />
+        );
+    }
+  };
 
   return (
     <Layout className="min-h-screen bg-gray-50 pt-20">
@@ -98,51 +122,18 @@ const InitiateApplication: React.FC = () => {
             <p className="text-gray-600">{t('applicationSubtitle')}</p>
           </div>
 
-          {/* Progress Steps */}
           <Card className="mb-6 shadow-lg rounded-lg">
             <Steps
               current={currentStep}
               direction={window.innerWidth < 768 ? 'vertical' : 'horizontal'}
               className={`${isRTL ? 'rtl' : 'ltr'}`}
               items={steps}
+              onChange={handleStepClick}
             />
           </Card>
 
           <div className="bg-white rounded-lg shadow-lg">
-            <Routes>
-              <Route
-                path={formRoutes.PERSONAL_INFO.subPath}
-                element={
-                  <PersonalInfoStep
-                    data={formData.personalInfo}
-                    updateData={updatePersonalInfo}
-                  />
-                }
-              />
-              <Route
-                path={formRoutes.FAMILY_FINANCIAL.subPath}
-                element={
-                  <FamilyFinancialStep
-                    data={formData.familyFinancial}
-                    updateData={updateFamilyFinancial}
-                  />
-                }
-              />
-              <Route
-                path={formRoutes.SITUATION_DESCRIPTION.subPath}
-                element={
-                  <SituationDescriptionStep
-                    data={formData.situationDescription}
-                    updateData={updateSituationDescription}
-                    familyData={formData.familyFinancial}
-                  />
-                }
-              />
-              <Route
-                path={formRoutes.REVIEW.subPath}
-                element={<ReviewStep formData={formData} />}
-              />
-            </Routes>
+            {renderCurrentStep()}
           </div>
         </div>
       </Content>

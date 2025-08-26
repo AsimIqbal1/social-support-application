@@ -1,48 +1,35 @@
 import React from 'react';
 import { Form, Button, Select, Card, Row, Col, InputNumber } from 'antd';
 import { DollarOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
 import { useForm, Controller, type FieldError } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLanguage } from '@/i18n';
 import { familyFinancialSchema } from '../schemas';
 import type { FamilyFinancialFormData } from '../schemas';
-import { ROUTES } from '@/constants';
-
 const { Option } = Select;
-const formRoutes = ROUTES.INITIATE_APPLICATION.children;
 
 interface FamilyFinancialStepProps {
   data: FamilyFinancialFormData;
-  updateData: (data: Partial<FamilyFinancialFormData>) => void;
+  onSubmit: (data: FamilyFinancialFormData) => void;
+  onBack: () => void;
 }
 
 const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({
   data,
-  updateData,
+  onSubmit,
+  onBack,
 }) => {
   const { t } = useLanguage();
-  const navigate = useNavigate();
 
   const {
     control,
     handleSubmit,
     formState: { errors, isValid },
-    trigger,
   } = useForm<FamilyFinancialFormData>({
     resolver: zodResolver(familyFinancialSchema),
     defaultValues: data,
     mode: 'onBlur',
   });
-
-  const onSubmit = (formData: FamilyFinancialFormData) => {
-    updateData(formData);
-    navigate(formRoutes.SITUATION_DESCRIPTION.path);
-  };
-
-  const handleBack = () => {
-    navigate(formRoutes.PERSONAL_INFO.path);
-  };
 
   const getErrorMessage = (fieldError?: FieldError) => {
     if (!fieldError?.message) return '';
@@ -81,10 +68,7 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({
                     placeholder={t('selectMaritalStatus')}
                     size="large"
                     className="w-full"
-                    onChange={value => {
-                      field.onChange(value);
-                      trigger('maritalStatus');
-                    }}
+                    onChange={field.onChange}
                   >
                     <Option value="single">{t('single')}</Option>
                     <Option value="married">{t('married')}</Option>
@@ -110,14 +94,8 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({
                   <InputNumber
                     placeholder={t('enterDependents')}
                     value={field.value}
-                    onChange={value => {
-                      field.onChange(value);
-                      trigger('dependents');
-                    }}
-                    onBlur={() => {
-                      field.onBlur();
-                      trigger('dependents');
-                    }}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
                     min={0}
                     max={20}
                     size="large"
@@ -146,10 +124,7 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({
                     placeholder={t('selectEmploymentStatus')}
                     size="large"
                     className="w-full"
-                    onChange={value => {
-                      field.onChange(value);
-                      trigger('employmentStatus');
-                    }}
+                    onChange={field.onChange}
                   >
                     <Option value="employed">{t('employed')}</Option>
                     <Option value="unemployed">{t('unemployed')}</Option>
@@ -178,14 +153,8 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({
                     prefix={<DollarOutlined />}
                     placeholder={t('enterMonthlyIncome')}
                     value={field.value}
-                    onChange={value => {
-                      field.onChange(value);
-                      trigger('monthlyIncome');
-                    }}
-                    onBlur={() => {
-                      field.onBlur();
-                      trigger('monthlyIncome');
-                    }}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
                     min={0}
                     max={1000000}
                     formatter={value =>
@@ -216,10 +185,7 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({
                 placeholder={t('selectHousingStatus')}
                 size="large"
                 className="w-full"
-                onChange={value => {
-                  field.onChange(value);
-                  trigger('housingStatus');
-                }}
+                onChange={field.onChange}
               >
                 <Option value="owned">{t('owned')}</Option>
                 <Option value="rented">{t('rented')}</Option>
@@ -232,7 +198,7 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({
         </Form.Item>
 
         <div className="flex justify-between mt-8">
-          <Button size="large" onClick={handleBack} className="px-8 rounded-lg">
+          <Button size="large" onClick={onBack} className="px-8 rounded-lg">
             {t('back')}
           </Button>
 

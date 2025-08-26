@@ -13,30 +13,27 @@ import { ROUTES } from '@/constants';
 
 interface ReviewStepProps {
   formData: CompleteApplicationFormData;
+  onBack: () => void;
+  onEdit: (step: number) => void;
 }
 
-const formRoutes = ROUTES.INITIATE_APPLICATION.children;
 
-const ReviewStep: React.FC<ReviewStepProps> = ({ formData }) => {
+const ReviewStep: React.FC<ReviewStepProps> = ({ formData, onBack, onEdit }) => {
   const { t } = useLanguage();
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
-  const handleBack = () => {
-    navigate(formRoutes.SITUATION_DESCRIPTION.path);
-  };
-
   const handleEdit = (section: string) => {
     switch (section) {
       case 'personal':
-        navigate(formRoutes.PERSONAL_INFO.path);
+        onEdit(0);
         break;
       case 'family':
-        navigate(formRoutes.FAMILY_FINANCIAL.path);
+        onEdit(1);
         break;
       case 'situation':
-        navigate(formRoutes.SITUATION_DESCRIPTION.path);
+        onEdit(2);
         break;
     }
   };
@@ -260,7 +257,7 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ formData }) => {
 
       {/* Action Buttons */}
       <div className="flex justify-between">
-        <Button size="large" onClick={handleBack} className="px-8 rounded-lg">
+        <Button size="large" onClick={onBack} className="px-8 rounded-lg">
           {t('back')}
         </Button>
 
