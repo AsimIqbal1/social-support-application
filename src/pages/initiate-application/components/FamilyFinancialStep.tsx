@@ -7,8 +7,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useLanguage } from '@/i18n';
 import { familyFinancialSchema } from '../schemas';
 import type { FamilyFinancialFormData } from '../schemas';
+import { ROUTES } from '@/constants';
 
 const { Option } = Select;
+const formRoutes = ROUTES.INITIATE_APPLICATION.children;
 
 interface FamilyFinancialStepProps {
   data: FamilyFinancialFormData;
@@ -35,11 +37,11 @@ const FamilyFinancialStep: React.FC<FamilyFinancialStepProps> = ({
 
   const onSubmit = (formData: FamilyFinancialFormData) => {
     updateData(formData);
-    navigate('/initiate-application/situation-description');
+    navigate(formRoutes.SITUATION_DESCRIPTION.path);
   };
 
   const handleBack = () => {
-    navigate('/initiate-application/personal-info');
+    navigate(formRoutes.PERSONAL_INFO.path);
   };
 
   const getErrorMessage = (fieldError?: FieldError) => {

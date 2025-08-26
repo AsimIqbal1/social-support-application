@@ -11,10 +11,12 @@ import type {
   SituationDescriptionFormData,
 } from '../schemas';
 import { WriteWithAI } from '@/components';
+import { ROUTES } from '@/constants';
 
 const { TextArea } = Input;
-
+const formRoutes = ROUTES.INITIATE_APPLICATION.children;
 const MAXIMAM_CHARACTERS = 1000;
+
 
 interface SituationDescriptionStepProps {
   data: SituationDescriptionFormData;
@@ -46,11 +48,11 @@ const SituationDescriptionStep: React.FC<SituationDescriptionStepProps> = ({
 
   const onSubmit = (formData: SituationDescriptionFormData) => {
     updateData(formData);
-    navigate('/initiate-application/review');
+    navigate(formRoutes.REVIEW.path);
   };
 
   const handleBack = () => {
-    navigate('/initiate-application/family-financial');
+    navigate(formRoutes.FAMILY_FINANCIAL.path);
   };
 
   const getErrorMessage = (fieldError?: FieldError) => {

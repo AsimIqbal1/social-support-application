@@ -13,6 +13,7 @@ import { useLanguage } from '@/i18n';
 import { personalInfoSchema } from '../schemas';
 import type { PersonalInfoFormData } from '../schemas';
 import dayjs from 'dayjs';
+import { ROUTES } from '@/constants';
 
 const { Option } = Select;
 
@@ -41,7 +42,7 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
 
   const onSubmit = (formData: PersonalInfoFormData) => {
     updateData(formData);
-    navigate('/initiate-application/family-financial');
+    navigate(ROUTES.INITIATE_APPLICATION.children.FAMILY_FINANCIAL.path);
   };
 
   const getErrorMessage = (fieldError?: FieldError) => {

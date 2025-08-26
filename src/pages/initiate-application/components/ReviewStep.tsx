@@ -9,10 +9,13 @@ import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/i18n';
 import type { CompleteApplicationFormData } from '../schemas';
 import { STORAGE_KEY } from '../constants';
+import { ROUTES } from '@/constants';
 
 interface ReviewStepProps {
   formData: CompleteApplicationFormData;
 }
+
+const formRoutes = ROUTES.INITIATE_APPLICATION.children;
 
 const ReviewStep: React.FC<ReviewStepProps> = ({ formData }) => {
   const { t } = useLanguage();
@@ -21,19 +24,19 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ formData }) => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const handleBack = () => {
-    navigate('/initiate-application/situation-description');
+    navigate(formRoutes.SITUATION_DESCRIPTION.path);
   };
 
   const handleEdit = (section: string) => {
     switch (section) {
       case 'personal':
-        navigate('/initiate-application/personal-info');
+        navigate(formRoutes.PERSONAL_INFO.path);
         break;
       case 'family':
-        navigate('/initiate-application/family-financial');
+        navigate(formRoutes.FAMILY_FINANCIAL.path);
         break;
       case 'situation':
-        navigate('/initiate-application/situation-description');
+        navigate(formRoutes.SITUATION_DESCRIPTION.path);
         break;
     }
   };
@@ -48,7 +51,7 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ formData }) => {
 
       setIsSubmitting(false);
       setShowConfirmModal(false);
-      navigate('/');
+      navigate(ROUTES.HOME.path);
     } catch {
       message.error(t('submissionError'));
       setIsSubmitting(false);
