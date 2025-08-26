@@ -1,69 +1,156 @@
-# React + TypeScript + Vite
+# 🤝 Social Support Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, accessible web application that streamlines the social support application process with AI-powered assistance. The application guides users through a multi-step form to collect necessary information for social support services, featuring intelligent writing assistance and a user-friendly interface.
 
-Currently, two official plugins are available:
+## 📋 Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Screenshots](#screenshots)
+- [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 🔄 Multi-Step Form Process
+- **Personal Information**: Basic demographic and contact details
+- **Family & Financial**: Household composition and financial status
+- **Situation Description**: Detailed explanation of circumstances with AI assistance
+- **Review & Submit**: Final verification before submission
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 🤖 AI-Powered Assistance
+- **Smart Writing Help**: AI-generated content suggestions based on user context
+- **Contextual Prompts**: Personalized writing assistance for situation descriptions
+- **Real-time Editing**: Review and modify AI suggestions before acceptance
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### ♿ Accessibility Features
+- **ARIA Compliance**: Full screen reader support with proper roles and labels
+- **Keyboard Navigation**: Complete keyboard accessibility for all interactions
+- **Focus Management**: Clear focus indicators and logical tab order
+- **Responsive Design**: Mobile-first approach with cross-device compatibility
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+### 💾 Data Management
+- **Auto-save**: Automatic form data persistence using localStorage
+- **Step Navigation**: Jump between completed steps for easy editing
+- **Form Validation**: Real-time validation with clear error messages
+- **Multi-language Support**: Internationalization ready (English/Arabic)
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **⚛️ React 18** - Modern UI library with hooks
+- **📘 TypeScript** - Type-safe development
+- **🎨 Tailwind CSS** - Utility-first styling
+- **🐜 Ant Design** - Professional UI components
+- **⚡ Vite** - Fast build tool and dev server
+- **🧭 React Router** - Client-side routing
+- **📝 React Hook Form** - Performant form handling
+- **✅ Zod** - Schema validation
+
+### Backend
+- **🟢 Node.js** - Runtime environment
+- **📦 Express.js** - Web application framework
+- **🤖 OpenAI API** - AI-powered content generation
+- **📘 TypeScript** - Type-safe backend development
+
+### Development Tools
+- **📋 ESLint** - Code linting
+- **🎯 TypeScript Compiler** - Type checking
+- **🔧 Vite Config** - Build optimization
+
+## 📸 Screenshots
+
+<!-- Add your screenshots here -->
+
+### Application Steps
+*Add screenshots of each form step here*
+
+### AI Writing Assistant
+*Add screenshots of the AI assistance feature*
+
+### Responsive Design
+*Add mobile and desktop screenshots*
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn package manager
+- OpenAI API key (for AI features)
+
+### Frontend Setup
+
+1. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+2. **Configure environment**
+   ```bash
+   cp .env.example .env
+   ```
+   
+3. **Start development server**
+   ```bash
+   npm run dev
+   ```
+
+The frontend will be available at `http://localhost:5173`
+
+### Backend Setup
+
+1. **Navigate to server directory**
+   ```bash
+   cd server
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Configure environment**
+   ```bash
+   cp env.example .env
+   ```
+
+4. **Add your OpenAI API key**
+   ```bash
+   # In server/.env file
+   OPENAI_API_KEY=your_openai_api_key_here
+   ```
+
+5. **Start development server**
+   ```bash
+   npm run dev
+   ```
+
+The backend API will be available at `http://localhost:3001`
+
+## 📁 Project Structure
+
 ```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+social-support-application/
+├── 📁 src/                          # Frontend source code
+│   ├── 📁 components/               # Reusable UI components
+│   ├── 📁 pages/                    # Page components
+│   │   └── 📁 initiate-application/ # Main application form
+│   │       ├── 📁 components/       # Form step components
+│   │       ├── 📁 hooks/           # Custom React hooks
+│   │       └── 📄 schemas.ts        # Form validation schemas
+│   ├── 📁 services/                 # API and HTTP clients
+│   ├── 📁 i18n/                     # Internationalization
+│   └── 📁 constants/                # Application constants
+├── 📁 server/                       # Backend source code
+│   ├── 📁 src/                      # Server source files
+│   │   ├── 📁 routes/              # API routes
+│   │   ├── 📁 services/            # Business logic
+│   │   ├── 📁 middleware/          # Express middleware
+│   │   └── 📁 config/              # Server configuration
+│   └── 📄 package.json             # Backend dependencies
+├── 📄 package.json                  # Frontend dependencies
+├── 📄 vite.config.ts               # Vite configuration
+├── 📄 tailwind.config.js           # Tailwind CSS config
+└── 📄 README.md                    # Project documentation
 ```
