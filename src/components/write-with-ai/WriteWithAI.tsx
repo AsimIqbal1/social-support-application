@@ -130,7 +130,7 @@ const WriteWithAI: React.FC<WriteWithAIProps> = ({
           rows={4}
           maxLength={maxLength}
           showCount
-          className="mt-2"
+          className="my-4"
         />
       </div>
 
@@ -159,7 +159,7 @@ const WriteWithAI: React.FC<WriteWithAIProps> = ({
           <div className="max-h-60 overflow-y-auto">
             <Text className="whitespace-pre-wrap">{aiResponse}</Text>
           </div>
-          <div className="text-right mt-2">
+          <div className="text-right my-4">
             <Text type="secondary" className="text-sm">
               {aiResponse.length}/{maxLength} {t('characters')}
             </Text>
